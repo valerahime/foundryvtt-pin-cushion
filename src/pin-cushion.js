@@ -888,7 +888,6 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
 });
 
 Hooks.on("canvasReady", () => {
-
-    // VERSION 2 TOOLTIP
+	// VERSION 2 TOOLTIP
 	// PinCushionContainer.onReady();
 });
