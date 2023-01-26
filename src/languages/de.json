@@ -129,6 +129,17 @@
 		"WarningBackgroundlessPins": "WARNUNG: Die Moduleinstellung \"Nutze hintergrundlose Verknüpfungen\" ist deaktiviert",
 		"WarningPlayerIconAutoOverride": "WARNUNG: Die Moduleinstellung \"Nutze immer Spieler spezifische Symbole\" ist deaktiviert",
 		"SETTINGS.enableTooltipByDefaultN": "Aktiviere standardmäßig die Schnellinfo",
-		"SETTINGS.enableTooltipByDefaultH": "Wenn du Notizen auf das Spielfeld setzt wir die Schnellinfo standardmäßig aktiviert. Diese Einstellung ändert existierende Notizen nicht ab, diese erfordern manuelles Nachbearbeiten."
+		"SETTINGS.enableTooltipByDefaultH": "Wenn du Notizen auf das Spielfeld setzt wir die Schnellinfo standardmäßig aktiviert. Diese Einstellung ändert existierende Notizen nicht ab, diese erfordern manuelles Nachbearbeiten.",
+		"SETTINGS.DefaultJournalPermission.PERMISSION.NONE": "Keine",
+		"SETTINGS.DefaultJournalPermission.PERMISSION.LIMITED": "Begrenzt",
+		"SETTINGS.DefaultJournalPermission.PERMISSION.OBSERVER": "Beobachter",
+		"SETTINGS.DefaultJournalPermission.PERMISSION.OWNER": "Besitzer",
+		"SETTINGS.DefaultJournalPermission.PERMISSION.INHERIT": "Erben",
+		"SETTINGS.allowNoteN": "[Experimentell] Notizbuch Auslöser (MATT Integration)",
+		"SETTINGS.allowNoteH": "Erlaubt es Notizbuchverknüpfungen Kacheln (Tiles) auszulösen. Zu beachten ist, dass dies nur mit Standard Foundry Installationen im Standard Installationspfad funktioniert. \"Forge\" Installationen funktionieren daher nicht.",
+		"SETTINGS.allowNotePassthroughN": "[Nur wenn die \"Notizbuch Auslöser\" Funktion aktiviert ist] Erlaube Notizbuch hindurch klicken",
+		"SETTINGS.allowNotePassthroughH": "Erlaubt es Kacheln (Tiles) unter einer Notizbuchverknüpfung auszulösen wenn auf diese geklickt wird",
+		"SETTINGS.preventWhenPausedN": "[Nur wenn die \"Notizbuch Auslöser\" Funktion aktiviert ist] Bei pausiertem Spiel verhindern",
+		"SETTINGS.preventWhenPausedH": "Ist das Spiel pausiert, können Spieler keine Kacheln (Tiles) auslösen."
 	}
 }
