@@ -135,7 +135,7 @@ export class PinCushion {
 
 	static get FLAGS() {
 		return {
-			USE_PIN_REVEALED: "usePinRevealed",
+			USE_PIN_REVEALED: "usePinIsRevealed",
 			PIN_IS_REVEALED: "pinIsRevealed",
 			PIN_GM_TEXT: "gmNote",
 			HAS_BACKGROUND: "hasBackground",
@@ -1588,9 +1588,9 @@ export class PinCushion {
 
 		// IF not GM and IF  = enabled then take flag path as note.document.texture.src
 		if (!game.user.isGM) {
-			if (this.document && this.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PLAYER_ICON_STATE)) {
-				this.document.texture.src = stripQueryStringAndHashFromPath(
-					this.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PLAYER_ICON_PATH)
+			if (this?.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PLAYER_ICON_STATE)) {
+				this.texture.src = stripQueryStringAndHashFromPath(
+					this.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PLAYER_ICON_PATH)
 				);
 			}
 		}
