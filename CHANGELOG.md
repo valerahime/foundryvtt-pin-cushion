@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.8.31 
+
+- Update languages 
+- Fix some Player Views issue (ty to @aquavitae)
+
 ### 1.8.30
 
 - Update japanese language

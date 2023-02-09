@@ -13,8 +13,6 @@ import { PinCushion } from "./PinCushion.js";
  * A HUD extension that shows the Note preview
  */
 export class PinCushionHUD extends BasePlaceableHUD {
-	// contentTooltip;
-
 	constructor(note, options) {
 		super(note, options);
 		this.data = note;
@@ -38,7 +36,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 	/**
 	 * Get data for template
 	 */
-	getData() {
+	async getData() {
 		const data = super.getData();
 		const entry = this.object.entry;
 		let entryName = data.text;
@@ -71,18 +69,18 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		if (showImage) {
 			const imgToShow = showImageExplicitSource ? showImageExplicitSource : entryIcon;
 			if (imgToShow && imgToShow.length > 0) {
-				content = TextEditor.enrichHTML(`<img class='image' src='${imgToShow}' alt=''></img>`, {
+				content = await TextEditor.enrichHTML(`<img class='image' src='${imgToShow}' alt=''></img>`, {
 					secrets: entryIsOwner,
 					documents: true,
-					async: false,
+					async: true,
 				});
 			} else {
-				content = TextEditor.enrichHTML(
+				content = await TextEditor.enrichHTML(
 					`<img class='image' src='${CONSTANTS.PATH_TRANSPARENT}' alt=''></img>`,
 					{
 						secrets: entryIsOwner,
 						documents: true,
-						async: false,
+						async: true,
 					}
 				);
 			}
@@ -93,10 +91,10 @@ export class PinCushionHUD extends BasePlaceableHUD {
 			);
 			const firstContent = entryContent;
 			if (!previewTypeAdText) {
-				content = TextEditor.enrichHTML(firstContent, {
+				content = await TextEditor.enrichHTML(firstContent, {
 					secrets: entryIsOwner,
 					documents: true,
-					async: false,
+					async: true,
 				});
 			} else {
 				const previewMaxLength = game.settings.get(PinCushion.MODULE_NAME, "previewMaxLength");
@@ -126,8 +124,12 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
 		const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth") || 400;
 
-		this.contentTooltip = `
+		data.titleTooltip = titleTooltip;
+		data.content = content;
+		data.fontSize = fontSize;
+		data.maxWidth = maxWidth;
 
+		this.contentTooltip = await TextEditor.enrichHTML(`
           <div id="container" class="pin-cushion-hud-container" style="font-size:${fontSize}px; max-width:${maxWidth}px">
               <div id="header">
                   <h3>${titleTooltip}</h3>
@@ -138,7 +140,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
               </div>
           </div>
 
-      `;
+      `);
 		return data;
 	}
 

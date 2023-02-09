@@ -55,7 +55,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 	/**
 	 * Get data for template
 	 */
-	getData() {
+	async getData() {
 		// const data = super.getData();
 		/** @type PinCushionHUDV2Data */
 		const data = this.pcc.getData();
@@ -107,18 +107,18 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 			if (showImage) {
 				const imgToShow = showImageExplicitSource ? showImageExplicitSource : entryIcon;
 				if (imgToShow && imgToShow.length > 0) {
-					content = TextEditor.enrichHTML(`<img class='image' src='${imgToShow}' alt=''></img>`, {
+					content = await TextEditor.enrichHTML(`<img class='image' src='${imgToShow}' alt=''></img>`, {
 						secrets: entryIsOwner,
 						documents: true,
-						async: false,
+						async: true,
 					});
 				} else {
-					content = TextEditor.enrichHTML(
+					content = await TextEditor.enrichHTML(
 						`<img class='image' src='${CONSTANTS.PATH_TRANSPARENT}' alt=''></img>`,
 						{
 							secrets: entryIsOwner,
 							documents: true,
-							async: false,
+							async: true,
 						}
 					);
 				}
@@ -129,10 +129,10 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 				);
 				const firstContent = entryContent;
 				if (!previewTypeAdText) {
-					content = TextEditor.enrichHTML(firstContent, {
+					content = await TextEditor.enrichHTML(firstContent, {
 						secrets: entryIsOwner,
 						documents: true,
-						async: false,
+						async: true,
 					});
 				} else {
 					const previewMaxLength = game.settings.get(PinCushion.MODULE_NAME, "previewMaxLength");
