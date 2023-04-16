@@ -1,4 +1,7 @@
 # Changelog
+### 1.8.32 
+
+-Update labels
 
 ### 1.8.31 
 
