@@ -7,6 +7,7 @@
 		"SETTINGS.PreviewMaxLengthN": "Comprimento máximo da ´Prévia",
 		"SETTINGS.PreviewMaxLengthH": "**SOMENTE PRÉVIA EM TEXTO** Quanos caracteres devem ser exibidas na prévia?",
 		"SETTINGS.PreviewDelayN": "Atrazo da Prévia",
-		"SETTINGS.PreviewDelayH": "Quanto tempo de espera até a prévia aparecer (em milissegundos)"
+		"SETTINGS.PreviewDelayH": "Quanto tempo de espera até a prévia aparecer (em milissegundos)",
+		"SETTINGS.AboutAppN": "Sobre o Pin Cushion"
 	}
 }
