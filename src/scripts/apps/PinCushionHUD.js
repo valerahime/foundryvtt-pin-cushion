@@ -3,7 +3,7 @@ import {
 	isPlacementVertical,
 	is_real_number,
 	retrieveFirstImageFromJournalId,
-	retrieveFirstTextFromJournalId,
+	retrieveFirstTextFromJournalId
 } from "../lib/lib.js";
 import { PinCushion } from "./PinCushion.js";
 
@@ -29,7 +29,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 			// height: 200,
 			minimizable: false,
 			resizable: false,
-			template: "modules/pin-cushion/templates/journal-preview.html",
+			template: "modules/pin-cushion/templates/journal-preview.html"
 		});
 	}
 
@@ -72,7 +72,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 				content = await TextEditor.enrichHTML(`<img class='image' src='${imgToShow}' alt=''></img>`, {
 					secrets: entryIsOwner,
 					documents: true,
-					async: true,
+					async: true
 				});
 			} else {
 				content = await TextEditor.enrichHTML(
@@ -80,7 +80,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 					{
 						secrets: entryIsOwner,
 						documents: true,
-						async: true,
+						async: true
 					}
 				);
 			}
@@ -94,7 +94,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 				content = await TextEditor.enrichHTML(firstContent, {
 					secrets: entryIsOwner,
 					documents: true,
-					async: true,
+					async: true
 				});
 			} else {
 				const previewMaxLength = game.settings.get(PinCushion.MODULE_NAME, "previewMaxLength");
@@ -226,7 +226,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 			left: left + "px",
 			top: top + "px",
 			"font-size": fontSize + "px",
-			"max-width": maxWidth + "px",
+			"max-width": maxWidth + "px"
 		};
 		this.element.css(position);
 	}
@@ -328,7 +328,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 			height: height + "px",
 			width: width + "px",
 			left: left + "px",
-			top: top + "px",
+			top: top + "px"
 		};
 		elementToTooltip.css(position);
 
@@ -395,7 +395,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 			closeDelay: 0,
 
 			// (default: 100) Hover intent polling interval in milliseconds.
-			intentPollInterval: 0,
+			intentPollInterval: 0
 		});
 		// }
 		$.powerTip.show(elementToTooltip);

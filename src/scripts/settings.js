@@ -8,7 +8,7 @@ export const registerSettings = function () {
 		hint: `pin-cushion.SETTINGS.reset.hint`,
 		icon: "fas fa-coins",
 		type: ResetSettingsDialog,
-		restricted: true,
+		restricted: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "forceToShowNotes", {
@@ -17,7 +17,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: true,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "previewMaxLength", {
@@ -27,7 +27,7 @@ export const registerSettings = function () {
 		type: Number,
 		default: 500,
 		config: true,
-		onChange: (s) => {},
+		onChange: (s) => {}
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "previewDelay", {
@@ -39,7 +39,7 @@ export const registerSettings = function () {
 		config: true,
 		onChange: (s) => {},
 		//@ts-ignore
-		range: { min: 100, max: 3000, step: 100 }, // bug https://github.com/p4535992/foundryvtt-pin-cushion/issues/18
+		range: { min: 100, max: 3000, step: 100 } // bug https://github.com/p4535992/foundryvtt-pin-cushion/issues/18
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "defaultJournalPermission", {
@@ -53,7 +53,7 @@ export const registerSettings = function () {
 		}, {}),
 		default: 0,
 		config: true,
-		onChange: (s) => {},
+		onChange: (s) => {}
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "defaultJournalFolder", {
@@ -64,7 +64,7 @@ export const registerSettings = function () {
 		choices: {
 			none: game.i18n.localize(`pin-cushion.None`),
 			perUser: game.i18n.localize(`pin-cushion.PerUser`),
-			specificFolder: game.i18n.localize(`pin-cushion.PerSpecificFolder`),
+			specificFolder: game.i18n.localize(`pin-cushion.PerSpecificFolder`)
 		},
 		default: "none",
 		config: true,
@@ -73,7 +73,7 @@ export const registerSettings = function () {
 			if (s === "perUser" && game.user === game.users.find((u) => u.isGM && u.active)) {
 				PinCushion._createFolders();
 			}
-		},
+		}
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "specificFolder", {
@@ -91,7 +91,7 @@ export const registerSettings = function () {
 		},
 		default: 0,
 		config: true,
-		onChange: (s) => {},
+		onChange: (s) => {}
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "enableBackgroundlessPins", {
@@ -100,7 +100,7 @@ export const registerSettings = function () {
 		scope: "world",
 		type: Boolean,
 		default: true,
-		config: true,
+		config: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "showJournalImageByDefault", {
@@ -109,7 +109,7 @@ export const registerSettings = function () {
 		scope: "world",
 		type: Boolean,
 		default: true,
-		config: true,
+		config: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "enableTooltipByDefault", {
@@ -118,7 +118,7 @@ export const registerSettings = function () {
 		scope: "world",
 		type: Boolean,
 		default: false,
-		config: true,
+		config: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "playerIconAutoOverride", {
@@ -127,7 +127,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: false,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "playerIconPathDefault", {
@@ -137,7 +137,7 @@ export const registerSettings = function () {
 		config: true,
 		default: "icons/svg/book.svg",
 		type: String,
-		filePicker: true,
+		filePicker: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "noteGM", {
@@ -146,7 +146,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: false,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotes", {
@@ -155,7 +155,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: false,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorLink", {
@@ -170,7 +170,7 @@ export const registerSettings = function () {
 				canvas.notes.placeables.forEach((note) => note.draw());
 				//for (let note of canvas.notes.objects) note.draw();
 			}
-		},
+		}
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorNotLink", {
@@ -185,7 +185,7 @@ export const registerSettings = function () {
 				canvas.notes.placeables.forEach((note) => note.draw());
 				//for (let note of canvas.notes.objects) note.draw();
 			}
-		},
+		}
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorRevealed", {
@@ -195,7 +195,7 @@ export const registerSettings = function () {
 		type: String,
 		default: "#ffff00",
 		config: true,
-		onChange: () => refresh(),
+		onChange: () => refresh()
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorNotRevealed", {
@@ -205,7 +205,7 @@ export const registerSettings = function () {
 		type: String,
 		default: "#ff0000",
 		config: true,
-		onChange: () => refresh(),
+		onChange: () => refresh()
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "enableJournalThumbnailForGMs", {
@@ -215,7 +215,7 @@ export const registerSettings = function () {
 		type: Boolean,
 		default: true,
 		config: true,
-		onchange: () => window.location.reload(),
+		onchange: () => window.location.reload()
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "enableJournalThumbnailForPlayers", {
@@ -225,7 +225,7 @@ export const registerSettings = function () {
 		type: Boolean,
 		default: true,
 		config: true,
-		onchange: () => window.location.reload(),
+		onchange: () => window.location.reload()
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "journalThumbnailPosition", {
@@ -237,9 +237,9 @@ export const registerSettings = function () {
 		type: String,
 		choices: {
 			right: "Right",
-			left: "Left",
+			left: "Left"
 		},
-		onChange: () => game.journal.render(),
+		onChange: () => game.journal.render()
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "fontSize", {
@@ -248,7 +248,7 @@ export const registerSettings = function () {
 		scope: "client",
 		type: String,
 		default: "",
-		config: true,
+		config: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "maxWidth", {
@@ -257,7 +257,7 @@ export const registerSettings = function () {
 		scope: "client",
 		type: Number,
 		default: 800,
-		config: true,
+		config: true
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "tooltipUseMousePositionForCoordinates", {
@@ -266,7 +266,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: true,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "oneClickNoteCreation", {
@@ -275,7 +275,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: false,
-		type: Boolean,
+		type: Boolean
 	});
 
 	// =====================
@@ -334,14 +334,14 @@ class ResetSettingsDialog extends FormApplication {
 							await setting.delete();
 						}
 						//window.location.reload();
-					},
+					}
 				},
 				cancel: {
 					icon: '<i class="fas fa-times"></i>',
-					label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.cancel`),
-				},
+					label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.cancel`)
+				}
 			},
-			default: "cancel",
+			default: "cancel"
 		});
 	}
 	async _updateObject(event, formData) {

@@ -42,7 +42,7 @@ const API = {
 				id: message.id,
 				name: game.user.name,
 				type: "Journal",
-				parent: null,
+				parent: null
 			});
 		}
 		return baseFolder;
@@ -58,6 +58,6 @@ const API = {
 
 	async setNoteRevealed(notedata, visible) {
 		PinCushion.setNoteRevealed(notedata, visible);
-	},
+	}
 };
 export default API;

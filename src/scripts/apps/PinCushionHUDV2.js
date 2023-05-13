@@ -3,7 +3,7 @@ import {
 	isPlacementVertical,
 	is_real_number,
 	retrieveFirstImageFromJournalId,
-	retrieveFirstTextFromJournalId,
+	retrieveFirstTextFromJournalId
 } from "../lib/lib.js";
 import { noteControl } from "./NoteControl.js";
 import { PinCushion } from "./PinCushion.js";
@@ -32,7 +32,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 			// height: 200,
 			minimizable: false,
 			resizable: false,
-			template: "modules/pin-cushion/templates/journal-preview.html",
+			template: "modules/pin-cushion/templates/journal-preview.html"
 		});
 	}
 
@@ -62,13 +62,13 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 		data.options = this.pcc.getOptions();
 		if (this.status === "leftclick") {
 			const args = {
-				type: this.status,
+				type: this.status
 			};
 			noteControl(this.pcc.note, undefined, args);
 		}
 		if (this.status === "rightclick") {
 			const args = {
-				type: this.status,
+				type: this.status
 			};
 			noteControl(this.pcc.note, undefined, args);
 		}
@@ -110,7 +110,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 					content = await TextEditor.enrichHTML(`<img class='image' src='${imgToShow}' alt=''></img>`, {
 						secrets: entryIsOwner,
 						documents: true,
-						async: true,
+						async: true
 					});
 				} else {
 					content = await TextEditor.enrichHTML(
@@ -118,7 +118,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 						{
 							secrets: entryIsOwner,
 							documents: true,
-							async: true,
+							async: true
 						}
 					);
 				}
@@ -132,7 +132,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 					content = await TextEditor.enrichHTML(firstContent, {
 						secrets: entryIsOwner,
 						documents: true,
-						async: true,
+						async: true
 					});
 				} else {
 					const previewMaxLength = game.settings.get(PinCushion.MODULE_NAME, "previewMaxLength");

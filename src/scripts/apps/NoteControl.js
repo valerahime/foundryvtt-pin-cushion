@@ -103,8 +103,8 @@ export async function noteControl(entity, wrapped, ...args) {
 									method: "note",
 									options: {
 										notes: notes,
-										change: note._notechange,
-									},
+										change: note._notechange
+									}
 								});
 							}
 						}

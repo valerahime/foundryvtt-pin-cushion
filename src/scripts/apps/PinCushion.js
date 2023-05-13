@@ -6,7 +6,7 @@ import {
 	is_real_number,
 	log,
 	retrieveFirstImageFromJournalId,
-	stripQueryStringAndHashFromPath,
+	stripQueryStringAndHashFromPath
 } from "../lib/lib.js";
 import { registerSettings } from "../settings.js";
 import { BackgroundlessControlIcon } from "./BackgroundlessControlIcon.js";
@@ -121,7 +121,7 @@ export class PinCushion {
             </div>
             </br>
             `,
-			title: "Create a Map Pin",
+			title: "Create a Map Pin"
 		};
 	}
 
@@ -156,7 +156,7 @@ export class PinCushion {
 			PREVIEW_AS_TEXT_SNIPPET: "previewAsTextSnippet",
 			ABOVE_FOG: "aboveFog",
 			SHOW_ONLY_TO_GM: "showOnlyToGM",
-			PIN_IS_TRANSPARENT: "pinIsTransparent",
+			PIN_IS_TRANSPARENT: "pinIsTransparent"
 		};
 	}
 
@@ -201,17 +201,17 @@ export class PinCushion {
 					icon: `<i class="fas fa-check"></i>`,
 					callback: (html) => {
 						return this.createNoteFromCanvas(html, data);
-					},
+					}
 				},
 				cancel: {
 					label: "Cancel",
 					icon: `<i class="fas fa-times"></i>`,
 					callback: (e) => {
 						// Maybe do something in the future
-					},
-				},
+					}
+				}
 			},
-			default: "save",
+			default: "save"
 		}).render(true);
 	}
 
@@ -230,7 +230,7 @@ export class PinCushion {
 		// Permissions the Journal Entry will be created with
 		const permission = {
 			[game.userId]: CONST.DOCUMENT_PERMISSION_LEVELS.OWNER,
-			default: parseInt($("#cushion-permission").val()) ?? 0,
+			default: parseInt($("#cushion-permission").val()) ?? 0
 		};
 
 		const defaultJournalPermission = game.settings.get(PinCushion.MODULE_NAME, "defaultJournalPermission");
@@ -265,7 +265,7 @@ export class PinCushion {
 		const entry = await JournalEntry.create({
 			name: `${input[0].value}`,
 			ownership: permission,
-			...(folder && { folder }),
+			...(folder && { folder })
 		});
 
 		if (!entry) {
@@ -355,7 +355,7 @@ export class PinCushion {
 				name: user.name,
 				type: "JournalEntry",
 				parent: null,
-				sorting: "a",
+				sorting: "a"
 			}));
 		if (missingFolders.length) {
 			// Ask for folder creation confirmation in a dialog
@@ -366,15 +366,15 @@ export class PinCushion {
 					buttons: {
 						yes: {
 							label: `<i class="fas fa-check"></i> ${i18n("Yes")}`,
-							callback: () => resolve(true),
+							callback: () => resolve(true)
 						},
 						no: {
 							label: `<i class="fas fa-times"></i> ${i18n("No")}`,
-							callback: () => reject(),
-						},
+							callback: () => reject()
+						}
 					},
 					default: "yes",
-					close: () => reject(),
+					close: () => reject()
 				}).render(true);
 			}).catch((_) => {});
 			// Create folders
@@ -1402,7 +1402,7 @@ export class PinCushion {
 		if (!game.user.can("JOURNAL_CREATE")) {
 			ui.notifications.warn(
 				game.i18n.format("PinCushion.AllowPlayerNotes", {
-					permission: i18n("PERMISSION.JournalCreate"),
+					permission: i18n("PERMISSION.JournalCreate")
 				})
 			);
 			return;
@@ -1410,7 +1410,7 @@ export class PinCushion {
 
 		const data = {
 			clientX: event.data.global.x,
-			clientY: event.data.global.y,
+			clientY: event.data.global.y
 		};
 
 		API.pinCushion._createDialog(data);
@@ -1499,7 +1499,7 @@ export class PinCushion {
 		let iconData = {
 			texture: stripQueryStringAndHashFromPath(currentIcon),
 			size: noteInternal.size,
-			tint: tint,
+			tint: tint
 		};
 		let icon;
 		// this is note
@@ -1539,7 +1539,7 @@ export class PinCushion {
 				iconText: noteInternal.document?.flags.autoIconFlags.iconText,
 				foreColor: noteInternal.document?.flags.autoIconFlags.foreColor,
 				backColor: noteInternal.document?.flags.autoIconFlags.backColor,
-				fontFamily: noteInternal.document?.flags.autoIconFlags.fontFamily,
+				fontFamily: noteInternal.document?.flags.autoIconFlags.fontFamily
 			};
 			if (flagsAutomaticJournalIconNumbers.fontFamily) {
 				noteInternal.document.fontFamily = flagsAutomaticJournalIconNumbers.fontFamily;

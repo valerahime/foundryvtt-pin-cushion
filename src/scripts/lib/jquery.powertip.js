@@ -45,7 +45,7 @@
 			"mouseout",
 			"mouseenter",
 			"mouseleave",
-			"contextmenu",
+			"contextmenu"
 		];
 
 	/**
@@ -71,7 +71,7 @@
 		windowWidth: 0,
 		windowHeight: 0,
 		scrollTop: 0,
-		scrollLeft: 0,
+		scrollLeft: 0
 	};
 
 	/**
@@ -83,7 +83,7 @@
 		top: 1,
 		bottom: 2,
 		left: 4,
-		right: 8,
+		right: 8
 	};
 
 	/**
@@ -201,7 +201,7 @@
 		mouseOnToPopup: false,
 		manual: false,
 		openEvents: ["mouseenter", "focus"],
-		closeEvents: ["mouseleave", "blur"],
+		closeEvents: ["mouseleave", "blur"]
 	};
 
 	/**
@@ -222,7 +222,7 @@
 		"nw-alt": ["nw-alt", "n", "ne-alt", "sw-alt", "s", "se-alt", "w", "e"],
 		"ne-alt": ["ne-alt", "n", "nw-alt", "se-alt", "s", "sw-alt", "e", "w"],
 		"sw-alt": ["sw-alt", "s", "se-alt", "nw-alt", "n", "ne-alt", "w", "e"],
-		"se-alt": ["se-alt", "s", "sw-alt", "ne-alt", "n", "nw-alt", "e", "w"],
+		"se-alt": ["se-alt", "s", "sw-alt", "ne-alt", "n", "nw-alt", "e", "w"]
 	};
 
 	/**
@@ -422,7 +422,7 @@
 			}
 
 			return element;
-		},
+		}
 	};
 
 	// API aliasing
@@ -742,7 +742,7 @@
 
 			return {
 				top: top,
-				left: left,
+				left: left
 			};
 		}
 
@@ -818,7 +818,7 @@
 
 			return {
 				top: coords.y + session.scrollTop,
-				left: coords.x + session.scrollLeft,
+				left: coords.x + session.scrollLeft
 			};
 		}
 

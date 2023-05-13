@@ -11,7 +11,7 @@ import {
 	stripQueryStringAndHashFromPath,
 	error,
 	retrieveFirstImageFromJournalId,
-	i18n,
+	i18n
 } from "./scripts/lib/lib.js";
 import { registerSettings } from "./scripts/settings.js";
 import { pinCushionSocket, registerSocket } from "./scripts/socket.js";
@@ -551,7 +551,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 			enableNoteGM: enableNoteGM,
 
 			tooltipColorHtml: tooltipColorHtml,
-			tooltipPlacementHtml: tooltipPlacementHtml,
+			tooltipPlacementHtml: tooltipPlacementHtml
 		},
 		app.object.flags[PinCushion.MODULE_NAME] || {}
 	);
