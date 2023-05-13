@@ -198,7 +198,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		//     : 1) || 1;
 
 		// const ratio = 1;
-		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO) ?? 1;
+		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
 		const viewWidth = visualViewport.width;
 
 		// const height = this.object.controlIcon.texture?.height
@@ -215,7 +215,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		const width = this.object.controlIcon.width; //  * ratio;
 		const height = this.object.controlIcon.height;
 		let left = x - width / 2;
-		if (ratio > 1) {
+		if (ratio != 1) {
 			left = x - (width / 2) * ratio; // correct shifting for the new scale.
 		}
 		const top = y - height / 2;
@@ -290,7 +290,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		//     : 1) || 1;
 
 		// const ratio = 1;
-		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO) ?? 1;
+		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
 		const viewWidth = visualViewport.width;
 
 		// const height = this.object.controlIcon.texture?.height
@@ -307,7 +307,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		const width = this.object.controlIcon.width; // * ratio;
 		const height = this.object.controlIcon.height;
 		let left = x - width / 2;
-		if (ratio > 1) {
+		if (ratio != 1) {
 			left = x - (width / 2) * ratio; // correct shifting for the new scale.
 		}
 		const top = y - height / 2;

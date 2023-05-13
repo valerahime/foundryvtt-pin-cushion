@@ -316,8 +316,8 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 			: app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.HAS_BACKGROUND)) ?? 0;
 	const ratio =
 		(app.document
-			? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO)
-			: app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO)) ?? 1;
+			? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)
+			: app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)) ?? 1;
 	const textAlwaysVisible =
 		(app.document
 			? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE)

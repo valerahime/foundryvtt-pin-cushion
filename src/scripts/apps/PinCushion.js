@@ -140,7 +140,7 @@ export class PinCushion {
 			PIN_IS_REVEALED: "pinIsRevealed",
 			PIN_GM_TEXT: "gmNote",
 			HAS_BACKGROUND: "hasBackground",
-			RATIO: "ratio",
+			RATIO_WIDTH: "ratio",
 			TEXT_ALWAYS_VISIBLE: "textAlwaysVisible",
 			PLAYER_ICON_STATE: "PlayerIconState",
 			PLAYER_ICON_PATH: "PlayerIconPath",
@@ -1357,7 +1357,7 @@ export class PinCushion {
 
 		let text = this.children[1]; // 0 is the ControlIcon, 1 is the PreciseText
 		// Text is created bevor this point. So we can modify it here.
-		let ratio = this.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO);
+		let ratio = this.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH);
 		if (ratio && text?.x) {
 			text.x = (this.size * (ratio - 1)) / 2; // correct shifting for the new scale.
 		}
@@ -1523,9 +1523,9 @@ export class PinCushion {
 				icon.y -= noteInternal.size / 2;
 			}
 		}
-		if (noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO) > 1) {
+		if (noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH) != 1) {
 			if (noteInternal.document) {
-				icon.width = noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO);
+				icon.width = noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH);
 			}
 			// else{
 			//   icon.width = noteInternal.getFlag(PinCushion.MODULE_NAME,  PinCushion.FLAGS.RATIO); // compatibility 0.8.9
