@@ -21,6 +21,7 @@ import { PinCushion } from "./scripts/apps/PinCushion.js";
 // import { MonksActiveTiles } from "/modules/monks-active-tiles/monks-active-tiles.js";
 // import { PinCushionContainer } from "./scripts/apps/PinCushionContainer.js";
 import { PinCushionHUDV2 } from "./scripts/apps/PinCushionHUDV2.js";
+// import { noteControl } from "./scripts/apps/NoteControl.js";
 
 /**
  * Initialization helper, to set API.
@@ -338,13 +339,15 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		if (typeof entity == "string" && entity) {
 			entity = JSON.parse(entity);
 		}
+
 		if (entity.id) {
-			tilename = await MonksActiveTiles.entityName(entity);
+			tilename =
+				entity.id == "within" ? i18n("MonksActiveTiles.WithinWall") : await MonksActiveTiles.entityName(entity);
 		}
 		triggerData = mergeObject(
 			{
 				tilename: tilename,
-				showtagger: game.modules.get("tagger")?.active,
+				showtagger: game.modules.get("tagger")?.active
 			},
 			app.object.flags["monks-active-tiles"] || {}
 		);
