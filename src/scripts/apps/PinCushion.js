@@ -157,7 +157,8 @@ export class PinCushion {
 			PREVIEW_AS_TEXT_SNIPPET: "previewAsTextSnippet",
 			ABOVE_FOG: "aboveFog",
 			SHOW_ONLY_TO_GM: "showOnlyToGM",
-			PIN_IS_TRANSPARENT: "pinIsTransparent"
+			PIN_IS_TRANSPARENT: "pinIsTransparent",
+			ANCHOR: "anchor"
 		};
 	}
 
@@ -758,8 +759,8 @@ export class PinCushion {
 	// 	const iconTintGroup = html.find("[name='texture.tint']").closest(".form-group");
 	// 	const ratio =
 	// 		(app.document
-	// 			? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO)
-	// 			: app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO)) ?? 1;
+	// 			? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)
+	// 			: app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)) ?? 1;
 	// 	const iconSizeGroup = html.find("[name=iconSize]").closest(".form-group");
 	// 	const textAlwaysVisible =
 	// 		(app.document
@@ -786,13 +787,13 @@ export class PinCushion {
 	// 	iconSizeGroup.after(`
 	//   <div class="form-group">
 	//     <label
-	//       for="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.RATIO}">
+	//       for="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.RATIO_WIDTH}">
 	//         ${i18n("pin-cushion.HasBackgroundRatio")}
 	//     </label>
 	//     <div class="form-fields">
 	//       <input
 	//         type="text"
-	//         name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.RATIO}"
+	//         name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.RATIO_WIDTH}"
 	//         data-dtype="Number"
 	//         value="${ratio}" />
 	//     </div>
@@ -1528,7 +1529,7 @@ export class PinCushion {
 				icon.width = noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH);
 			}
 			// else{
-			//   icon.width = noteInternal.getFlag(PinCushion.MODULE_NAME,  PinCushion.FLAGS.RATIO); // compatibility 0.8.9
+			//   icon.width = noteInternal.getFlag(PinCushion.MODULE_NAME,  PinCushion.FLAGS.RATIO_WIDTH); // compatibility 0.8.9
 			// }
 			// TODO need to centre text
 		}

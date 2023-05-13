@@ -278,6 +278,15 @@ export const registerSettings = function () {
 		type: Boolean
 	});
 
+	game.settings.register(CONSTANTS.MODULE_NAME, "enableJournalAnchorLink", {
+		name: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalAnchorLinkN`),
+		hint: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalAnchorLinkH`),
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean
+	});
+
 	// =====================
 	// START MATT INTEGRATION
 	// =====================

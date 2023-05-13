@@ -210,7 +210,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 	// 			y = this.object.center ? this.object.center.y : this.object.y;
 	// 		}
 
-	// 		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO) ?? 1;
+	// 		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
 	// 		const viewWidth = visualViewport.width;
 	// 		const width = this.object.controlIcon.width; //  * ratio;
 	// 		const height = this.object.controlIcon.height;

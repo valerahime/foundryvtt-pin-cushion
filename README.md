@@ -219,6 +219,7 @@ Any issues, bugs, or feature requests are always welcome to be reported directly
 - [jquery-powertip](https://github.com/stevenbenner/jquery-powertip) ([MIT](https://github.com/stevenbenner/jquery-powertip/blob/master/LICENSE.txt))
 - [Pin Fixer](https://github.com/zeel01/pin-fixer) ([MIT](https://github.com/zeel01/pin-fixer/blob/master/LICENSE))
 - [fvtt-revealed-notes-manager](https://github.com/farling42/fvtt-one-click-note-creation) ([MIT](https://github.com/farling42/fvtt-one-click-note-creation/blob/master/LICENSE))
+- [Journal Anchor Links](https://github.com/aMediocreDad/jal) ([Foundry License](https://foundryvtt.com/article/license/))
 
 This package is under an [GPLv3 License](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
 
@@ -234,3 +235,4 @@ This package is under an [GPLv3 License](LICENSE) and the [Foundry Virtual Table
 - Thank you to [zeel](https://github.com/zeel01) for the module [Pin Fixer](https://github.com/zeel01/pin-fixer)
 - Thank you to [farling42](https://github.com/farling42) and the module [fvtt-one-click-note-creation](https://github.com/farling42/fvtt-one-click-note-creation)
 - Thank you to [Friendly Lambda](https://gitlab.com/friendlylambda/) and the module [map-note-hover-display](https://gitlab.com/friendlylambda/map-note-hover-display)
+- Thank you to [aMediocreDad](https://github.com/aMediocreDad) and the module [Journal Anchor Links](https://github.com/aMediocreDad/jal)

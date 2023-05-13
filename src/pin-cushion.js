@@ -238,6 +238,57 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		PinCushion._addNoteGM(app, html, noteData);
 	}
 
+	const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
+	if (enableJournalAnchorLink) {
+		function getOptions(page, current) {
+			let options = "<option></option>";
+			if (page?.type === "text") {
+				for (const section of Object.values(page.toc)) {
+					options += `<option value="${section.slug}"${section.slug === current ? " selected" : ""}>${
+						section.text
+					}</option>`;
+				}
+			}
+			return options;
+		}
+		// <select name="flags.anchor.slug">${getOptions(noteData.document.page, noteData.document.flags.anchor?.slug)}</select>
+		let anchorData = getProperty(noteData.document.flags, `${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}`); // noteData.document.flags.anchor;
+		let pageData = noteData.document.page;
+		let select = $(`
+		<div class='form-group'>
+			<label>Page Section:</label>
+			<div class='form-fields'>
+				<select name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug">
+					${getOptions(pageData, anchorData?.slug)}
+				</select>
+			</div>
+		</div>`);
+		const pageid = html.find("select[name='pageId']");
+		pageid.parent().parent().after(select);
+
+		// on change of page or journal entry
+		function _updateSectionList() {
+			const newjournalid = app.form.elements.entryId?.value;
+			const newpageid = app.form.elements.pageId?.value;
+			const journal = game.journal.get(newjournalid);
+			const newpage = journal?.pages.get(newpageid);
+			log(`selected page changed to ${newpageid}`);
+			// getOptions(newpage, data.document.flags.anchor?.slug))
+			log("new options =" + getOptions(newpage, anchorData?.slug));
+			// app.form.elements["flags.anchor.slug"].innerHTML = getOptions(newpage, data.document.flags.anchor?.slug);
+			app.form.elements[`flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML = getOptions(
+				newpage,
+				anchorData?.slug
+			);
+			// app.form.elements["flags.anchor.slug"].innerHTML
+			log(
+				"new innerHtml" + app.form.elements[`flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML
+			);
+		}
+		html.find("select[name='entryId']").change(_updateSectionList);
+		pageid.change(_updateSectionList);
+	}
+
 	// PinCushion._addShowImageField(app, html, noteData);
 	// PinCushion._addPinIsTransparentField(app, html, noteData);
 	// PinCushion._addShowOnlyToGMField(app, html, noteData);
@@ -261,6 +312,13 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 
 	// TODO
 	//PinCushion._addAboveFog(app, html, data);
+
+	// Force a recalculation of the height (for the additional field)
+	if (!app._minimized) {
+		let pos = app.position;
+		pos.height = "auto";
+		app.setPosition(pos);
+	}
 
 	if (!game.user.isGM) {
 		return;
@@ -917,6 +975,49 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
 		.attr("data-edit", name)
 		.val(colour)
 		.insertAfter($(`input[name="${name}"]`, html).addClass("color"));
+});
+
+Hooks.on("dropCanvasData", (canvas, data) => {
+	const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
+	if (enableJournalAnchorLink) {
+		if (!(data.type === "JournalEntryPage" && data.anchor)) {
+			return;
+		}
+		const { anchor } = data;
+
+		Hooks.once("renderNoteConfig", (_, html, __) => {
+			html.find("input[name='text']").val(anchor.name);
+		});
+
+		// Create note is called when closing the note creation dialog
+		Hooks.once("createNote", () => {
+			// The note is then redrawn, so we can hook into that process
+			Hooks.once("drawNote", (note) => {
+				// And then update the scene with the correct flag
+				note.scene.updateEmbeddedDocuments("Note", [
+					{
+						_id: note.id,
+						flags: {
+							//TODO why i must put the string ?
+							"pin-cushion": {
+								anchor: anchor
+							}
+						}
+					}
+				]);
+			});
+		});
+	}
+});
+
+// Why doesn't this just exist in core foundry?
+Hooks.on("activateNote", (note, options) => {
+	const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
+	if (enableJournalAnchorLink) {
+		let anchorData = getProperty(note, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}`);
+		options.anchor = anchorData?.slug;
+		//options.anchor = note.document.flags.anchor?.slug;
+	}
 });
 
 // Hooks.on("canvasReady", () => {

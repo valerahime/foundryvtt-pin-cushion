@@ -6,6 +6,7 @@
 - Add feature suggested from https://github.com/foundryvtt/foundryvtt/issues/8770
 - Check for: https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
 - Add feature: https://github.com/p4535992/foundryvtt-pin-cushion/issues/60
+- Add embedded integration from https://github.com/aMediocreDad/jal for try to solve issue https://github.com/p4535992/foundryvtt-pin-cushion/issues/64
 
 ### 1.8.32 
 

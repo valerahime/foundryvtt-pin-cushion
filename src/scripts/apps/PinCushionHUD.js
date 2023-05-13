@@ -191,14 +191,8 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		//   x = x - this.object.size / 2;
 		// }
 
-		// const ratio =
-		//   (is_real_number(this.object.document.flags[PinCushion.MODULE_NAME].ratio) &&
-		//   this.object.document.flags[PinCushion.MODULE_NAME].ratio > 0
-		//     ? this.object.document.flags[PinCushion.MODULE_NAME].ratio
-		//     : 1) || 1;
-
-		// const ratio = 1;
-		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
+		const ratio =
+			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
 		const viewWidth = visualViewport.width;
 
 		// const height = this.object.controlIcon.texture?.height
@@ -283,14 +277,8 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		//   x = x - this.object.size / 2;
 		// }
 
-		// const ratio =
-		//   (is_real_number(this.object.document.flags[PinCushion.MODULE_NAME].ratio) &&
-		//   this.object.document.flags[PinCushion.MODULE_NAME].ratio > 0
-		//     ? this.object.document.flags[PinCushion.MODULE_NAME].ratio
-		//     : 1) || 1;
-
-		// const ratio = 1;
-		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
+		const ratio =
+			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
 		const viewWidth = visualViewport.width;
 
 		// const height = this.object.controlIcon.texture?.height
