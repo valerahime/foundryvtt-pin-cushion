@@ -84,7 +84,7 @@
 		"SETTINGS.oneClickNoteCreationH": "THIS FEATURE IS NOT REQUIRED FOR FOUNDRY V10 SINCE IT IS NOW PART OF THE CORE FUNCTIONALITY. Create Notes directly on the Notes Layer with a simple left click without having a connected journal entry. NOTE: You need to reload the canvas.",
 
 		"SETTINGS.enableJournalAnchorLinkN": "Enable Journal Anchor Links Feature",
-		"SETTINGS.enableJournalAnchorLinkH": "This is a embedded integration of the module 'Journal Anchor Links'. Since Foundry VTT V10, journal entry anchor links are finally supported in the core software. However, weirdly enough it doesn't support anchor links in scene notes. This module fixes that.",
+		"SETTINGS.enableJournalAnchorLinkH": "If you have the module 'Journal Anchor Links' activate and enabled you don't need this. This is a embedded integration of the module 'Journal Anchor Links'. Since Foundry VTT V10, journal entry anchor links are finally supported in the core software. However, weirdly enough it doesn't support anchor links in scene notes. This module fixes that. This feature provides Journals with much awaited page anchors, similar to how HTML supports it.",
 
 		"SETTINGS.allowNoteN": "[Experimental] Note Triggers (MATT Integration)",
 		"SETTINGS.allowNoteH": "Allow Notes to trigger Tiles. Note sadly this will work only on standard foundry installation with standard path, so forge installation will not work.",
