@@ -756,8 +756,8 @@ Hooks.on("renderHeadsUpDisplay", (app, html, data) => {
 
 	// VERSION 2 TOOLTIP
 
-	//html.append(`<template id="pin-cushion-hud-v2"></template>`);
-	//canvas.hud.pinCushionV2 = new PinCushionHUDV2();
+	// html.append(`<template id="pin-cushion-hud-v2"></template>`);
+	// canvas.hud.pinCushionV2 = new PinCushionHUDV2();
 });
 
 /**
@@ -808,6 +808,16 @@ Hooks.on("hoverNote", (note, hovered) => {
 			return canvas.hud.pinCushion.clear();
 		}
 	}
+
+	// VERSION 2 TOOLTIP
+	/*
+    // If the note is hovered by the mouse cursor (not via alt/option)
+    if (hovered && note.mouseInteractionManager.state === 1) {
+		canvas.hud.pinCushionV2.bind(note)
+	} else {
+		canvas.hud.pinCushionV2.clear()
+	}
+	*/
 });
 
 /**
@@ -909,7 +919,7 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
 		.insertAfter($(`input[name="${name}"]`, html).addClass("color"));
 });
 
-Hooks.on("canvasReady", () => {
-	// VERSION 2 TOOLTIP
-	// PinCushionContainer.onReady();
-});
+// Hooks.on("canvasReady", () => {
+// 	// VERSION 2 TOOLTIP
+// 	// PinCushionContainer.onReady();
+// });

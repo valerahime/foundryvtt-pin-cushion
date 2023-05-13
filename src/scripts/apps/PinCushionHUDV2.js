@@ -32,7 +32,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 			// height: 200,
 			minimizable: false,
 			resizable: false,
-			template: "modules/pin-cushion/templates/journal-preview.html"
+			template: "modules/pin-cushion/templates/journal-preview-v2.html"
 		});
 	}
 
@@ -117,12 +117,12 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 			titleTooltip = data.text;
 		}
 
-		let bodyPlaceHolder = `<img class='image' src='${CONSTANTS.PATH_TRANSPARENT}' alt=''></img>`;
+		// let bodyPlaceHolder = `<img class='image' src='${CONSTANTS.PATH_TRANSPARENT}' alt=''></img>`;
 
 		data.tooltipId = this.object.id;
 		data.title = titleTooltip;
 		// data.body = content;
-		data.body = bodyPlaceHolder;
+		// data.body = bodyPlaceHolder;
 
 		const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
 		const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth") || 400;
@@ -144,6 +144,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
           </div>
 
       `);
+		data.body = this.contentTooltip;
 		return data;
 	}
 
@@ -158,6 +159,10 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 		const tooltipColor =
 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_COLOR) ?? "";
 
+		const tooltipPopupClass = tooltipColor
+			? "pin-cushion-hud-tooltip-" + tooltipColor
+			: "pin-cushion-hud-tooltip-default";
+
 		const mapNoteXPosition = this.object.x;
 		const mapNoteYPosition = this.object.y;
 		const viewportWidth = visualViewport.width;
@@ -165,23 +170,23 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 		const mapNoteIconHeight = this.object.controlIcon.height;
 		const orientation = (this.object.getGlobalPosition()?.x ?? 0) < viewportWidth / 2 ? "right" : "left";
 
+		// this.element.addClass(tooltipPopupClass);
 		this.element.css({
-			background: tooltipColor ? tooltipColor : "white",
-			border: "1px solid var(--color-border-light-primary)",
-			"border-radius": "5px",
-			"box-shadow": "0 0 20px var(--color-shadow-dark)",
-			padding: "10px",
+			// background: tooltipColor ? tooltipColor : "white",
+			// border: "1px solid var(--color-border-light-primary)",
+			// "border-radius": "5px",
+			// "box-shadow": "0 0 20px var(--color-shadow-dark)",
+			// padding: "10px",
 			width: "auto",
 			"max-width": `${maxWidth}px`,
 			height: "auto",
 			top: mapNoteYPosition - mapNoteIconHeight / 2,
-			left:
-				orientation === "right" ? mapNoteXPosition + mapNoteIconWidth : mapNoteXPosition - mapNoteIconWidth,
+			left: orientation === "right" ? mapNoteXPosition + mapNoteIconWidth : mapNoteXPosition - mapNoteIconWidth,
 			transform: orientation === "right" ? "" : "translateX(-100%)",
 			"overflow-wrap": "break-word",
-			"text-align": "left",
+			// "text-align": "left",
 			"font-size": fontSize,
-			color: "var(--color-text-dark-primary)",
+			// color: "var(--color-text-dark-primary)",
 			"pointer-events": "none"
 		});
 	}
