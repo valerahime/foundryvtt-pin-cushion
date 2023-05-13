@@ -1,3 +1,4 @@
+import API from "../api.js";
 import CONSTANTS from "../constants.js";
 import {
 	i18n,
@@ -1340,13 +1341,13 @@ export class PinCushion {
 
 		let textAlwaysVisible =
 			this.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
-		// let textVisible = this._hover;
+		// let textVisible = this.hover;
 		if (textAlwaysVisible === true) {
 			// Keep tooltip always visible
 			// Though could make an option out of that too. Would be nicer
 			// TODO it's seem we don't need this
 			// this.position.set(this.document.x, this.document.y);
-			// this.controlIcon.border.visible = this._hover;
+			// this.controlIcon.border.visible = this.hover;
 
 			// textVisible = true;
 			this.tooltip.visible = true;
@@ -1362,7 +1363,7 @@ export class PinCushion {
 		}
 		// Bug fixing :Always (when hover) show name of pin up (above) to others pin
 		// https://stackoverflow.com/questions/24909371/move-item-in-array-to-last-position
-		if (!isAlt() && this._hover) {
+		if (!isAlt() && this.hover) {
 			const fromIndex = canvas.notes.placeables.findIndex((note) => note.id === this.id) || 0;
 			canvas.notes.placeables.push(canvas.notes.placeables.splice(fromIndex, 1)[0]);
 		}
@@ -1679,5 +1680,23 @@ export class PinCushion {
 		const hudTemp = document.createElement("template");
 		hudTemp.id = "pin-cushion-hud";
 		html.append(hudTemp);
+	}
+
+	/**
+	 * Note.prototype._onClickLeft and Note.prototype._onClickRight seem to work only on the NoteLayer
+	 * @param {*} wrapped
+	 * @param  {...any} args
+	 * @returns
+	 */
+	static _canControl(wrapped, ...args) {
+		if (canvas.activeLayer instanceof TokenLayer) {
+			const [user, event] = args;
+			if (this.isPreview) {
+				return false;
+			}
+			return this.document.canUserModify(user, "update");
+		}
+		let result = wrapped(...args);
+		return result;
 	}
 }

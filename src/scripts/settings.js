@@ -279,7 +279,7 @@ export const registerSettings = function () {
 	});
 
 	// =====================
-	// MATT INTEGRATION
+	// START MATT INTEGRATION
 	// =====================
 	/*
 	game.settings.register(CONSTANTS.MODULE_NAME, "allow-note", {
@@ -288,7 +288,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: false,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "prevent-when-paused", {
@@ -297,7 +297,7 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: true,
-		type: Boolean,
+		type: Boolean
 	});
 
 	game.settings.register(CONSTANTS.MODULE_NAME, "allow-note-passthrough", {
@@ -306,9 +306,12 @@ export const registerSettings = function () {
 		scope: "world",
 		config: true,
 		default: true,
-		type: Boolean,
+		type: Boolean
 	});
 	*/
+	// =====================
+	// END MATT INTEGRATION
+	// =====================
 };
 class ResetSettingsDialog extends FormApplication {
 	constructor(...args) {

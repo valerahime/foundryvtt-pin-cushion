@@ -19,7 +19,7 @@ import { PinCushionHUD } from "./scripts/apps/PinCushionHUD.js";
 import { PinCushion } from "./scripts/apps/PinCushion.js";
 // import { ActionConfig } from "/modules/monks-active-tiles/apps/action-config.js";
 // import { MonksActiveTiles } from "/modules/monks-active-tiles/monks-active-tiles.js";
-import { PinCushionContainer } from "./scripts/apps/PinCushionContainer.js";
+// import { PinCushionContainer } from "./scripts/apps/PinCushionContainer.js";
 import { PinCushionHUDV2 } from "./scripts/apps/PinCushionHUDV2.js";
 
 /**
@@ -130,6 +130,9 @@ Hooks.once("init", function () {
 			"WRAPPER"
 		);
 	}
+	// ====================================
+	// START SUPPORT MATT
+	// ====================================
 	/*
 	const allowNote = game.settings.get(PinCushion.MODULE_NAME, "allow-note");
 	if (game.modules.get("monks-active-tiles")?.active && allowNote) {
@@ -137,6 +140,9 @@ Hooks.once("init", function () {
 		libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._onClickRight", noteControl, "WRAPPER");
 	}
 	*/
+	// ====================================
+	// END SUPPORT MATT
+	// ====================================
 });
 
 /* ------------------------------------ */
@@ -261,7 +267,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 	}
 
 	// ====================================
-	// SUPPORT MATT
+	// START SUPPORT MATT
 	// ====================================
 	/*
 	const allowNote = game.settings.get(PinCushion.MODULE_NAME, "allow-note");
@@ -290,6 +296,9 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		);
 	}
 	*/
+	// ====================================
+	// END SUPPORT MATT
+	// ====================================
 
 	// ====================================
 	// General
@@ -572,7 +581,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 			.insertAfter($(".tab:last", html));
 
 		// ====================================
-		// SUPPORT MATT
+		// START SUPPORT MATT
 		// ====================================
 		/*
 		if (game.modules.get("monks-active-tiles")?.active && allowNote) {
@@ -586,6 +595,9 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 				.insertAfter($(".tab:last", html));
 		}
 		*/
+		// ====================================
+		// END SUPPORT MATT
+		// ====================================
 	} else {
 		let root = $("form", html);
 		if (root.length == 0) root = html;
@@ -595,7 +607,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		});
 
 		// ====================================
-		// SUPPORT MATT
+		// START SUPPORT MATT
 		// ====================================
 		/*
 		if (game.modules.get("monks-active-tiles")?.active && allowNote) {
@@ -627,6 +639,10 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 				);
 		} else {
 		*/
+		// ====================================
+		// END SUPPORT MATT
+		// ====================================
+
 		$(root)
 			.prepend($("<div>").addClass("tab action-sheet").attr("data-tab", "pincushion").html(noteHtml))
 			.prepend(basictab)
@@ -652,7 +668,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 	// START LISTENERS
 
 	// ====================================
-	// SUPPORT MATT
+	// START SUPPORT MATT
 	// ====================================
 	/*
 	if (game.modules.get("monks-active-tiles")?.active && allowNote) {
@@ -660,6 +676,9 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		$('button[data-type="tagger"]', html).on("click", ActionConfig.addTag.bind(app));
 	}
 	*/
+	// ====================================
+	// END SUPPORT MATT
+	// ====================================
 
 	// html.find("button.file-picker-showImageExplicitSource").each(
 	// 	(i, button) => (button.onclick = app._activateFilePicker.bind(app))
@@ -835,6 +854,9 @@ Hooks.once("canvasInit", () => {
 		PinCushion._drawControlIcon,
 		"OVERRIDE"
 	);
+
+	// eslint-disable-next-line no-undef
+	libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
 
 	const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_NAME, "oneClickNoteCreation");
 	if (enableOneClickNoteCreation) {

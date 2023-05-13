@@ -1,11 +1,11 @@
 import { PinCushion } from "./apps/PinCushion.js";
-import { PinCushionContainer } from "./apps/PinCushionContainer.js";
+// import { PinCushionContainer } from "./apps/PinCushionContainer.js";
 import { PinCushionHUDV2 } from "./apps/PinCushionHUDV2.js";
 import { error, warn } from "./lib/lib.js";
 
 const API = {
 	pinCushion: new PinCushion(),
-	pinCushionContainers: {},
+	// pinCushionContainers: {},
 	/**
 	 * Request an action to be executed with GM privileges.
 	 *
