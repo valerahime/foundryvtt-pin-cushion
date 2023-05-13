@@ -282,7 +282,8 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 			);
 			// app.form.elements["flags.anchor.slug"].innerHTML
 			log(
-				"new innerHtml" + app.form.elements[`flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML
+				"new innerHtml" +
+					app.form.elements[`flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML
 			);
 		}
 		html.find("select[name='entryId']").change(_updateSectionList);
