@@ -140,6 +140,8 @@
 		"SETTINGS.allowNoteN": "[Expérimental] Déclencheur de note (intégration de MATT)",
 		"SETTINGS.allowNoteH": "Permettre aux notes de déclencher des tuiles. Notez malheureusement que cela ne fonctionnera que sur une installation standard de Foundry avec un chemin standard. Ne fonctionnera pas sous forge.",
 		"SETTINGS.allowNotePassthroughN": "[Uniquement si le paramètre \"Déclencheurs de note\" est activé] Autoriser le clic sur la note",
-		"SETTINGS.allowNotePassthroughH": "Permettre aux tuiles situées sous une note d'être toujours déclenchées si l'on clique sur la note"
+		"SETTINGS.allowNotePassthroughH": "Permettre aux tuiles situées sous une note d'être toujours déclenchées si l'on clique sur la note",
+		"SETTINGS.enableJournalAnchorLinkN": "Activer la fonctionnalité de lier des ancres au journal",
+		"SETTINGS.enableJournalAnchorLinkH": "Si vous avez activé le module 'Journal Anchor Links', vous n'avez pas besoin de ceci. Il s'agit d'une intégration du module 'Journal Anchor Links'. Depuis la v10 de Foundry VTT, les liens d'ancrage des entrées de journal sont finalement supportés par le logiciel de base. Cependant, bizarrement, il ne supporte pas les liens d'ancrage dans les notes de la scène. Ce module corrige cela. Cette fonctionnalité fournit aux journaux les ancres de page tant attendues, de la même façon que le HTML les supporte."
 	}
 }
