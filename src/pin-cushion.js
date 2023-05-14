@@ -928,7 +928,7 @@ Hooks.once("canvasInit", () => {
 	);
 
 	// eslint-disable-next-line no-undef
-	libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
+	// libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
 
 	const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_NAME, "oneClickNoteCreation");
 	if (enableOneClickNoteCreation) {

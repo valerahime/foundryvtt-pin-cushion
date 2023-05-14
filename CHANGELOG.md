@@ -1,4 +1,8 @@
 # Changelog
+### 1.8.34
+
+- Removed _canControl check.
+
 ### 1.8.33
 
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/72

@@ -3,6 +3,7 @@ import CONSTANTS from "../constants.js";
 import {
 	i18n,
 	i18nFormat,
+	info,
 	isAlt,
 	is_real_number,
 	log,
@@ -1691,6 +1692,7 @@ export class PinCushion {
 	 */
 	static _canControl(wrapped, ...args) {
 		if (canvas.activeLayer instanceof TokenLayer) {
+			info(`Applied can control override`);
 			const [user, event] = args;
 			if (this.isPreview) {
 				return false;
