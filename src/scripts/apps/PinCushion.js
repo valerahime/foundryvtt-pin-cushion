@@ -1530,7 +1530,7 @@ export class PinCushion {
 			: 1;
 		if (ratio_width != 1) {
 			if (noteInternal.document) {
-				icon.width = noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH);
+				icon.width = ratio_width;
 			}
 			// else{
 			//   icon.width = noteInternal.getFlag(PinCushion.MODULE_NAME,  PinCushion.FLAGS.RATIO_WIDTH); // compatibility 0.8.9

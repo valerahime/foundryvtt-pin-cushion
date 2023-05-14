@@ -208,17 +208,17 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		//   : this.object.controlIcon.height - this.object.tooltip.height;
 
 		/*
-    const width = this.object.controlIcon.width * ratio;
+    const width = this.object.controlIcon.width * ratio_width;
     const height = this.object.controlIcon.height - this.object.tooltip.height;
     const left = x - (this.object.document?.iconSize / 2 || 0);
     const top = y - height / 2;
     */
 
-		const width = this.object.controlIcon.width; //  * ratio;
+		const width = this.object.controlIcon.width; //  * ratio_width;
 		const height = this.object.controlIcon.height;
 		let left = x - width / 2;
 		if (ratio_width != 1) {
-			left = x - (width / 2) * ratio; // correct shifting for the new scale.
+			left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
 		}
 		const top = y - height / 2;
 
@@ -297,17 +297,17 @@ export class PinCushionHUD extends BasePlaceableHUD {
 		//   : this.object.controlIcon.height - this.object.tooltip.height;
 
 		/*
-    const width = this.object.controlIcon.width * ratio;
+    const width = this.object.controlIcon.width * ratio_width;
     const height = this.object.controlIcon.height - this.object.tooltip.height;
     const left = x - (this.object.document?.iconSize / 2 || 0); // orientation === "right" ? x - width : x + width;
     const top = y - height / 2;
     */
 
-		const width = this.object.controlIcon.width; // * ratio;
+		const width = this.object.controlIcon.width; // * ratio_width;
 		const height = this.object.controlIcon.height;
 		let left = x - width / 2;
 		if (ratio_width != 1) {
-			left = x - (width / 2) * ratio; // correct shifting for the new scale.
+			left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
 		}
 		const top = y - height / 2;
 
