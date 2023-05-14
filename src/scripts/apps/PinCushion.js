@@ -1525,7 +1525,10 @@ export class PinCushion {
 				icon.y -= noteInternal.size / 2;
 			}
 		}
-		if (noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH) != 1) {
+		const ratio_width =  is_real_number(noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)) 
+			? noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)
+			: 1;
+		if (ratio_width != 1) {
 			if (noteInternal.document) {
 				icon.width = noteInternal.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH);
 			}
