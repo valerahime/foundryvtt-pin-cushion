@@ -283,7 +283,7 @@ export const registerSettings = function () {
 		hint: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalAnchorLinkH`),
 		scope: "world",
 		config: true,
-		default: false,
+		default: true,
 		type: Boolean
 	});
 

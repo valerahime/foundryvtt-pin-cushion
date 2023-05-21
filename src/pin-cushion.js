@@ -240,7 +240,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 	}
 
 	const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
-	if (enableJournalAnchorLink) {
+	if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
 		function getOptions(page, current) {
 			let options = "<option></option>";
 			if (page?.type === "text") {
@@ -257,7 +257,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		let pageData = noteData.document.page;
 		let select = $(`
 		<div class='form-group'>
-			<label>Page Section:</label>
+			<label>${i18n(`${PinCushion.MODULE_NAME}.PageSection`)}</label>
 			<div class='form-fields'>
 				<select name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug">
 					${getOptions(pageData, anchorData?.slug)}
@@ -983,7 +983,7 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
 
 Hooks.on("dropCanvasData", (canvas, data) => {
 	const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
-	if (enableJournalAnchorLink) {
+	if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
 		if (!(data.type === "JournalEntryPage" && data.anchor)) {
 			return;
 		}
@@ -1017,7 +1017,7 @@ Hooks.on("dropCanvasData", (canvas, data) => {
 // Why doesn't this just exist in core foundry?
 Hooks.on("activateNote", (note, options) => {
 	const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
-	if (enableJournalAnchorLink) {
+	if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
 		let anchorData = getProperty(note, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}`);
 		options.anchor = anchorData?.slug;
 		//options.anchor = note.document.flags.anchor?.slug;

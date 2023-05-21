@@ -198,9 +198,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 
 		const ratio =
 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
-		const ratio_width =  is_real_number(ratio) 
-			? ratio
-			: 1;
+		const ratio_width = is_real_number(ratio) ? ratio : 1;
 		const viewWidth = visualViewport.width;
 
 		// const height = this.object.controlIcon.texture?.height
@@ -287,9 +285,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 
 		const ratio =
 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
-		const ratio_width =  is_real_number(ratio) 
-			? ratio
-			: 1;
+		const ratio_width = is_real_number(ratio) ? ratio : 1;
 		const viewWidth = visualViewport.width;
 
 		// const height = this.object.controlIcon.texture?.height
