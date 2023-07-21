@@ -19,12 +19,16 @@ export class BackgroundlessControlIcon extends ControlIcon {
 			.endFill();
 		this.border.visible = false;
 
+		// Hide the background
+		this.bg.visible = false;
+
 		// Draw icon
 		try {
 			this.icon.texture =
 				this.texture ?? (this.iconSrc ? await loadTexture(this.iconSrc) : "icons/svg/cancel.svg");
 			this.icon.width = this.icon.height = this.size;
 			this.icon.tint = Number.isNumeric(this.tintColor) ? this.tintColor : 0xffffff;
+
 		} catch (e) {
 			warn(e.stack);
 			this.icon.texture = "icons/svg/cancel.svg";
