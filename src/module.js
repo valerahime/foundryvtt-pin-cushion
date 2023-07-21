@@ -966,6 +966,8 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
     .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
 });
 
+// This runs only on canvas drop and after the renderNoteConfig hook above.
+// It ensures that we have fill the html of the NoteConfig window with the correct data on first drop.
 Hooks.on("dropCanvasData", (canvas, data) => {
   const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_ID, "enableJournalAnchorLink");
   if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
@@ -974,27 +976,9 @@ Hooks.on("dropCanvasData", (canvas, data) => {
     }
     const { anchor } = data;
 
-    Hooks.once("renderNoteConfig", (_, html, __) => {
-      html.find("input[name='text']").val(anchor.name);
-    });
-
-    // Create note is called when closing the note creation dialog
-    Hooks.once("createNote", () => {
-      // The note is then redrawn, so we can hook into that process
-      Hooks.once("drawNote", (note) => {
-        // And then update the scene with the correct flag
-        note.scene.updateEmbeddedDocuments("Note", [
-          {
-            _id: note.id,
-            flags: {
-              //TODO why i must put the string ?
-              "pin-cushion": {
-                anchor: anchor,
-              },
-            },
-          },
-        ]);
-      });
+    Hooks.once("renderNoteConfig", (_, html, { label }) => {
+      html.find("input[name='text']").val(`${label}: ${anchor.name}`);
+      html.find(`option[value=${anchor.slug}]`).attr("selected", true);
     });
   }
 });
