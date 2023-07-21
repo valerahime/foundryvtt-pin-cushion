@@ -1,6 +1,9 @@
-# Changelog 
+# Changelog
+## 1.9.0
 
-### 1.8.37 
+- Update to v11
+
+### 1.8.37
 
 - Some little update
 
@@ -22,13 +25,13 @@
 - Add embedded integration from https://github.com/aMediocreDad/jal for try to solve issue https://github.com/p4535992/foundryvtt-pin-cushion/issues/64
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/69 added "Page Section" field
 
-### 1.8.32 
+### 1.8.32
 
 -Update labels
 
-### 1.8.31 
+### 1.8.31
 
-- Update languages 
+- Update languages
 - Fix some Player Views issue (ty to @aquavitae)
 
 ### 1.8.30

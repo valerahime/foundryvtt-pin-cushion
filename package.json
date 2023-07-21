@@ -1,8 +1,8 @@
 {
-	"name": "tidy5e-sheet",
-	"title": "Tidy5e Sheet",
-	"description": "Replaces the default D&D 5e character and NPC sheet with an alternate layout focused on a cleaner UI",
-	"version": "0.9.13",
+    "name": "pin-cushion",
+    "title": "Pin Cushion",
+    "description": "Provides additional functionality around Map Pins",
+    "version": "1.9.0",
 	"main": "module.js",
 	"license": "SEE LICENSE IN LICENSE",
 	"private": true,
