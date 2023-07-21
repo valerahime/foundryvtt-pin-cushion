@@ -1,6 +1,6 @@
 import { PinCushion } from "./apps/PinCushion.js";
 // import { PinCushionContainer } from "./apps/PinCushionContainer.js";
-import { PinCushionHUDV2 } from "./apps/PinCushionHUDV2.js";
+// import { PinCushionHUDV2 } from "./apps/PinCushionHUDV2.js";
 import { error, warn } from "./lib/lib.js";
 
 const API = {

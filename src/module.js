@@ -20,7 +20,7 @@ import { PinCushion } from "./scripts/apps/PinCushion.js";
 // import { ActionConfig } from "/modules/monks-active-tiles/apps/action-config.js";
 // import { MonksActiveTiles } from "/modules/monks-active-tiles/monks-active-tiles.js";
 // import { PinCushionContainer } from "./scripts/apps/PinCushionContainer.js";
-import { PinCushionHUDV2 } from "./scripts/apps/PinCushionHUDV2.js";
+// import { PinCushionHUDV2 } from "./scripts/apps/PinCushionHUDV2.js";
 // import { noteControl } from "./scripts/apps/NoteControl.js";
 
 /**
