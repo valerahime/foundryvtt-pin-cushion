@@ -61,10 +61,10 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
       }
     }
     // TODO The getFlag was returning as 'not a function', for whatever reason...
-    // const showImage = this.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.SHOW_IMAGE);
-    const showImage = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.SHOW_IMAGE);
+    // const showImage = this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.SHOW_IMAGE);
+    const showImage = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.SHOW_IMAGE);
     const showImageExplicitSource = getProperty(
-      this.object.document.flags[PinCushion.MODULE_NAME],
+      this.object.document.flags[PinCushion.MODULE_ID],
       PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE
     );
 
@@ -86,7 +86,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
       }
     } else {
       const previewTypeAdText = getProperty(
-        this.object.document.flags[PinCushion.MODULE_NAME],
+        this.object.document.flags[PinCushion.MODULE_ID],
         PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET
       );
       const firstContent = entryContent;
@@ -97,7 +97,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
           async: true,
         });
       } else {
-        const previewMaxLength = game.settings.get(PinCushion.MODULE_NAME, "previewMaxLength");
+        const previewMaxLength = game.settings.get(PinCushion.MODULE_ID, "previewMaxLength");
         const textContent = $(firstContent).text();
         content =
           textContent.length > previewMaxLength ? `${textContent.substr(0, previewMaxLength)} ...` : textContent;
@@ -105,8 +105,8 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
     }
 
     let titleTooltip = entryName; // by default is the title of the journal
-    const newtextGM = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.PIN_GM_TEXT);
-    if (game.user.isGM && game.settings.get(PinCushion.MODULE_NAME, "noteGM") && newtextGM) {
+    const newtextGM = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.PIN_GM_TEXT);
+    if (game.user.isGM && game.settings.get(PinCushion.MODULE_ID, "noteGM") && newtextGM) {
       titleTooltip = newtextGM;
     } else if (data.text && data.text !== titleTooltip) {
       titleTooltip = data.text;
@@ -119,8 +119,8 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
     // data.body = content;
     // data.body = bodyPlaceHolder;
 
-    const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
-    const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth") || 400;
+    const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
+    const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth") || 400;
 
     data.titleTooltip = titleTooltip;
     data.content = content;
@@ -148,11 +148,11 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
     if (!this.object) {
       return;
     }
-    const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
-    const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth");
+    const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
+    const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth");
 
     const tooltipColor =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_COLOR) ?? "";
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_COLOR) ?? "";
 
     const tooltipPopupClass = tooltipColor
       ? "pin-cushion-hud-tooltip-" + tooltipColor

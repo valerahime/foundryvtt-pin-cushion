@@ -58,10 +58,10 @@ export class PinCushionHUD extends BasePlaceableHUD {
       }
     }
     // TODO The getFlag was returning as 'not a function', for whatever reason...
-    // const showImage = this.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.SHOW_IMAGE);
-    const showImage = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.SHOW_IMAGE);
+    // const showImage = this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.SHOW_IMAGE);
+    const showImage = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.SHOW_IMAGE);
     const showImageExplicitSource = getProperty(
-      this.object.document.flags[PinCushion.MODULE_NAME],
+      this.object.document.flags[PinCushion.MODULE_ID],
       PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE
     );
 
@@ -83,7 +83,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
       }
     } else {
       const previewTypeAdText = getProperty(
-        this.object.document.flags[PinCushion.MODULE_NAME],
+        this.object.document.flags[PinCushion.MODULE_ID],
         PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET
       );
       const firstContent = entryContent;
@@ -94,7 +94,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
           async: true,
         });
       } else {
-        const previewMaxLength = game.settings.get(PinCushion.MODULE_NAME, "previewMaxLength");
+        const previewMaxLength = game.settings.get(PinCushion.MODULE_ID, "previewMaxLength");
         const textContent = $(firstContent).text();
         content =
           textContent.length > previewMaxLength ? `${textContent.substr(0, previewMaxLength)} ...` : textContent;
@@ -107,8 +107,8 @@ export class PinCushionHUD extends BasePlaceableHUD {
     content = content.replaceAll(pattern, replacement);
 
     let titleTooltip = entryName; // by default is the title of the journal
-    const newtextGM = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.PIN_GM_TEXT);
-    if (game.user.isGM && game.settings.get(PinCushion.MODULE_NAME, "noteGM") && newtextGM) {
+    const newtextGM = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.PIN_GM_TEXT);
+    if (game.user.isGM && game.settings.get(PinCushion.MODULE_ID, "noteGM") && newtextGM) {
       titleTooltip = newtextGM;
     } else if (data.text && data.text !== titleTooltip) {
       titleTooltip = data.text;
@@ -121,8 +121,8 @@ export class PinCushionHUD extends BasePlaceableHUD {
     // data.body = content;
     data.body = bodyPlaceHolder;
 
-    const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
-    const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth") || 400;
+    const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
+    const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth") || 400;
 
     data.titleTooltip = titleTooltip;
     data.content = content;
@@ -152,18 +152,17 @@ export class PinCushionHUD extends BasePlaceableHUD {
     if (!this.object) {
       return;
     }
-    const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
-    const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth");
+    const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
+    const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth");
 
     const tooltipPlacement =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
 
     const tooltipSmartPlacement =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
-      false;
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT) ?? false;
 
     const tooltipFollowMouse =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
 
     const isVertical = isPlacementVertical(tooltipPlacement);
 
@@ -177,7 +176,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
     // WITH TOOLTIP
     let x = 0;
     let y = 0;
-    if (game.settings.get(PinCushion.MODULE_NAME, "tooltipUseMousePositionForCoordinates")) {
+    if (game.settings.get(PinCushion.MODULE_ID, "tooltipUseMousePositionForCoordinates")) {
       const positionMouse = canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage);
       x = positionMouse.x;
       y = positionMouse.y;
@@ -190,7 +189,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
     //   x = x - this.object.size / 2;
     // }
 
-    const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
+    const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
     const ratio_width = is_real_number(ratio) ? ratio : 1;
     const viewWidth = visualViewport.width;
 
@@ -234,21 +233,20 @@ export class PinCushionHUD extends BasePlaceableHUD {
       elementToTooltip = $(elementToTooltip);
     }
 
-    const fontSize = game.settings.get(CONSTANTS.MODULE_NAME, "fontSize") || canvas.grid.size / 5;
-    const maxWidth = game.settings.get(CONSTANTS.MODULE_NAME, "maxWidth");
+    const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
+    const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth");
 
     const tooltipPlacement =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
 
     const tooltipSmartPlacement =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
-      false;
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT) ?? false;
 
     const tooltipFollowMouse =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
 
     const tooltipColor =
-      getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_COLOR) ?? "";
+      getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.TOOLTIP_COLOR) ?? "";
 
     let orientation = "";
     if (tooltipPlacement.includes("e")) {
@@ -262,7 +260,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
     // WITH TOOLTIP
     let x = 0;
     let y = 0;
-    if (game.settings.get(PinCushion.MODULE_NAME, "tooltipUseMousePositionForCoordinates")) {
+    if (game.settings.get(PinCushion.MODULE_ID, "tooltipUseMousePositionForCoordinates")) {
       const positionMouse = canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage);
       x = positionMouse.x;
       y = positionMouse.y;
@@ -275,7 +273,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
     //   x = x - this.object.size / 2;
     // }
 
-    const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
+    const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
     const ratio_width = is_real_number(ratio) ? ratio : 1;
     const viewWidth = visualViewport.width;
 

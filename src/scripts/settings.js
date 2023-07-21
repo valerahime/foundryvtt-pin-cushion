@@ -3,7 +3,7 @@ import CONSTANTS from "./constants.js";
 import { i18n } from "./lib/lib.js";
 
 export const registerSettings = function () {
-  game.settings.registerMenu(CONSTANTS.MODULE_NAME, "resetAllSettings", {
+  game.settings.registerMenu(CONSTANTS.MODULE_ID, "resetAllSettings", {
     name: `pin-cushion.SETTINGS.reset.name`,
     hint: `pin-cushion.SETTINGS.reset.hint`,
     icon: "fas fa-coins",
@@ -11,7 +11,7 @@ export const registerSettings = function () {
     restricted: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "forceToShowNotes", {
+  game.settings.register(CONSTANTS.MODULE_ID, "forceToShowNotes", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.forceToShowNotesN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.forceToShowNotesH`),
     scope: "world",
@@ -20,7 +20,7 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "previewMaxLength", {
+  game.settings.register(CONSTANTS.MODULE_ID, "previewMaxLength", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.PreviewMaxLengthN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.PreviewMaxLengthH`),
     scope: "world",
@@ -30,7 +30,7 @@ export const registerSettings = function () {
     onChange: (s) => {},
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "previewDelay", {
+  game.settings.register(CONSTANTS.MODULE_ID, "previewDelay", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.PreviewDelayN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.PreviewDelayH`),
     scope: "world",
@@ -42,7 +42,7 @@ export const registerSettings = function () {
     range: { min: 100, max: 3000, step: 100 }, // bug https://github.com/p4535992/foundryvtt-pin-cushion/issues/18
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "defaultJournalPermission", {
+  game.settings.register(CONSTANTS.MODULE_ID, "defaultJournalPermission", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.DefaultJournalPermissionN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.DefaultJournalPermissionH`),
     scope: "world",
@@ -56,7 +56,7 @@ export const registerSettings = function () {
     onChange: (s) => {},
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "defaultJournalFolder", {
+  game.settings.register(CONSTANTS.MODULE_ID, "defaultJournalFolder", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.DefaultJournalFolderN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.DefaultJournalFolderH`),
     scope: "world",
@@ -76,7 +76,7 @@ export const registerSettings = function () {
     },
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "specificFolder", {
+  game.settings.register(CONSTANTS.MODULE_ID, "specificFolder", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.SpecificFolderN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.SpecificFolderH`),
     scope: "world",
@@ -94,7 +94,7 @@ export const registerSettings = function () {
     onChange: (s) => {},
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "enableBackgroundlessPins", {
+  game.settings.register(CONSTANTS.MODULE_ID, "enableBackgroundlessPins", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.EnableBackgroundlessPinsN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.EnableBackgroundlessPinsH`),
     scope: "world",
@@ -103,7 +103,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "showJournalImageByDefault", {
+  game.settings.register(CONSTANTS.MODULE_ID, "showJournalImageByDefault", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.ShowJournalImageByDefaultN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.ShowJournalImageByDefaultH`),
     scope: "world",
@@ -112,7 +112,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "enableTooltipByDefault", {
+  game.settings.register(CONSTANTS.MODULE_ID, "enableTooltipByDefault", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.enableTooltipByDefaultN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.enableTooltipByDefaultH`),
     scope: "world",
@@ -121,7 +121,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "playerIconAutoOverride", {
+  game.settings.register(CONSTANTS.MODULE_ID, "playerIconAutoOverride", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.PlayerIconAutoOverrideN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.PlayerIconAutoOverrideH`),
     scope: "world",
@@ -130,7 +130,7 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "playerIconPathDefault", {
+  game.settings.register(CONSTANTS.MODULE_ID, "playerIconPathDefault", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.PlayerIconPathDefaultN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.PlayerIconPathDefaultH`),
     scope: "world",
@@ -140,7 +140,7 @@ export const registerSettings = function () {
     filePicker: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "noteGM", {
+  game.settings.register(CONSTANTS.MODULE_ID, "noteGM", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.noteGMN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.noteGMH`),
     scope: "world",
@@ -149,7 +149,7 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotes", {
+  game.settings.register(CONSTANTS.MODULE_ID, "revealedNotes", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesH`),
     scope: "world",
@@ -158,7 +158,7 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorLink", {
+  game.settings.register(CONSTANTS.MODULE_ID, "revealedNotesTintColorLink", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorLinkN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorLinkH`),
     scope: "world",
@@ -173,7 +173,7 @@ export const registerSettings = function () {
     },
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorNotLink", {
+  game.settings.register(CONSTANTS.MODULE_ID, "revealedNotesTintColorNotLink", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorNotLinkN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorNotLinkH`),
     scope: "world",
@@ -188,7 +188,7 @@ export const registerSettings = function () {
     },
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorRevealed", {
+  game.settings.register(CONSTANTS.MODULE_ID, "revealedNotesTintColorRevealed", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorRevealedN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorRevealedH`),
     scope: "world",
@@ -198,7 +198,7 @@ export const registerSettings = function () {
     onChange: () => refresh(),
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "revealedNotesTintColorNotRevealed", {
+  game.settings.register(CONSTANTS.MODULE_ID, "revealedNotesTintColorNotRevealed", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorNotRevealedN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.revealedNotesTintColorNotRevealedH`),
     scope: "world",
@@ -208,7 +208,7 @@ export const registerSettings = function () {
     onChange: () => refresh(),
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "enableJournalThumbnailForGMs", {
+  game.settings.register(CONSTANTS.MODULE_ID, "enableJournalThumbnailForGMs", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalThumbnailForGMsN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalThumbnailForGMsH`),
     scope: "world",
@@ -218,7 +218,7 @@ export const registerSettings = function () {
     onchange: () => window.location.reload(),
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "enableJournalThumbnailForPlayers", {
+  game.settings.register(CONSTANTS.MODULE_ID, "enableJournalThumbnailForPlayers", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalThumbnailForPlayersN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalThumbnailForPlayersH`),
     scope: "world",
@@ -228,7 +228,7 @@ export const registerSettings = function () {
     onchange: () => window.location.reload(),
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "journalThumbnailPosition", {
+  game.settings.register(CONSTANTS.MODULE_ID, "journalThumbnailPosition", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.journalThumbnailPositionN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.journalThumbnailPositionH`),
     scope: "world",
@@ -242,7 +242,7 @@ export const registerSettings = function () {
     onChange: () => game.journal.render(),
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "fontSize", {
+  game.settings.register(CONSTANTS.MODULE_ID, "fontSize", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.fontSizeN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.fontSizeH`),
     scope: "client",
@@ -251,7 +251,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "maxWidth", {
+  game.settings.register(CONSTANTS.MODULE_ID, "maxWidth", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.maxWidthN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.maxWidthH`),
     scope: "client",
@@ -260,7 +260,7 @@ export const registerSettings = function () {
     config: true,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "tooltipUseMousePositionForCoordinates", {
+  game.settings.register(CONSTANTS.MODULE_ID, "tooltipUseMousePositionForCoordinates", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.tooltipUseMousePositionForCoordinatesN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.tooltipUseMousePositionForCoordinatesH`),
     scope: "world",
@@ -269,7 +269,7 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "oneClickNoteCreation", {
+  game.settings.register(CONSTANTS.MODULE_ID, "oneClickNoteCreation", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.oneClickNoteCreationN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.oneClickNoteCreationH`),
     scope: "world",
@@ -278,7 +278,7 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_NAME, "enableJournalAnchorLink", {
+  game.settings.register(CONSTANTS.MODULE_ID, "enableJournalAnchorLink", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalAnchorLinkN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalAnchorLinkH`),
     scope: "world",
@@ -291,7 +291,7 @@ export const registerSettings = function () {
   // START MATT INTEGRATION
   // =====================
   /*
-	game.settings.register(CONSTANTS.MODULE_NAME, "allow-note", {
+	game.settings.register(CONSTANTS.MODULE_ID, "allow-note", {
 		name: game.i18n.localize(`pin-cushion.SETTINGS.allowNoteN`),
 		hint: game.i18n.localize(`pin-cushion.SETTINGS.allowNoteH`),
 		scope: "world",
@@ -300,7 +300,7 @@ export const registerSettings = function () {
 		type: Boolean
 	});
 
-	game.settings.register(CONSTANTS.MODULE_NAME, "prevent-when-paused", {
+	game.settings.register(CONSTANTS.MODULE_ID, "prevent-when-paused", {
 		name: game.i18n.localize(`pin-cushion.SETTINGS.preventWhenPausedN`),
 		hint: game.i18n.localize(`pin-cushion.SETTINGS.preventWhenPausedH`),
 		scope: "world",
@@ -309,7 +309,7 @@ export const registerSettings = function () {
 		type: Boolean
 	});
 
-	game.settings.register(CONSTANTS.MODULE_NAME, "allow-note-passthrough", {
+	game.settings.register(CONSTANTS.MODULE_ID, "allow-note-passthrough", {
 		name: game.i18n.localize(`pin-cushion.SETTINGS.allowNotePassthroughN`),
 		hint: game.i18n.localize(`pin-cushion.SETTINGS.allowNotePassthroughH`),
 		scope: "world",
@@ -328,19 +328,19 @@ class ResetSettingsDialog extends FormApplication {
     super(...args);
     //@ts-ignore
     return new Dialog({
-      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.title`),
+      title: game.i18n.localize(`${CONSTANTS.MODULE_ID}.dialogs.resetsettings.title`),
       content:
         '<p style="margin-bottom:1rem;">' +
-        game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.content`) +
+        game.i18n.localize(`${CONSTANTS.MODULE_ID}.dialogs.resetsettings.content`) +
         "</p>",
       buttons: {
         confirm: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.confirm`),
+          label: game.i18n.localize(`${CONSTANTS.MODULE_ID}.dialogs.resetsettings.confirm`),
           callback: async () => {
             const worldSettings = game.settings.storage
               ?.get("world")
-              ?.filter((setting) => setting.key.startsWith(`${CONSTANTS.MODULE_NAME}.`));
+              ?.filter((setting) => setting.key.startsWith(`${CONSTANTS.MODULE_ID}.`));
             for (let setting of worldSettings) {
               console.log(`Reset setting '${setting.key}'`);
               await setting.delete();
@@ -350,7 +350,7 @@ class ResetSettingsDialog extends FormApplication {
         },
         cancel: {
           icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.cancel`),
+          label: game.i18n.localize(`${CONSTANTS.MODULE_ID}.dialogs.resetsettings.cancel`),
         },
       },
       default: "cancel",

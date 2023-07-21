@@ -28,7 +28,7 @@ import { PinCushionHUDV2 } from "./scripts/apps/PinCushionHUDV2.js";
  * @param api to set to game module.
  */
 export function setApi(api) {
-  const data = game.modules.get(CONSTANTS.MODULE_NAME);
+  const data = game.modules.get(CONSTANTS.MODULE_ID);
   data.api = api;
 }
 /**
@@ -36,7 +36,7 @@ export function setApi(api) {
  * @returns Api from games module.
  */
 export function getApi() {
-  const data = game.modules.get(CONSTANTS.MODULE_NAME);
+  const data = game.modules.get(CONSTANTS.MODULE_ID);
   return data.api;
 }
 /**
@@ -44,7 +44,7 @@ export function getApi() {
  * @param socket to set to game module.
  */
 export function setSocket(socket) {
-  const data = game.modules.get(CONSTANTS.MODULE_NAME);
+  const data = game.modules.get(CONSTANTS.MODULE_ID);
   data.socket = socket;
 }
 /*
@@ -52,7 +52,7 @@ export function setSocket(socket) {
  * @returns Socket from games module.
  */
 export function getSocket() {
-  const data = game.modules.get(CONSTANTS.MODULE_NAME);
+  const data = game.modules.get(CONSTANTS.MODULE_ID);
   return data.socket;
 }
 
@@ -64,7 +64,7 @@ export function getSocket() {
 /* Initialize module					*/
 /* ------------------------------------ */
 Hooks.once("init", function () {
-  log(" init " + CONSTANTS.MODULE_NAME);
+  log(" init " + CONSTANTS.MODULE_ID);
   // TODO TO REMOVE
   globalThis.PinCushion = PinCushion;
   // globalThis.setNoteRevealed = setNoteRevealed; // Seem not necessary
@@ -115,17 +115,17 @@ Hooks.once("init", function () {
 
   // eslint-disable-next-line no-undef
   libWrapper.register(
-    PinCushion.MODULE_NAME,
+    PinCushion.MODULE_ID,
     "NotesLayer.prototype._onClickLeft2",
     PinCushion._onDoubleClick,
     "OVERRIDE"
   );
 
-  const enablePlayerIconAutoOverride = game.settings.get(PinCushion.MODULE_NAME, "playerIconAutoOverride");
+  const enablePlayerIconAutoOverride = game.settings.get(PinCushion.MODULE_ID, "playerIconAutoOverride");
   if (enablePlayerIconAutoOverride) {
     // eslint-disable-next-line no-undef
     libWrapper.register(
-      PinCushion.MODULE_NAME,
+      PinCushion.MODULE_ID,
       "NoteDocument.prototype.prepareData",
       PinCushion._onPrepareNoteData,
       "WRAPPER"
@@ -135,10 +135,10 @@ Hooks.once("init", function () {
   // START SUPPORT MATT
   // ====================================
   /*
-	const allowNote = game.settings.get(PinCushion.MODULE_NAME, "allow-note");
+	const allowNote = game.settings.get(PinCushion.MODULE_ID, "allow-note");
 	if (game.modules.get("monks-active-tiles")?.active && allowNote) {
-		libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._onClickLeft", noteControl, "WRAPPER");
-		libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._onClickRight", noteControl, "WRAPPER");
+		libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._onClickLeft", noteControl, "WRAPPER");
+		libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._onClickRight", noteControl, "WRAPPER");
 	}
 	*/
   // ====================================
@@ -152,7 +152,7 @@ Hooks.once("init", function () {
 Hooks.once("setup", function () {
   setApi(API);
 
-  const forceToShowNotes = game.settings.get(PinCushion.MODULE_NAME, "forceToShowNotes");
+  const forceToShowNotes = game.settings.get(PinCushion.MODULE_ID, "forceToShowNotes");
   if (forceToShowNotes) {
     // Automatically flag journal notes to show on the map without having to have your players turn it on themselves.
     game.settings.set("core", "notesDisplayToggle", true);
@@ -187,20 +187,20 @@ Hooks.once("ready", function () {
  * @param {object] data       The object of data used when rendering the application (from NoteConfig#getData)
  */
 Hooks.on("renderNoteConfig", async (app, html, noteData) => {
-  if (!app.object.flags[PinCushion.MODULE_NAME]) {
+  if (!app.object.flags[PinCushion.MODULE_ID]) {
     // TODO WHY IS THIS NOT WORKING ??
-    // setProperty(app.object.flags[PinCushion.MODULE_NAME], {});
-    app.object.flags[PinCushion.MODULE_NAME] = {};
+    // setProperty(app.object.flags[PinCushion.MODULE_ID], {});
+    app.object.flags[PinCushion.MODULE_ID] = {};
   }
-  let entity = app.object.flags[PinCushion.MODULE_NAME] || {};
+  let entity = app.object.flags[PinCushion.MODULE_ID] || {};
 
   // TODO THIS CODE CAN B DONE MUCH BETTER...
-  const showJournalImageByDefault = game.settings.get(PinCushion.MODULE_NAME, "showJournalImageByDefault");
+  const showJournalImageByDefault = game.settings.get(PinCushion.MODULE_ID, "showJournalImageByDefault");
 
   if (
     showJournalImageByDefault &&
     noteData.document.entryId &&
-    !app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.CUSHION_ICON)
+    !app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.CUSHION_ICON)
   ) {
     // Journal id
     const journal = game.journal.get(noteData.document.entryId);
@@ -224,22 +224,22 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   if (tmp === "icons/svg/book.svg" && noteData.document.texture.src) {
     tmp = stripQueryStringAndHashFromPath(noteData.document.texture.src);
   }
-  const pinCushionIcon = getProperty(app.object.flags, `${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.CUSHION_ICON}`);
+  const pinCushionIcon = getProperty(app.object.flags, `${PinCushion.MODULE_ID}.${PinCushion.FLAGS.CUSHION_ICON}`);
   if (pinCushionIcon) {
     tmp = stripQueryStringAndHashFromPath(pinCushionIcon);
   }
 
   PinCushion._replaceIconSelector(app, html, noteData, tmp);
   //Causes a bug when attempting to place an journal entry onto the canvas in Foundry 9.
-  //await app.object.setFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.CUSHION_ICON, tmp);
-  setProperty(app.object.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.CUSHION_ICON, tmp);
+  //await app.object.setFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.CUSHION_ICON, tmp);
+  setProperty(app.object.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.CUSHION_ICON, tmp);
 
-  const enableNoteGM = game.settings.get(PinCushion.MODULE_NAME, "noteGM");
+  const enableNoteGM = game.settings.get(PinCushion.MODULE_ID, "noteGM");
   if (enableNoteGM) {
     PinCushion._addNoteGM(app, html, noteData);
   }
 
-  const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
+  const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_ID, "enableJournalAnchorLink");
   if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
     function getOptions(page, current) {
       let options = "<option></option>";
@@ -253,13 +253,13 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       return options;
     }
     // <select name="flags.anchor.slug">${getOptions(noteData.document.page, noteData.document.flags.anchor?.slug)}</select>
-    let anchorData = getProperty(noteData.document.flags, `${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}`); // noteData.document.flags.anchor;
+    let anchorData = getProperty(noteData.document.flags, `${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ANCHOR}`); // noteData.document.flags.anchor;
     let pageData = noteData.document.page;
     let select = $(`
 		<div class='form-group'>
-			<label>${i18n(`${PinCushion.MODULE_NAME}.PageSection`)}</label>
+			<label>${i18n(`${PinCushion.MODULE_ID}.PageSection`)}</label>
 			<div class='form-fields'>
-				<select name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug">
+				<select name="flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ANCHOR}.slug">
 					${getOptions(pageData, anchorData?.slug)}
 				</select>
 			</div>
@@ -277,13 +277,13 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       // getOptions(newpage, data.document.flags.anchor?.slug))
       log("new options =" + getOptions(newpage, anchorData?.slug));
       // app.form.elements["flags.anchor.slug"].innerHTML = getOptions(newpage, data.document.flags.anchor?.slug);
-      app.form.elements[`flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML = getOptions(
+      app.form.elements[`flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML = getOptions(
         newpage,
         anchorData?.slug
       );
       // app.form.elements["flags.anchor.slug"].innerHTML
       log(
-        "new innerHtml" + app.form.elements[`flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML
+        "new innerHtml" + app.form.elements[`flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ANCHOR}.slug`].innerHTML
       );
     }
     html.find("select[name='entryId']").change(_updateSectionList);
@@ -296,12 +296,12 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   // PinCushion._addBackgroundField(app, html, noteData);
   // PinCushion._addHideLabel(app, html, noteData);
 
-  // const enablePlayerIcon = game.settings.get(PinCushion.MODULE_NAME, "playerIconAutoOverride");
+  // const enablePlayerIcon = game.settings.get(PinCushion.MODULE_ID, "playerIconAutoOverride");
   // if (enablePlayerIcon) {
   // 	PinCushion._addPlayerIconField(app, html, noteData);
   // }
 
-  // const enableNoteTintColorLink = game.settings.get(PinCushion.MODULE_NAME, "revealedNotes");
+  // const enableNoteTintColorLink = game.settings.get(PinCushion.MODULE_ID, "revealedNotes");
   // if (enableNoteTintColorLink) {
   //	PinCushion._addNoteTintColorLink(app, html, noteData);
   // }
@@ -329,7 +329,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   // START SUPPORT MATT
   // ====================================
   /*
-	const allowNote = game.settings.get(PinCushion.MODULE_NAME, "allow-note");
+	const allowNote = game.settings.get(PinCushion.MODULE_ID, "allow-note");
 	let triggerData = {};
 	let tilename = "";
 	let noteTriggersHtml = "";
@@ -352,7 +352,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		);
 		triggerData.entity = JSON.stringify(entity);
 		noteTriggersHtml = await renderTemplate(
-			`modules/${PinCushion.MODULE_NAME}/templates/note-triggers-config.html`,
+			`modules/${PinCushion.MODULE_ID}/templates/note-triggers-config.html`,
 			triggerData
 		);
 	}
@@ -365,55 +365,54 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   // General
   // ====================================
   const showImageExplicitSource = stripQueryStringAndHashFromPath(
-    app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE) ?? ""
+    app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE) ?? ""
   );
-  const showImage = app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.SHOW_IMAGE) ?? false;
-  const pinIsTransparent = app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PIN_IS_TRANSPARENT) ?? false;
-  const showOnlyToGM = app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.SHOW_ONLY_TO_GM) ?? false;
+  const showImage = app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.SHOW_IMAGE) ?? false;
+  const pinIsTransparent = app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PIN_IS_TRANSPARENT) ?? false;
+  const showOnlyToGM = app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.SHOW_ONLY_TO_GM) ?? false;
 
   const hasBackground =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.HAS_BACKGROUND)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.HAS_BACKGROUND)) ?? 0;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HAS_BACKGROUND)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HAS_BACKGROUND)) ?? 0;
   const ratio =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.RATIO_WIDTH)) ?? 1;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)) ?? 1;
   const textAlwaysVisible =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE)) ?? false;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE)) ?? false;
   const hideLabel =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.HIDE_LABEL)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
   // ====================================
   // enablePlayerIcon
   // ====================================
-  const enablePlayerIcon = game.settings.get(PinCushion.MODULE_NAME, "playerIconAutoOverride");
+  const enablePlayerIcon = game.settings.get(PinCushion.MODULE_ID, "playerIconAutoOverride");
   // Adds fields to set player-only note icons
   // Get default values set by GM
-  const defaultState = game.settings.get(PinCushion.MODULE_NAME, "playerIconAutoOverride") ?? ``;
-  const defaultPath = game.settings.get(PinCushion.MODULE_NAME, "playerIconPathDefault") ?? ``;
+  const defaultState = game.settings.get(PinCushion.MODULE_ID, "playerIconAutoOverride") ?? ``;
+  const defaultPath = game.settings.get(PinCushion.MODULE_ID, "playerIconPathDefault") ?? ``;
 
   const playerIconState =
-    getProperty(noteData, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.PLAYER_ICON_STATE}`) ??
+    getProperty(noteData, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PLAYER_ICON_STATE}`) ??
     defaultState;
   const playerIconPath = stripQueryStringAndHashFromPath(
-    getProperty(noteData, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.PLAYER_ICON_PATH}`) ??
-      defaultPath
+    getProperty(noteData, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PLAYER_ICON_PATH}`) ?? defaultPath
   );
 
   // ====================================
   // revealedNotes
   // ====================================
-  const enableNoteTintColorLink = game.settings.get(PinCushion.MODULE_NAME, "revealedNotes");
+  const enableNoteTintColorLink = game.settings.get(PinCushion.MODULE_ID, "revealedNotes");
   let pinIsRevealed =
-    getProperty(noteData, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.PIN_IS_REVEALED}`) ?? true;
+    getProperty(noteData, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PIN_IS_REVEALED}`) ?? true;
   // Check box for REVEALED state
   let usePinIsRevealed =
-    getProperty(noteData, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.USE_PIN_REVEALED}`) ?? false;
+    getProperty(noteData, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.USE_PIN_REVEALED}`) ?? false;
 
   // ====================================
   // Tooltip
@@ -421,11 +420,11 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 
   let doNotShowJournalPreviewS = String(
     app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW)
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW)
   );
   if (doNotShowJournalPreviewS !== "true" && doNotShowJournalPreviewS !== "false") {
-    if (game.settings.get(PinCushion.MODULE_NAME, "enableTooltipByDefault")) {
+    if (game.settings.get(PinCushion.MODULE_ID, "enableTooltipByDefault")) {
       doNotShowJournalPreviewS = "false";
     } else {
       doNotShowJournalPreviewS = "true";
@@ -435,39 +434,39 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 
   const previewAsTextSnippet =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET)) ?? false;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET)) ?? false;
 
   const tooltipPlacement =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_PLACEMENT)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_PLACEMENT)) ?? "e";
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_PLACEMENT)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_PLACEMENT)) ?? "e";
 
   const tooltipColor =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_COLOR)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_COLOR)) ?? "";
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_COLOR)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_COLOR)) ?? "";
 
   const tooltipForceRemove =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE)) ?? false;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE)) ?? false;
 
   const tooltipSmartPlacement =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT)) ?? false;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT)) ?? false;
 
   const tooltipFollowMouse =
     (app.document
-      ? app.document.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE)
-      : app.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE)) ?? false;
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE)) ?? false;
 
   const tooltipPlacementHtml = `
 		<select
 		id="pin-cushion-tooltip-placement"
 		style="width: 100%;"
-		name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.TOOLTIP_PLACEMENT}">
+		name="flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.TOOLTIP_PLACEMENT}">
 		<option
 			value="nw-alt"
 			${tooltipPlacement === "nw-alt" ? "selected" : ""}>
@@ -534,7 +533,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 	<select
 		id="pin-cushion-tooltip-color"
 		style="width: 100%;"
-		name="flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.TOOLTIP_COLOR}">
+		name="flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.TOOLTIP_COLOR}">
 		<option
 		value="" ${tooltipColor === "" ? "selected" : ""}>
 			${i18n("pin-cushion.Tooltip.Color.choices.default")}
@@ -584,7 +583,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   // ====================================
   // Other
   // ====================================
-  const enableBackgroundlessPins = game.settings.get(PinCushion.MODULE_NAME, "enableBackgroundlessPins");
+  const enableBackgroundlessPins = game.settings.get(PinCushion.MODULE_ID, "enableBackgroundlessPins");
 
   let pinCushionData = mergeObject(
     {
@@ -623,10 +622,10 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       tooltipColorHtml: tooltipColorHtml,
       tooltipPlacementHtml: tooltipPlacementHtml,
     },
-    app.object.flags[PinCushion.MODULE_NAME] || {}
+    app.object.flags[PinCushion.MODULE_ID] || {}
   );
   // pinCushionData.entity = JSON.stringify(entity);
-  let noteHtml = await renderTemplate(`modules/${PinCushion.MODULE_NAME}/templates/note-config.html`, pinCushionData);
+  let noteHtml = await renderTemplate(`modules/${PinCushion.MODULE_ID}/templates/note-config.html`, pinCushionData);
 
   if ($(".sheet-tabs", html).length) {
     $(".sheet-tabs", html).append(
@@ -750,7 +749,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   $('button[data-target="flags.pin-cushion.PlayerIconPath"]', html).on("click", app._activateFilePicker.bind(app));
 
   const iconCustomSelectorExplicit = html.find(
-    `input[name='flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE}']`
+    `input[name='flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE}']`
   );
   if (iconCustomSelectorExplicit?.length > 0) {
     iconCustomSelectorExplicit.on("change", function () {
@@ -760,7 +759,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   }
 
   const iconCustomPlayerIconPath = html.find(
-    `input[name='flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.PLAYER_ICON_PATH}']`
+    `input[name='flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PLAYER_ICON_PATH}']`
   );
   if (iconCustomPlayerIconPath?.length > 0) {
     iconCustomPlayerIconPath.on("change", function () {
@@ -822,10 +821,10 @@ Hooks.on("renderHeadsUpDisplay", (app, html, data) => {
  * Hook on Note hover
  */
 Hooks.on("hoverNote", (note, hovered) => {
-  // const showPreview = game.settings.get(PinCushion.MODULE_NAME, 'showJournalPreview');
-  const previewDelay = game.settings.get(PinCushion.MODULE_NAME, "previewDelay");
+  // const showPreview = game.settings.get(PinCushion.MODULE_ID, 'showJournalPreview');
+  const previewDelay = game.settings.get(PinCushion.MODULE_ID, "previewDelay");
   let doNotShowJournalPreviewS = String(
-    getProperty(note, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW}`)
+    getProperty(note, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW}`)
   );
   if (doNotShowJournalPreviewS !== "true" && doNotShowJournalPreviewS !== "false") {
     doNotShowJournalPreviewS = "true";
@@ -836,7 +835,7 @@ Hooks.on("hoverNote", (note, hovered) => {
   }
 
   let tooltipForceRemoveS = String(
-    getProperty(note, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE}`)
+    getProperty(note, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE}`)
   );
   if (tooltipForceRemoveS !== "true" && tooltipForceRemoveS !== "false") {
     tooltipForceRemoveS = "false";
@@ -891,43 +890,38 @@ Hooks.on("renderJournalSheet", (app, html, data) => {
 
 Hooks.once("canvasInit", () => {
   // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
-  if (game.user.isGM && game.settings.get(PinCushion.MODULE_NAME, "noteGM")) {
+  if (game.user.isGM && game.settings.get(PinCushion.MODULE_ID, "noteGM")) {
     // eslint-disable-next-line no-undef
     libWrapper.register(
-      PinCushion.MODULE_NAME,
+      PinCushion.MODULE_ID,
       "Note.prototype._drawTooltip",
       PinCushion._addDrawTooltipWithNoteGM,
       "WRAPPER"
     );
   } else {
     // eslint-disable-next-line no-undef
-    libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._drawTooltip", PinCushion._addDrawTooltip2, "MIXED");
+    libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._drawTooltip", PinCushion._addDrawTooltip2, "MIXED");
   }
 
   // eslint-disable-next-line no-undef
-  libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype.refresh", PinCushion._noteRefresh, "WRAPPER");
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype.refresh", PinCushion._noteRefresh, "WRAPPER");
 
   // eslint-disable-next-line no-undef
-  libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype.isVisible", PinCushion._isVisible, "MIXED");
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype.isVisible", PinCushion._isVisible, "MIXED");
 
   // eslint-disable-next-line no-undef
-  libWrapper.register(
-    PinCushion.MODULE_NAME,
-    "Note.prototype._drawControlIcon",
-    PinCushion._drawControlIcon,
-    "OVERRIDE"
-  );
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._drawControlIcon", PinCushion._drawControlIcon, "OVERRIDE");
 
   // eslint-disable-next-line no-undef
-  libWrapper.register(PinCushion.MODULE_NAME, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
 
-  const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_NAME, "oneClickNoteCreation");
+  const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_ID, "oneClickNoteCreation");
   if (enableOneClickNoteCreation) {
     // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
     if (game.user.isGM) {
       // eslint-disable-next-line no-undef
       libWrapper.register(
-        PinCushion.MODULE_NAME,
+        PinCushion.MODULE_ID,
         "NotesLayer.prototype._onClickLeft",
         PinCushion._onSingleClick,
         "OVERRIDE"
@@ -939,32 +933,32 @@ Hooks.once("canvasInit", () => {
 Hooks.on("renderSettingsConfig", (app, html, data) => {
   // Add colour pickers to the Configure Game Settings: Module Settings menu
   let name, colour;
-  name = `${PinCushion.MODULE_NAME}.revealedNotesTintColorLink`;
-  colour = game.settings.get(PinCushion.MODULE_NAME, "revealedNotesTintColorLink");
+  name = `${PinCushion.MODULE_ID}.revealedNotesTintColorLink`;
+  colour = game.settings.get(PinCushion.MODULE_ID, "revealedNotesTintColorLink");
   $("<input>")
     .attr("type", "color")
     .attr("data-edit", name)
     .val(colour)
     .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
 
-  name = `${PinCushion.MODULE_NAME}.revealedNotesTintColorNotLink`;
-  colour = game.settings.get(PinCushion.MODULE_NAME, "revealedNotesTintColorNotLink");
+  name = `${PinCushion.MODULE_ID}.revealedNotesTintColorNotLink`;
+  colour = game.settings.get(PinCushion.MODULE_ID, "revealedNotesTintColorNotLink");
   $("<input>")
     .attr("type", "color")
     .attr("data-edit", name)
     .val(colour)
     .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
 
-  name = `${PinCushion.MODULE_NAME}.revealedNotesTintColorRevealed`;
-  colour = game.settings.get(PinCushion.MODULE_NAME, "revealedNotesTintColorRevealed");
+  name = `${PinCushion.MODULE_ID}.revealedNotesTintColorRevealed`;
+  colour = game.settings.get(PinCushion.MODULE_ID, "revealedNotesTintColorRevealed");
   $("<input>")
     .attr("type", "color")
     .attr("data-edit", name)
     .val(colour)
     .insertAfter($(`input[name="${name}"]`, html).addClass("color"));
 
-  name = `${PinCushion.MODULE_NAME}.revealedNotesTintColorNotRevealed`;
-  colour = game.settings.get(PinCushion.MODULE_NAME, "revealedNotesTintColorNotRevealed");
+  name = `${PinCushion.MODULE_ID}.revealedNotesTintColorNotRevealed`;
+  colour = game.settings.get(PinCushion.MODULE_ID, "revealedNotesTintColorNotRevealed");
   $("<input>")
     .attr("type", "color")
     .attr("data-edit", name)
@@ -973,7 +967,7 @@ Hooks.on("renderSettingsConfig", (app, html, data) => {
 });
 
 Hooks.on("dropCanvasData", (canvas, data) => {
-  const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
+  const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_ID, "enableJournalAnchorLink");
   if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
     if (!(data.type === "JournalEntryPage" && data.anchor)) {
       return;
@@ -1007,9 +1001,9 @@ Hooks.on("dropCanvasData", (canvas, data) => {
 
 // Why doesn't this just exist in core foundry?
 Hooks.on("activateNote", (note, options) => {
-  const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_NAME, "enableJournalAnchorLink");
+  const enableJournalAnchorLink = game.settings.get(PinCushion.MODULE_ID, "enableJournalAnchorLink");
   if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
-    let anchorData = getProperty(note, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.ANCHOR}`);
+    let anchorData = getProperty(note, `document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ANCHOR}`);
     options.anchor = anchorData?.slug;
     //options.anchor = note.document.flags.anchor?.slug;
   }
