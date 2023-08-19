@@ -1318,6 +1318,28 @@ export class PinCushion {
   }
 
   /**
+   * Ensure player notes are updated immediately
+   * @param {*} wrapped
+   * @param  {...any} args
+   * @returns
+   */
+  static _noteUpdate(wrapped, ...args) {
+    const revealedNotes = game.settings.get(PinCushion.MODULE_ID, "revealedNotes");
+    if (revealedNotes) {
+      const [data, options, userId] = args;
+      // Foundry V11: Note#_onUpdate needs to set refreshText render flag
+      let result = wrapper(data, options, userId);
+      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags[MODULE_NAME]) {
+        // Ensure everything is redrawn - since icon colour might change, not just visibility
+        this.renderFlags.set({ redraw: true });
+      }
+      return result;
+    } else {
+      return wrapped(...args);
+    }
+  }
+
+  /**
    * Wraps the default Note#refresh to allow the visibility of scene Notes to be controlled by the reveal
    * state stored in the Note (overriding the default visibility which is based on link accessibility).
    * @param {function} [wrapped] The wrapper function provided by libWrapper

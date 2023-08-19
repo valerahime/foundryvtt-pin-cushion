@@ -2,6 +2,7 @@
 /* Other Hooks							*/
 /* ------------------------------------ */
 
+import * as powertip from "./scripts/lib/jquery.powertip.js";
 import API from "./scripts/api.js";
 import CONSTANTS from "./scripts/constants.js";
 import {
@@ -905,6 +906,8 @@ Hooks.once("canvasInit", () => {
 
   // eslint-disable-next-line no-undef
   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype.refresh", PinCushion._noteRefresh, "WRAPPER");
+
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._onUpdate", PinCushion._noteUpdate, "WRAPPER");
 
   // eslint-disable-next-line no-undef
   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype.isVisible", PinCushion._isVisible, "MIXED");
