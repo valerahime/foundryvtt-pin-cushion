@@ -202,7 +202,8 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 	// 		let x = 0;
 	// 		let y = 0;
 	// 		if (game.settings.get(PinCushion.MODULE_NAME, "tooltipUseMousePositionForCoordinates")) {
-	// 			const positionMouse = canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage);
+	// 			//const positionMouse = canvas.app.renderer.plugins.interaction.mouse.getLocalPosition(canvas.app.stage);
+	//          const positionMouse = canvas.mousePosition;
 	// 			x = positionMouse.x;
 	// 			y = positionMouse.y;
 	// 		} else {

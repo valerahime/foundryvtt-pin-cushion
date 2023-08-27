@@ -1339,6 +1339,23 @@ export class PinCushion {
     }
   }
 
+  static _applyRenderFlags(wrapped, ...args) {
+    let result = wrapped(...args);
+    const hideLabel = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL) ?? false;
+    if (hideLabel) {
+      this.tooltip.visible = false;
+    } else {
+      let textAlwaysVisible =
+        this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
+      if (textAlwaysVisible === true) {
+        // keep journal note label always visible
+        this.tooltip.visible = true;
+      }
+    }
+    this.refresh();
+    return result;
+  }
+
   /**
    * Wraps the default Note#refresh to allow the visibility of scene Notes to be controlled by the reveal
    * state stored in the Note (overriding the default visibility which is based on link accessibility).

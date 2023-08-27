@@ -244,12 +244,11 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
     function getOptions(page, current) {
       let options = "<option></option>";
-      if (page?.type === "text") {
-        for (const section of Object.values(page.toc)) {
-          options += `<option value="${section.slug}"${section.slug === current ? " selected" : ""}>${
-            section.text
-          }</option>`;
-        }
+      for (const key in page?.toc) {
+        const section = page.toc[key];
+        options += `<option value="${section.slug}"${section.slug === current ? " selected" : ""}>${
+          section.text
+        }</option>`;
       }
       return options;
     }
@@ -854,7 +853,8 @@ Hooks.on("hoverNote", (note, hovered) => {
   }
 
   // If the note is hovered by the mouse cursor (not via alt/option)
-  if (hovered && note.mouseInteractionManager.state === 1) {
+  if (hovered) {
+    // TODO && note.mouseInteractionManager.state === 1
     API.pinCushion.hoverTimer = setTimeout(function () {
       canvas.hud.pinCushion.bind(note);
     }, previewDelay);
@@ -870,7 +870,7 @@ Hooks.on("hoverNote", (note, hovered) => {
   // VERSION 2 TOOLTIP
   /*
     // If the note is hovered by the mouse cursor (not via alt/option)
-    if (hovered && note.mouseInteractionManager.state === 1) {
+    if (hovered ) { // TODO && note.mouseInteractionManager.state === 1
 		canvas.hud.pinCushionV2.bind(note)
 	} else {
 		canvas.hud.pinCushionV2.clear()
@@ -903,6 +903,8 @@ Hooks.once("canvasInit", () => {
     // eslint-disable-next-line no-undef
     libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._drawTooltip", PinCushion._addDrawTooltip2, "MIXED");
   }
+
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._applyRenderFlags", PinCushion._applyRenderFlags, "MIXED");
 
   // eslint-disable-next-line no-undef
   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype.refresh", PinCushion._noteRefresh, "WRAPPER");
