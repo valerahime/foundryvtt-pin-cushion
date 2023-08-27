@@ -121,8 +121,8 @@
     "maximum": 11
   },
   "url": "https://github.com/p4535992/foundryvtt-pin-cushion",
-  "manifest": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/v1.9.0/module.json",
-  "download": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/v1.9.0/module.zip",
+  "manifest": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/1.9.0/module.json",
+  "download": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/1.9.0/module.zip",
   "readme": "https://github.com/p4535992/foundryvtt-pin-cushion/blob/master/README.md",
   "changelog": "https://github.com/p4535992/foundryvtt-pin-cushion/blob/master/CHANGELOG.md",
   "bugs": "https://github.com/p4535992/foundryvtt-pin-cushion/issues",

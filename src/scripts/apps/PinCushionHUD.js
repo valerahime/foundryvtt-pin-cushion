@@ -86,7 +86,13 @@ export class PinCushionHUD extends BasePlaceableHUD {
         this.object.document.flags[PinCushion.MODULE_ID],
         PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET
       );
-      const firstContent = entryContent;
+      let firstContent = entryContent;
+      // Support for 'Journal Anchor Links'
+      firstContent = firstContent.replaceAll(
+        "@UUID[.",
+        "@UUID[JournalEntry." + this.object.data.entryId + ".JournalEntryPage."
+      );
+      firstContent = firstContent.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
       if (!previewTypeAdText) {
         content = await TextEditor.enrichHTML(firstContent, {
           secrets: entryIsOwner,
@@ -102,9 +108,8 @@ export class PinCushionHUD extends BasePlaceableHUD {
     }
 
     // Support for 'Journal Anchor Links'
-    let pattern = "@UUID[.";
-    let replacement = "@UUID[JournalEntry." + this.object.data.entryId + ".JournalEntryPage.";
-    content = content.replaceAll(pattern, replacement);
+    content = content.replaceAll("@UUID[.", "@UUID[JournalEntry." + this.object.data.entryId + ".JournalEntryPage.");
+    // content = content.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
 
     let titleTooltip = entryName; // by default is the title of the journal
     const newtextGM = getProperty(this.object.document.flags[PinCushion.MODULE_ID], PinCushion.FLAGS.PIN_GM_TEXT);
