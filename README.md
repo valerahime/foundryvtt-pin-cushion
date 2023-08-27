@@ -42,6 +42,8 @@ To install this module manually:
 
 ## Known issue
 
+- This module slows down opening journals a bit, I guess for the controls and overrides I do for features any help is welcome
+
 ### libWrapper
 
 This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
@@ -200,6 +202,7 @@ Any issues, bugs, or feature requests are always welcome to be reported directly
 - [Pin Fixer](https://github.com/zeel01/pin-fixer) ([MIT](https://github.com/zeel01/pin-fixer/blob/master/LICENSE))
 - [fvtt-revealed-notes-manager](https://github.com/farling42/fvtt-one-click-note-creation) ([MIT](https://github.com/farling42/fvtt-one-click-note-creation/blob/master/LICENSE))
 - [Journal Anchor Links](https://github.com/aMediocreDad/jal) ([Foundry License](https://foundryvtt.com/article/license/))
+- [Player Pin Defaults](https://github.com/ClipplerBlood/player-pin-defaults) ([???]())
 
 This package is under an [GPLv3 License](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
 
@@ -216,3 +219,4 @@ This package is under an [GPLv3 License](LICENSE) and the [Foundry Virtual Table
 - Thank you to [farling42](https://github.com/farling42) and the module [fvtt-one-click-note-creation](https://github.com/farling42/fvtt-one-click-note-creation)
 - Thank you to [Friendly Lambda](https://gitlab.com/friendlylambda/) and the module [map-note-hover-display](https://gitlab.com/friendlylambda/map-note-hover-display)
 - Thank you to [aMediocreDad](https://github.com/aMediocreDad) and the module [Journal Anchor Links](https://github.com/aMediocreDad/jal)
+- Thank you to [ClipplerBlood](https://github.com/ClipplerBlood) and the module [Player Pin Defaults](https://github.com/ClipplerBlood/player-pin-defaults)
