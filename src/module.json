@@ -2,7 +2,7 @@
   "id": "pin-cushion",
   "title": "Pin Cushion",
   "description": "Adds additional map pin (Journal Note/Scene Note) functionality",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "authors": [
     {
       "name": "Cole Schultz",
@@ -121,8 +121,8 @@
     "maximum": 11
   },
   "url": "https://github.com/p4535992/foundryvtt-pin-cushion",
-  "manifest": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/1.9.0/module.json",
-  "download": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/1.9.0/module.zip",
+  "manifest": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/1.9.1/module.json",
+  "download": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/1.9.1/module.zip",
   "readme": "https://github.com/p4535992/foundryvtt-pin-cushion/blob/master/README.md",
   "changelog": "https://github.com/p4535992/foundryvtt-pin-cushion/blob/master/CHANGELOG.md",
   "bugs": "https://github.com/p4535992/foundryvtt-pin-cushion/issues",

@@ -1352,7 +1352,9 @@ export class PinCushion {
         this.tooltip.visible = true;
       }
     }
-    this.refresh();
+    //TODO Loop memory usage ??
+    // this.refresh();
+    // this.draw();
     return result;
   }
 
