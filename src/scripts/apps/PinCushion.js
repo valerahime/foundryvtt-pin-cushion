@@ -1731,7 +1731,11 @@ export class PinCushion {
       if (this.isPreview) {
         return false;
       }
-      return this.document.canUserModify(user, "update");
+      // return this.document.canUserModify(user, "update");
+      const enableDragNoteOnTokenLayerIfGM = game.settings.get(PinCushion.MODULE_ID, "enableDragNoteOnTokenLayerIfGM");
+      if (enableDragNoteOnTokenLayerIfGM && game.user.isGM) {
+        return true;
+      }
     }
     let result = wrapped(...args);
     return result;

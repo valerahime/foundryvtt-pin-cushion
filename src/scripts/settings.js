@@ -140,6 +140,15 @@ export const registerSettings = function () {
     config: true,
   });
 
+  game.settings.register(CONSTANTS.MODULE_ID, "enableDragNoteOnTokenLayerIfGM", {
+    name: game.i18n.localize(`pin-cushion.SETTINGS.enableDragNoteOnTokenLayerIfGMN`),
+    hint: game.i18n.localize(`pin-cushion.SETTINGS.enableDragNoteOnTokenLayerIfGMH`),
+    scope: "world",
+    type: Boolean,
+    default: true,
+    config: true,
+  });
+
   game.settings.register(CONSTANTS.MODULE_ID, "playerIconAutoOverride", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.PlayerIconAutoOverrideN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.PlayerIconAutoOverrideH`),

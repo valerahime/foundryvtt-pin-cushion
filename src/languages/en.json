@@ -99,6 +99,8 @@
 
     "SETTINGS.enableAutoScaleNamePlatesNoteN": "Enable autoscale for nameplates of the note on the canvas",
     "SETTINGS.enableAutoScaleNamePlatesNoteH": "Enable autoscale for nameplates of the note on the canvas",
+    "SETTINGS.enableDragNoteOnTokenLayerIfGMN": "Enable drag note on token layer if GM",
+    "SETTINGS.enableDragNoteOnTokenLayerIfGMH": "Enable drag note on token layer if GM",
 
     "Tooltip.Placement.title": "Tooltip Placement",
     "Tooltip.Placement.choices.north-west-alt": "North West Alt",

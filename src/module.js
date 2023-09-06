@@ -940,7 +940,7 @@ Hooks.once("canvasInit", () => {
   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._drawControlIcon", PinCushion._drawControlIcon, "OVERRIDE");
 
   // eslint-disable-next-line no-undef
-  //   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
+  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
 
   // DEPRECATED ON V11
   //   const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_ID, "oneClickNoteCreation");
