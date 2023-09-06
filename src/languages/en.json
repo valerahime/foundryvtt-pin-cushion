@@ -97,6 +97,9 @@
     "SETTINGS.preventWhenPausedN": "[Only if setting 'Note Triggers ' is enabled] Prevent when paused",
     "SETTINGS.preventWhenPausedH": "Prevent players from triggering Tiles when the game is paused.",
 
+    "SETTINGS.enableAutoScaleNamePlatesNoteN": "Enable autoscale for nameplates of the note on the canvas",
+    "SETTINGS.enableAutoScaleNamePlatesNoteH": "Enable autoscale for nameplates of the note on the canvas",
+
     "Tooltip.Placement.title": "Tooltip Placement",
     "Tooltip.Placement.choices.north-west-alt": "North West Alt",
     "Tooltip.Placement.choices.north-west": "North West",

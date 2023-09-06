@@ -7,7 +7,7 @@
 - Bug fix: issue with the width ratio use the pixel value instead multiply the width
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/76
 - Try to fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/52 and https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
-
+- Add new feature: Auto scale text nameplates of the note (by default is true)
 
 ## 1.9.0-1
 

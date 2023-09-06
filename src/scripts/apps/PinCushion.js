@@ -163,6 +163,22 @@ export class PinCushion {
     };
   }
 
+  static autoScaleNotes(canvas) {
+    if (canvas.notes) {
+      for (let note of canvas.notes.placeables) {
+        note.tooltip.scale.set(PinCushion._calculateAutoScale(canvas.scene.dimensions.size, canvas.stage.scale.x));
+      }
+    }
+  }
+
+  static _calculateAutoScale(sceneDimensionSize, zoomStage) {
+    // Taken from Easy Ruler Scale, a mod by Kandashi
+    // https://github.com/kandashi/easy-ruler-scale
+    const gs = sceneDimensionSize / 100;
+    const zs = 1 / zoomStage;
+    return Math.max(gs * zs, 0.8);
+  }
+
   /**
    * Render a file-picker button linked to an <input> field
    * @param {object} options              Helper options
@@ -1348,13 +1364,12 @@ export class PinCushion {
       let textAlwaysVisible =
         this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
       if (textAlwaysVisible === true) {
-        // keep journal note label always visible
         this.tooltip.visible = true;
       }
     }
     //TODO Loop memory usage ??
     // this.refresh();
-    // this.draw();
+
     return result;
   }
 

@@ -158,6 +158,17 @@ Hooks.once("setup", function () {
     // Automatically flag journal notes to show on the map without having to have your players turn it on themselves.
     game.settings.set("core", "notesDisplayToggle", true);
   }
+
+  const enableAutoScaleNamePlatesNote = game.settings.get(PinCushion.MODULE_ID, "enableAutoScaleNamePlatesNote");
+  if (enableAutoScaleNamePlatesNote) {
+    Hooks.once("canvasReady", () => {
+      Hooks.on("canvasPan", (c) => {
+        if (game.scenes.get(c.scene.id).isView) {
+          PinCushion.autoScaleNotes(c);
+        }
+      });
+    });
+  }
 });
 
 /* ------------------------------------ */

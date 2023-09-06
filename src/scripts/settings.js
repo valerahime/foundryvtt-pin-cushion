@@ -83,6 +83,7 @@ export const registerSettings = function () {
     type: String,
     default: "",
     config: true,
+    filePicker: true,
   });
 
   game.settings.register(CONSTANTS.MODULE_ID, "specificFolder", {
@@ -127,6 +128,15 @@ export const registerSettings = function () {
     scope: "world",
     type: Boolean,
     default: false,
+    config: true,
+  });
+
+  game.settings.register(CONSTANTS.MODULE_ID, "enableAutoScaleNamePlatesNote", {
+    name: game.i18n.localize(`pin-cushion.SETTINGS.enableAutoScaleNamePlatesNoteN`),
+    hint: game.i18n.localize(`pin-cushion.SETTINGS.enableAutoScaleNamePlatesNoteH`),
+    scope: "world",
+    type: Boolean,
+    default: true,
     config: true,
   });
 
