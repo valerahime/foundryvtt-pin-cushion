@@ -1445,14 +1445,14 @@ export class PinCushion {
     API.pinCushion._createDialog(data);
   }
 
-  static async _onSingleClick(event) {
-    log(
-      `Note_onClickLeft: ${event.data.origin.x} ${event.data.origin.y} == ${event.data.global.x} ${event.data.global.y}`
-    );
-    // Create a new Note at the cursor position and open the Note configuration window for it.
-    const noteData = { x: event.data.origin.x, y: event.data.origin.y };
-    this._createPreview(noteData, { top: event.data.global.y - 20, left: event.data.global.x + 40 });
-  }
+  //   static async _onSingleClick(event) {
+  //     log(
+  //       `Note_onClickLeft: ${event.data.origin.x} ${event.data.origin.y} == ${event.data.global.x} ${event.data.global.y}`
+  //     );
+  //     // Create a new Note at the cursor position and open the Note configuration window for it.
+  //     const noteData = { x: event.data.origin.x, y: event.data.origin.y };
+  //     this._createPreview(noteData, { top: event.data.global.y - 20, left: event.data.global.x + 40 });
+  //   }
 
   static _drawControlIconInternal(noteInternal) {
     // Wraps the default Note#_drawControlIcon so that we can override the stored icon tint based
@@ -1543,12 +1543,14 @@ export class PinCushion {
       : 1;
     if (ratio_width != 1) {
       if (noteInternal.document) {
-        icon.width = ratio_width;
+        icon.width = icon.width * ratio_width; // TODO not sure about this
       }
       // else{
       //   icon.width = noteInternal.getFlag(PinCushion.MODULE_ID,  PinCushion.FLAGS.RATIO_WIDTH); // compatibility 0.8.9
       // }
-      // TODO need to centre text
+      // TODO need to centre text of the nameplate ??
+      // https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
+      // https://github.com/p4535992/foundryvtt-pin-cushion/issues/52
     }
     // PATCH MODULE autoIconFlags
     if (noteInternal.document?.flags?.autoIconFlags) {
@@ -1702,6 +1704,7 @@ export class PinCushion {
 
   /**
    * Note.prototype._onClickLeft and Note.prototype._onClickRight seem to work only on the NoteLayer
+   * @href https://github.com/foundryvtt/foundryvtt/issues/8770
    * @param {*} wrapped
    * @param  {...any} args
    * @returns

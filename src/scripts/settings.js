@@ -76,6 +76,15 @@ export const registerSettings = function () {
     },
   });
 
+  game.settings.register(CONSTANTS.MODULE_ID, "defaultNoteImageOnCreate", {
+    name: game.i18n.localize(`pin-cushion.SETTINGS.defaultNoteImageOnCreateN`),
+    hint: game.i18n.localize(`pin-cushion.SETTINGS.defaultNoteImageOnCreateH`),
+    scope: "world",
+    type: String,
+    default: "",
+    config: true,
+  });
+
   game.settings.register(CONSTANTS.MODULE_ID, "specificFolder", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.SpecificFolderN`),
     hint: game.i18n.localize(`pin-cushion.SETTINGS.SpecificFolderH`),
@@ -269,14 +278,15 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
-  game.settings.register(CONSTANTS.MODULE_ID, "oneClickNoteCreation", {
-    name: game.i18n.localize(`pin-cushion.SETTINGS.oneClickNoteCreationN`),
-    hint: game.i18n.localize(`pin-cushion.SETTINGS.oneClickNoteCreationH`),
-    scope: "world",
-    config: true,
-    default: false,
-    type: Boolean,
-  });
+  // DEPRECATED ON V11
+  //   game.settings.register(CONSTANTS.MODULE_ID, "oneClickNoteCreation", {
+  //     name: game.i18n.localize(`pin-cushion.SETTINGS.oneClickNoteCreationN`),
+  //     hint: game.i18n.localize(`pin-cushion.SETTINGS.oneClickNoteCreationH`),
+  //     scope: "world",
+  //     config: true,
+  //     default: false,
+  //     type: Boolean,
+  //   });
 
   game.settings.register(CONSTANTS.MODULE_ID, "enableJournalAnchorLink", {
     name: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalAnchorLinkN`),

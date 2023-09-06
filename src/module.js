@@ -210,18 +210,29 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       setProperty(noteData.document.texture, "src", stripQueryStringAndHashFromPath(journalEntryImage));
     }
   }
+
+  const defaultNoteImageOnCreate = game.settings.get(PinCushion.MODULE_ID, "defaultNoteImageOnCreate");
+
   let tmp = undefined;
   if (noteData.icon.custom) {
     tmp = stripQueryStringAndHashFromPath(noteData.icon.custom);
+  } else if (defaultNoteImageOnCreate) {
+    tmp = stripQueryStringAndHashFromPath(defaultNoteImageOnCreate);
   } else if (app.object.texture.src) {
     tmp = stripQueryStringAndHashFromPath(app.object.texture.src);
   } else if (noteData.document.texture.src) {
     tmp = stripQueryStringAndHashFromPath(noteData.document.texture.src);
   }
-  // TODO find a better method
+  // TODO find a better method for the double check
   if (tmp === "icons/svg/book.svg" && noteData.icon.custom) {
     tmp = stripQueryStringAndHashFromPath(noteData.icon.custom);
   }
+  if (tmp === "icons/svg/book.svg" && defaultNoteImageOnCreate) {
+    tmp = stripQueryStringAndHashFromPath(defaultNoteImageOnCreate);
+  }
+  //   if (tmp === "icons/svg/book.svg" && app.object.texture.src) {
+  //     tmp = stripQueryStringAndHashFromPath(app.object.texture.src);
+  //   }
   if (tmp === "icons/svg/book.svg" && noteData.document.texture.src) {
     tmp = stripQueryStringAndHashFromPath(noteData.document.texture.src);
   }
@@ -918,21 +929,22 @@ Hooks.once("canvasInit", () => {
   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._drawControlIcon", PinCushion._drawControlIcon, "OVERRIDE");
 
   // eslint-disable-next-line no-undef
-  libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
+  //   libWrapper.register(PinCushion.MODULE_ID, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
 
-  const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_ID, "oneClickNoteCreation");
-  if (enableOneClickNoteCreation) {
-    // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
-    if (game.user.isGM) {
-      // eslint-disable-next-line no-undef
-      libWrapper.register(
-        PinCushion.MODULE_ID,
-        "NotesLayer.prototype._onClickLeft",
-        PinCushion._onSingleClick,
-        "OVERRIDE"
-      );
-    }
-  }
+  // DEPRECATED ON V11
+  //   const enableOneClickNoteCreation = game.settings.get(PinCushion.MODULE_ID, "oneClickNoteCreation");
+  //   if (enableOneClickNoteCreation) {
+  //     // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
+  //     if (game.user.isGM) {
+  //       // eslint-disable-next-line no-undef
+  //       libWrapper.register(
+  //         PinCushion.MODULE_ID,
+  //         "NotesLayer.prototype._onClickLeft",
+  //         PinCushion._onSingleClick,
+  //         "OVERRIDE"
+  //       );
+  //     }
+  //   }
 });
 
 Hooks.on("renderSettingsConfig", (app, html, data) => {
