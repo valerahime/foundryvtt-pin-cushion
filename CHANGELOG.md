@@ -5,7 +5,6 @@
 - Removed old setting for "one click creation" because is supported now on v11
 - Add new setting 'Default image icon for on creation of a note' for set a default image when creating a note on the canvas
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/76
-- Try to fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/52 and https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
 - Add new feature: Auto scale text nameplates of the note (by default is true)
 - Add new feature: Drag not on token layer if you are a GM
 
