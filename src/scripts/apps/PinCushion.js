@@ -1241,10 +1241,8 @@ export class PinCushion {
         ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
         : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
-    const ratio_width = is_real_number(
-      noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
-    )
-      ? noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+    const ratio_width = is_real_number(this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH))
+      ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
       : 1;
 
     // Only override default if flag(PinCushion.MODULE_ID,PinCushion.FLAGS.PIN_GM_TEXT) is set
@@ -1261,6 +1259,9 @@ export class PinCushion {
         }
 
         if (ratio_width != 1) {
+          let x = result.x;
+          let left = x + ratio_width * (this.size / 2) - 16;
+          result.x = left;
         }
         return result;
       }
@@ -1279,6 +1280,11 @@ export class PinCushion {
 
     if (hideLabel) {
       result.text = "";
+    }
+    if (ratio_width != 1) {
+      let x = result.x;
+      let left = x + ratio_width * (this.size / 2) - 16;
+      result.x = left;
     }
 
     return result;
@@ -1304,8 +1310,7 @@ export class PinCushion {
     }
     if (ratio_width != 1) {
       let x = result.x;
-      let width = result.parent.width;
-      let left = x + ratio_width * (this.size / 2) - 12;
+      let left = x + ratio_width * (this.size / 2) - 16;
       result.x = left;
     }
     return result;
