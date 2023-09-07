@@ -1241,6 +1241,12 @@ export class PinCushion {
         ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
         : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
+    const ratio_width = is_real_number(
+      noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+    )
+      ? noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+      : 1;
+
     // Only override default if flag(PinCushion.MODULE_ID,PinCushion.FLAGS.PIN_GM_TEXT) is set
     if (game.user.isGM) {
       const newtextGM = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PIN_GM_TEXT);
@@ -1252,6 +1258,9 @@ export class PinCushion {
         } else {
           result.text = newtextGM;
           // this.document.text = newtextGM;
+        }
+
+        if (ratio_width != 1) {
         }
         return result;
       }
@@ -1285,9 +1294,19 @@ export class PinCushion {
         ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
         : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
+    const ratio_width = is_real_number(this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH))
+      ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+      : 1;
+
     let result = wrapped(...args);
     if (hideLabel) {
       result.text = "";
+    }
+    if (ratio_width != 1) {
+      let x = result.x;
+      let width = result.parent.width;
+      let left = x + ratio_width * (this.size / 2) - 12;
+      result.x = left;
     }
     return result;
   }
@@ -1345,13 +1364,13 @@ export class PinCushion {
     if (revealedNotes) {
       // Foundry V11: Note#_onUpdate needs to set refreshText render flag
       let result = wrapper(data, options, userId);
-      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags[PinCushion.MODULE_ID]) {
+      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[PinCushion.MODULE_ID]) {
         // Ensure everything is redrawn - since icon colour might change, not just visibility
         this.renderFlags.set({ redraw: true });
       }
       return result;
     } else {
-      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags[PinCushion.MODULE_ID]) {
+      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[PinCushion.MODULE_ID]) {
         // Ensure everything is redrawn - since icon colour might change, not just visibility
         this.renderFlags.set({ redraw: true });
       }
