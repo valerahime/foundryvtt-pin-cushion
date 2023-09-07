@@ -1368,7 +1368,7 @@ export class PinCushion {
     const [data, options, userId] = args;
     if (revealedNotes) {
       // Foundry V11: Note#_onUpdate needs to set refreshText render flag
-      let result = wrapper(data, options, userId);
+      let result = wrapped(data, options, userId);
       if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[PinCushion.MODULE_ID]) {
         // Ensure everything is redrawn - since icon colour might change, not just visibility
         this.renderFlags.set({ redraw: true });

@@ -1,4 +1,9 @@
 # Changelog
+
+### 1.9.4
+
+- Fast fix wrapper to wrapped
+
 ### 1.9.3 
 
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
