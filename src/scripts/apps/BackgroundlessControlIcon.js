@@ -6,7 +6,16 @@ export class BackgroundlessControlIcon extends ControlIcon {
    */
   async draw() {
     // Load the icon texture
-    this.texture = this.texture ?? (await loadTexture(this.iconSrc));
+    if (!this.iconSrc) {
+      this.texture = PIXI.Texture.EMPTY;
+    } else {
+      try {
+        this.texture = this.texture ?? (await loadTexture(this.iconSrc));
+      } catch (e) {
+        error(e);
+        this.texture = PIXI.Texture.EMPTY;
+      }
+    }
 
     // Don't draw a destroyed Control
     if (this.destroyed) return this;

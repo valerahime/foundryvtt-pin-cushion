@@ -86,11 +86,11 @@ export class PinCushionHUD extends BasePlaceableHUD {
         this.object.document.flags[PinCushion.MODULE_ID],
         PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET
       );
-      let firstContent = entryContent;
+      let firstContent = entryContent ?? "";
       // Support for 'Journal Anchor Links'
       firstContent = firstContent.replaceAll(
         "@UUID[.",
-        "@UUID[JournalEntry." + this.object.data.entryId + ".JournalEntryPage."
+        "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage."
       );
       firstContent = firstContent.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
       if (!previewTypeAdText) {

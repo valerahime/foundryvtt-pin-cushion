@@ -232,8 +232,6 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   let tmp = undefined;
   if (noteData.icon.custom) {
     tmp = stripQueryStringAndHashFromPath(noteData.icon.custom);
-  } else if (defaultNoteImageOnCreate) {
-    tmp = stripQueryStringAndHashFromPath(defaultNoteImageOnCreate);
   } else if (app.object.texture.src) {
     tmp = stripQueryStringAndHashFromPath(app.object.texture.src);
   } else if (noteData.document.texture.src) {
@@ -246,9 +244,6 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   if (tmp === "icons/svg/book.svg" && defaultNoteImageOnCreate) {
     tmp = stripQueryStringAndHashFromPath(defaultNoteImageOnCreate);
   }
-  //   if (tmp === "icons/svg/book.svg" && app.object.texture.src) {
-  //     tmp = stripQueryStringAndHashFromPath(app.object.texture.src);
-  //   }
   if (tmp === "icons/svg/book.svg" && noteData.document.texture.src) {
     tmp = stripQueryStringAndHashFromPath(noteData.document.texture.src);
   }
