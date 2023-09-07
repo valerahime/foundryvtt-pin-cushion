@@ -13,6 +13,7 @@ import {
   error,
   retrieveFirstImageFromJournalId,
   i18n,
+  warn,
 } from "./scripts/lib/lib.js";
 import { registerSettings } from "./scripts/settings.js";
 import { pinCushionSocket, registerSocket } from "./scripts/socket.js";
@@ -216,9 +217,13 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   ) {
     // Journal id
     const journal = game.journal.get(noteData.document.entryId);
-    const journalEntryImage = retrieveFirstImageFromJournalId(journal.id, app.object.pageId, false);
-    if (journalEntryImage) {
-      setProperty(noteData.document.texture, "src", stripQueryStringAndHashFromPath(journalEntryImage));
+    if (journal) {
+      const journalEntryImage = retrieveFirstImageFromJournalId(journal.id, app.object?.pageId, false);
+      if (journalEntryImage) {
+        setProperty(noteData.document.texture, "src", stripQueryStringAndHashFromPath(journalEntryImage));
+      }
+    } else {
+      warn(`The journal with id '${noteData.document.entryId}' do not exists anymore`);
     }
   }
 
