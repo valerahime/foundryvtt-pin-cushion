@@ -316,6 +316,15 @@ export const registerSettings = function () {
     type: Boolean,
   });
 
+  game.settings.register(CONSTANTS.MODULE_ID, "enableJournalDirectoryPages", {
+    name: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalDirectoryPagesN`),
+    hint: game.i18n.localize(`pin-cushion.SETTINGS.enableJournalDirectoryPagesH`),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
   // =====================
   // START MATT INTEGRATION
   // =====================

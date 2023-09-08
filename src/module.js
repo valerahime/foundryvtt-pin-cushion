@@ -905,6 +905,15 @@ Hooks.on("hoverNote", (note, hovered) => {
  */
 Hooks.on("renderJournalDirectory", (app, html, data) => {
   PinCushion._addJournalThumbnail(app, html, data);
+  PinCushion._addJournalDirectoryPages(app, html, data);
+});
+
+Hooks.on("deleteJournalEntryPage", () => {
+  PinCushion._deleteJournalDirectoryPagesEntry();
+});
+
+Hooks.on("createJournalEntryPage", () => {
+  PinCushion._createJournalDirectoryPagesEntry();
 });
 
 Hooks.on("renderJournalSheet", (app, html, data) => {

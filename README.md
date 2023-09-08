@@ -42,7 +42,7 @@ To install this module manually:
 
 ## Known issue
 
-- This module slows down opening journals a bit, I guess for the controls and overrides I do for features any help is welcome
+- This module slows down opening journals a bit (the rendering to understand each other), I guess for all the controls, filters and overrides i do, any help is solved this issue is welcome
 
 ### libWrapper
 
@@ -87,8 +87,6 @@ This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) li
 - **[Only if setting 'Enable Sidebar Journal Images for GM Users' or 'Enable Sidebar Journal Images for Player Users' is enabled] Thumbnail Position**: Whether the thumbnail is left of the journal entry title or right.
 
 - **Use mouse position for show the tooltip**: When you hover a note on the canvas the tooltip is build based on the current mouse position instead the journal icon position. This solution seem to be more dynamic.
-
-- **One click note creation**: THIS FEATURE IS NOT REQUIRED FOR FOUNDRY V10 SINCE IT IS NOW PART OF THE CORE FUNCTIONALITY. Create Notes directly on the Notes Layer with a simple left click without having a connected journal entry.
 
 ## Features
 
@@ -147,6 +145,9 @@ This module add many new settings for many use case on the Note config dialog, h
 - **Enable autoscale for nameplates of the note on the canvas**: Enable autoscale for nameplates of the note on the canvas",
 
 - **Default image icon for on creation of a note** Set the path to a image to use as default icon during the creation of the note on the canvas.
+
+- **Shows Pages in the journal directory**: Adds expandable elements to the journals in their directory to show the journal's pages
+
 
 # Build
 
@@ -209,6 +210,7 @@ Any issues, bugs, or feature requests are always welcome to be reported directly
 - [fvtt-revealed-notes-manager](https://github.com/farling42/fvtt-one-click-note-creation) ([MIT](https://github.com/farling42/fvtt-one-click-note-creation/blob/master/LICENSE))
 - [Journal Anchor Links](https://github.com/aMediocreDad/jal) ([Foundry License](https://foundryvtt.com/article/license/))
 - [Player Pin Defaults](https://github.com/ClipplerBlood/player-pin-defaults) ([???]())
+- [journal-directory-pages](https://github.com/xaukael/journal-directory-pages/)  ([???]())
 
 This package is under an [GPLv3 License](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
 
@@ -226,3 +228,4 @@ This package is under an [GPLv3 License](LICENSE) and the [Foundry Virtual Table
 - Thank you to [Friendly Lambda](https://gitlab.com/friendlylambda/) and the module [map-note-hover-display](https://gitlab.com/friendlylambda/map-note-hover-display)
 - Thank you to [aMediocreDad](https://github.com/aMediocreDad) and the module [Journal Anchor Links](https://github.com/aMediocreDad/jal)
 - Thank you to [ClipplerBlood](https://github.com/ClipplerBlood) and the module [Player Pin Defaults](https://github.com/ClipplerBlood/player-pin-defaults)
+- Thank you to [xaukael](https://github.com/xaukael/) and the module [journal-directory-pages](https://github.com/xaukael/journal-directory-pages/)
