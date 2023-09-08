@@ -214,7 +214,9 @@ export class PinCushionHUD extends BasePlaceableHUD {
     const height = this.object.controlIcon.height;
     let left = x - width / 2;
     if (ratio_width != 1) {
-      left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
+      // left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
+      // left = (x + ratio_width * (this.object.document?.iconSize / 2) - (width * ratio_width * 4));
+      left = x + ratio_width * (width / 2) - (width * ratio_width) / 2;
     }
     const top = y - height / 2;
 
@@ -299,7 +301,9 @@ export class PinCushionHUD extends BasePlaceableHUD {
     const height = this.object.controlIcon.height;
     let left = x - width / 2;
     if (ratio_width != 1) {
-      left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
+      // left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
+      // left = (x + ratio_width * (this.object.document?.iconSize / 2) - (width * ratio_width * 4));
+      left = x + ratio_width * (width / 2) - (width * ratio_width) / 2;
     }
     const top = y - height / 2;
 

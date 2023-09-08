@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.9.6
+
+- Update html template 
+- Bug fix "as possible": https://github.com/p4535992/foundryvtt-pin-cushion/issues/85
+- New Feature: Journal Directory Pages 
+
 ### 1.9.4-5
 
 - BUg fixing
