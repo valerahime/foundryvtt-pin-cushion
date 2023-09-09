@@ -1,5 +1,5 @@
 # Changelog
-
+### 1.9.7 - Fix deprecation
 ### 1.9.6
 
 - Update html template 

@@ -108,7 +108,10 @@ export class PinCushionHUD extends BasePlaceableHUD {
     }
 
     // Support for 'Journal Anchor Links'
-    content = content.replaceAll("@UUID[.", "@UUID[JournalEntry." + this.object.data.entryId + ".JournalEntryPage.");
+    content = content.replaceAll(
+      "@UUID[.",
+      "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage."
+    );
     // content = content.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
 
     let titleTooltip = entryName; // by default is the title of the journal
