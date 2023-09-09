@@ -93,11 +93,14 @@ export const registerSettings = function () {
     type: String,
     choices: () => {
       const folders = game.journal.directory.folders.sort((a, b) => a.name.localeCompare(b.name));
-      const arr = [];
-      return Object.entries(folders).reduce((folder, [k, v]) => {
+      const arrObj = {};
+      arrObj[""] = "Select a journal folder";
+      Object.entries(folders).reduce((folder, [k, v]) => {
         folder[v.id] = v.name;
+        arrObj[v.id] = v.name;
         return folder;
       }, {});
+      return arrObj;
     },
     default: 0,
     config: true,
