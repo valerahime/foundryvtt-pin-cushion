@@ -139,7 +139,7 @@ export const registerSettings = function () {
     hint: game.i18n.localize(`pin-cushion.SETTINGS.enableAutoScaleNamePlatesNoteH`),
     scope: "world",
     type: Boolean,
-    default: true,
+    default: false,
     config: true,
   });
 

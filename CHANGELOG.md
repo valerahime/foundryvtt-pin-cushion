@@ -1,4 +1,7 @@
 # Changelog
+### 1.9.9
+
+- Made module settings "Auto scale text nameplates of the note" by default false for bad feedback
 
 ### 1.9.8
 

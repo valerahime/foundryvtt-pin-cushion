@@ -164,9 +164,12 @@ export class PinCushion {
   }
 
   static autoScaleNotes(canvas) {
-    if (canvas.notes) {
-      for (let note of canvas.notes.placeables) {
-        note.tooltip.scale.set(PinCushion._calculateAutoScale(canvas.scene.dimensions.size, canvas.stage.scale.x));
+    const enableAutoScaleNamePlatesNote = game.settings.get(PinCushion.MODULE_ID, "enableAutoScaleNamePlatesNote");
+    if (enableAutoScaleNamePlatesNote) {
+      if (canvas.notes) {
+        for (let note of canvas.notes.placeables) {
+          note.tooltip.scale.set(PinCushion._calculateAutoScale(canvas.scene.dimensions.size, canvas.stage.scale.x));
+        }
       }
     }
   }
