@@ -410,6 +410,11 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
       : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
+  const numberWsSuffixOnNameplate =
+    (app.document
+      ? app.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
+      : app.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+
   // ====================================
   // enablePlayerIcon
   // ====================================
@@ -620,6 +625,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       ratio: ratio,
       textAlwaysVisible: textAlwaysVisible,
       hideLabel: hideLabel,
+      numberWsSuffixOnNameplate: numberWsSuffixOnNameplate,
 
       enablePlayerIcon: enablePlayerIcon,
       playerIconState: playerIconState,

@@ -104,6 +104,9 @@
     "SETTINGS.enableJournalDirectoryPagesN": "Shows Pages in the journal directory",
     "SETTINGS.enableJournalDirectoryPagesH": "Adds expandable elements to the journals in their directory to show the journal's pages",
 
+    "NumberWsSuffixOnNameplateN": "Trick Setting: Enter the number of white spaces to be added as suffix (or prefix with negative number) in the nameplate of the note for a better center alignment",
+    "NumberWsSuffixOnNameplateH": "Temporary tooltip text alignment trick with width ratio != 1. Basically I would have to rewrite quite a bit of code, to apply the same logic as the tiles on the notes...something the foundryvtt team should do . As a temporary trick we add a number of whitespace as a suffix to better 'center' the text on the note.",
+
     "Tooltip.Placement.title": "Tooltip Placement",
     "Tooltip.Placement.choices.north-west-alt": "North West Alt",
     "Tooltip.Placement.choices.north-west": "North West",

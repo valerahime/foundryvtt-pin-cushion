@@ -1,4 +1,9 @@
 # Changelog
+
+### 1.9.10
+
+- Add a trick settings for do a better center alignment when ratio is !=1. Need some more expert than me for avoid this...
+
 ### 1.9.9
 
 - Made module settings "Auto scale text nameplates of the note" by default false for bad feedback

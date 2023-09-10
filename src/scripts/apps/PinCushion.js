@@ -160,6 +160,7 @@ export class PinCushion {
       SHOW_ONLY_TO_GM: "showOnlyToGM",
       PIN_IS_TRANSPARENT: "pinIsTransparent",
       ANCHOR: "anchor",
+      NUMBER_WS_SUFFIX_ON_NAMEPLATE: "numberWsSuffixOnNameplate",
     };
   }
 
@@ -596,6 +597,11 @@ export class PinCushion {
         ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
         : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
+    const numberWsSuffixOnNameplate =
+      (this.document
+        ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
+        : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+
     const ratio_width = is_real_number(this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH))
       ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
       : 1;
@@ -609,7 +615,13 @@ export class PinCushion {
           result.text = "";
           // this.document.text = '';
         } else {
-          result.text = newtextGM;
+          if (numberWsSuffixOnNameplate > 0) {
+            result.text = newtextGM + " ".repeat(numberWsSuffixOnNameplate);
+          } else if (numberWsSuffixOnNameplate < 0) {
+            result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + newtextGM;
+          } else {
+            result.text = newtextGM;
+          }
           // this.document.text = newtextGM;
         }
 
@@ -635,6 +647,12 @@ export class PinCushion {
 
     if (hideLabel) {
       result.text = "";
+    } else {
+      if (numberWsSuffixOnNameplate > 0) {
+        result.text = result.text + " ".repeat(numberWsSuffixOnNameplate);
+      } else if (numberWsSuffixOnNameplate < 0) {
+        result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + result.text;
+      }
     }
     if (ratio_width != 1) {
       let x = result.x;
@@ -655,6 +673,11 @@ export class PinCushion {
         ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
         : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
 
+    const numberWsSuffixOnNameplate =
+      (this.document
+        ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
+        : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+
     const ratio_width = is_real_number(this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH))
       ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
       : 1;
@@ -662,6 +685,12 @@ export class PinCushion {
     let result = wrapped(...args);
     if (hideLabel) {
       result.text = "";
+    } else {
+      if (numberWsSuffixOnNameplate > 0) {
+        result.text = result.text + " ".repeat(numberWsSuffixOnNameplate);
+      } else if (numberWsSuffixOnNameplate < 0) {
+        result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + result.text;
+      }
     }
     if (ratio_width != 1) {
       let x = result.x;
@@ -741,6 +770,9 @@ export class PinCushion {
   static _applyRenderFlags(wrapped, ...args) {
     let result = wrapped(...args);
     const hideLabel = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL) ?? false;
+    const numberWsSuffixOnNameplate =
+      this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE) ?? 0;
+
     if (hideLabel) {
       this.tooltip.visible = false;
     } else {
