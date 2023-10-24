@@ -8,7 +8,7 @@ import CONSTANTS from "./scripts/constants.js";
 import {
   log,
   debug,
-  is_real_number,
+  isRealNumber,
   stripQueryStringAndHashFromPath,
   error,
   retrieveFirstImageFromJournalId,
@@ -270,13 +270,13 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       return options;
     }
     // <select name="flags.anchor.slug">${getOptions(noteData.document.page, noteData.document.flags.anchor?.slug)}</select>
-    let anchorData = getProperty(noteData.document.flags, `${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ANCHOR}`); // noteData.document.flags.anchor;
+    let anchorData = getProperty(noteData.document.flags, `${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}`); // noteData.document.flags.anchor;
     let pageData = noteData.document.page;
     let select = $(`
 		<div class='form-group'>
 			<label>${i18n(`${CONSTANTS.MODULE_ID}.PageSection`)}</label>
 			<div class='form-fields'>
-				<select name="flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ANCHOR}.slug">
+				<select name="flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}.slug">
 					${getOptions(pageData, anchorData?.slug)}
 				</select>
 			</div>
@@ -294,12 +294,14 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       // getOptions(newpage, data.document.flags.anchor?.slug))
       log("new options =" + getOptions(newpage, anchorData?.slug));
       // app.form.elements["flags.anchor.slug"].innerHTML = getOptions(newpage, data.document.flags.anchor?.slug);
-      app.form.elements[`flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ANCHOR}.slug`].innerHTML = getOptions(
+      app.form.elements[`flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}.slug`].innerHTML = getOptions(
         newpage,
         anchorData?.slug
       );
       // app.form.elements["flags.anchor.slug"].innerHTML
-      log("new innerHtml" + app.form.elements[`flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ANCHOR}.slug`].innerHTML);
+      log(
+        "new innerHtml" + app.form.elements[`flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}.slug`].innerHTML
+      );
     }
     html.find("select[name='entryId']").change(_updateSectionList);
     pageid.change(_updateSectionList);
@@ -1022,7 +1024,7 @@ Hooks.on("dropCanvasData", (canvas, data) => {
 Hooks.on("activateNote", (note, options) => {
   const enableJournalAnchorLink = game.settings.get(CONSTANTS.MODULE_ID, "enableJournalAnchorLink");
   if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
-    let anchorData = getProperty(note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ANCHOR}`);
+    let anchorData = getProperty(note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}`);
     options.anchor = anchorData?.slug;
     //options.anchor = note.document.flags.anchor?.slug;
   }

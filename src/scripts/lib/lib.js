@@ -50,7 +50,7 @@ export function getDocument(target) {
   if (target instanceof foundry.abstract.Document) return target;
   return target?.document;
 }
-export function is_real_number(inNumber) {
+export function isRealNumber(inNumber) {
   return !isNaN(inNumber) && typeof inNumber === "number" && isFinite(inNumber);
 }
 export function isGMConnected() {

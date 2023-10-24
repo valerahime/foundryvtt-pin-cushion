@@ -5,7 +5,7 @@ import {
   i18nFormat,
   info,
   isAlt,
-  is_real_number,
+  isRealNumber,
   log,
   retrieveFirstImageFromJournalId,
   stripQueryStringAndHashFromPath,
@@ -214,8 +214,8 @@ export class PinCushion {
 
     const defaultJournalPermission = game.settings.get(CONSTANTS.MODULE_ID, "defaultJournalPermission");
     if (
-      is_real_number(defaultJournalPermission) &&
-      (!is_real_number(permission.default) || permission.default === 0) &&
+      isRealNumber(defaultJournalPermission) &&
+      (!isRealNumber(permission.default) || permission.default === 0) &&
       defaultJournalPermission >= 0
     ) {
       permission.default = defaultJournalPermission;
@@ -558,7 +558,7 @@ export class PinCushion {
         ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
         : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
 
-    const ratio_width = is_real_number(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+    const ratio_width = isRealNumber(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
       ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
       : 1;
 
@@ -634,7 +634,7 @@ export class PinCushion {
         ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
         : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
 
-    const ratio_width = is_real_number(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+    const ratio_width = isRealNumber(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
       ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
       : 1;
 
@@ -921,7 +921,7 @@ export class PinCushion {
         icon.y -= noteInternal.size / 2;
       }
     }
-    const ratio_width = is_real_number(noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+    const ratio_width = isRealNumber(noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
       ? noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
       : 1;
     if (ratio_width != 1) {

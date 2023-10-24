@@ -1,7 +1,7 @@
 import CONSTANTS from "../constants.js";
 import {
   isPlacementVertical,
-  is_real_number,
+  isRealNumber,
   retrieveFirstImageFromJournalId,
   retrieveFirstTextFromJournalId,
 } from "../lib/lib.js";
@@ -199,7 +199,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
     // }
 
     const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
-    const ratio_width = is_real_number(ratio) ? ratio : 1;
+    const ratio_width = isRealNumber(ratio) ? ratio : 1;
     const viewWidth = visualViewport.width;
 
     // const height = this.object.controlIcon.texture?.height
@@ -286,7 +286,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
     // }
 
     const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
-    const ratio_width = is_real_number(ratio) ? ratio : 1;
+    const ratio_width = isRealNumber(ratio) ? ratio : 1;
     const viewWidth = visualViewport.width;
 
     // const height = this.object.controlIcon.texture?.height

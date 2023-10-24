@@ -27,7 +27,7 @@ const CONSTANTS = {
     ABOVE_FOG: "aboveFog",
     SHOW_ONLY_TO_GM: "showOnlyToGM",
     PIN_IS_TRANSPARENT: "pinIsTransparent",
-    ANCHOR: "anchor",
+    JAL_ANCHOR: "anchor",
     NUMBER_WS_SUFFIX_ON_NAMEPLATE: "numberWsSuffixOnNameplate",
     TOOLTIP_CUSTOM_DESCRIPTION: "tooltipCustomDescription",
     TOOLTIP_SHOW_DESCRIPTION: "tooltipShowDescription",

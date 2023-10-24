@@ -1,7 +1,7 @@
 import CONSTANTS from "../constants.js";
 import {
 	isPlacementVertical,
-	is_real_number,
+	isRealNumber,
 	retrieveFirstImageFromJournalId,
 	retrieveFirstTextFromJournalId
 } from "../lib/lib.js";
@@ -212,7 +212,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 	// 		}
 
 	// 		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
-	//		const ratio_width =  is_real_number(ratio)
+	//		const ratio_width =  isRealNumber(ratio)
 	//		? ratio
 	//		: 1;
 	// 		const viewWidth = visualViewport.width;
