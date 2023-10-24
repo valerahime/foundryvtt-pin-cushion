@@ -151,6 +151,8 @@
 		"SETTINGS.enableDragNoteOnTokenLayerIfGMH": "Activer le glissement de note sur la couche de jeton si MJ",
 		"SETTINGS.enableAutoScaleNamePlatesNoteH": "Activer la mise à l'échelle automatique pour les plaques de la note sur le canevas",
 		"SETTINGS.enableJournalDirectoryPagesN": "Affiche les pages dans le répertoire du journal",
-		"SETTINGS.enableJournalDirectoryPagesH": "Ajoute des éléments extensibles aux journaux de leur répertoire pour afficher les pages du journal"
+		"SETTINGS.enableJournalDirectoryPagesH": "Ajoute des éléments extensibles aux journaux de leur répertoire pour afficher les pages du journal",
+		"NumberWsSuffixOnNameplateN": "Réglage astucieux : Saisir le nombre d'espaces blancs à ajouter en suffixe (ou en préfixe avec un nombre négatif) dans la plaque signalétique de la note pour un meilleur alignement au centre",
+		"NumberWsSuffixOnNameplateH": "Astuce d'alignement temporaire du texte de l'infobulle avec un ratio de largeur != 1. En fait, il faudrait que je réécrive une bonne partie du code pour appliquer la même logique que les tuiles sur les notes... ce que l'équipe de foundryvtt devrait faire. Comme astuce temporaire, nous ajoutons un certain nombre d'espaces blancs comme suffixe pour mieux \"centrer\" le texte sur la note."
 	}
 }
