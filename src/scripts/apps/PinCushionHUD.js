@@ -64,6 +64,10 @@ export class PinCushionHUD extends BasePlaceableHUD {
       this.object.document.flags[CONSTANTS.MODULE_ID],
       CONSTANTS.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE
     );
+    const tooltipCustomDescription = getProperty(
+      this.object.document.flags[CONSTANTS.MODULE_ID],
+      CONSTANTS.FLAGS.TOOLTIP_CUSTOM_DESCRIPTION
+    );
 
     let content;
     if (showImage) {
@@ -82,37 +86,50 @@ export class PinCushionHUD extends BasePlaceableHUD {
         });
       }
     } else {
-      const previewTypeAdText = getProperty(
-        this.object.document.flags[CONSTANTS.MODULE_ID],
-        CONSTANTS.FLAGS.PREVIEW_AS_TEXT_SNIPPET
-      );
-      let firstContent = entryContent ?? "";
-      // Support for 'Journal Anchor Links'
-      firstContent = firstContent.replaceAll(
-        "@UUID[.",
-        "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage."
-      );
-      firstContent = firstContent.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
-      if (!previewTypeAdText) {
-        content = await TextEditor.enrichHTML(firstContent, {
-          secrets: entryIsOwner,
-          documents: true,
-          async: true,
-        });
-      } else {
+      if (!entry && tooltipCustomDescription) {
         const previewMaxLength = game.settings.get(CONSTANTS.MODULE_ID, "previewMaxLength");
-        const textContent = $(firstContent).text();
+        const textContent = tooltipCustomDescription;
         content =
           textContent.length > previewMaxLength ? `${textContent.substr(0, previewMaxLength)} ...` : textContent;
+      } else {
+        const previewTypeAsText = getProperty(
+          this.object.document.flags[CONSTANTS.MODULE_ID],
+          CONSTANTS.FLAGS.PREVIEW_AS_TEXT_SNIPPET
+        );
+        let firstContent = entryContent ?? "";
+        // START Support for 'Journal Anchor Links' JAL
+        if (this.object.document.entryId) {
+          firstContent = firstContent.replaceAll(
+            "@UUID[.",
+            "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage."
+          );
+          firstContent = firstContent.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
+        }
+        // END Support for 'Journal Anchor Links' JAL
+        if (!previewTypeAsText) {
+          content = await TextEditor.enrichHTML(firstContent, {
+            secrets: entryIsOwner,
+            documents: true,
+            async: true,
+          });
+        } else {
+          const previewMaxLength = game.settings.get(CONSTANTS.MODULE_ID, "previewMaxLength");
+          const textContent = $(firstContent).text();
+          content =
+            textContent.length > previewMaxLength ? `${textContent.substr(0, previewMaxLength)} ...` : textContent;
+        }
       }
     }
 
-    // Support for 'Journal Anchor Links'
-    content = content.replaceAll(
-      "@UUID[.",
-      "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage."
-    );
-    // content = content.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
+    // START Support for 'Journal Anchor Links'
+    if (this.object.document.entryId) {
+      content = content.replaceAll(
+        "@UUID[.",
+        "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage."
+      );
+      // content = content.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
+    }
+    // END Support for 'Journal Anchor Links'
 
     let titleTooltip = entryName; // by default is the title of the journal
     const newtextGM = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
@@ -137,15 +154,22 @@ export class PinCushionHUD extends BasePlaceableHUD {
     data.fontSize = fontSize;
     data.maxWidth = maxWidth;
 
+    const isTooltipShowTitleS = getProperty(
+      this.object.document.flags[CONSTANTS.MODULE_ID],
+      CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE
+    );
+    const isTooltipShowDescriptionS = getProperty(
+      this.object.document.flags[CONSTANTS.MODULE_ID],
+      CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION
+    );
+
+    const isTooltipShowTitle = String(isTooltipShowTitleS) === "true" ? true : false;
+    const isTooltipShowDescription = String(isTooltipShowDescriptionS) === "true" ? true : false;
+
     this.contentTooltip = await TextEditor.enrichHTML(`
           <div id="container" class="pin-cushion-hud-container" style="font-size:${fontSize}px; max-width:${maxWidth}px">
-              <div id="header">
-                  <h3>${titleTooltip}</h3>
-              </div>
-              <hr/>
-              <div id="content">
-                ${content}
-              </div>
+              ${isTooltipShowTitle ? `<div id="header"><h3>${titleTooltip}</h3></div><hr/>` : ``}
+              ${isTooltipShowDescription ? `<div id="content">${content} </div>` : ``}
           </div>
 
       `);
