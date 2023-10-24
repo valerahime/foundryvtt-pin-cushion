@@ -229,7 +229,7 @@ export class PinCushionContainer {
 	// 	log(event);
 	// 	event.stopPropagation();
 	// 	let tooltipForceRemoveS = String(
-	// 		getProperty(this.note, `document.flags.${PinCushion.MODULE_NAME}.${PinCushion.FLAGS.TOOLTIP_FORCE_REMOVE}`)
+	// 		getProperty(this.note, `document.flags.${PinCushion.MODULE_NAME}.${CONSTANTS.FLAGS.TOOLTIP_FORCE_REMOVE}`)
 	// 	);
 	// 	if (tooltipForceRemoveS !== "true" && tooltipForceRemoveS !== "false") {
 	// 		tooltipForceRemoveS = "false";

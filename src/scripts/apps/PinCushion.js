@@ -26,23 +26,8 @@ export class PinCushion {
 
   /* -------------------------------- Constants ------------------------------- */
 
-  static get MODULE_ID() {
-    return CONSTANTS.MODULE_ID;
-    // return "pin-cushion";
-  }
-
-  static get MODULE_TITLE() {
-    return CONSTANTS.MODULE_TITLE;
-    // return "Pin Cushion";
-  }
-
-  static get PATH() {
-    return CONSTANTS.PATH;
-    // return "modules/pin-cushion";
-  }
-
   static get DIALOG() {
-    const defaultPermission = game.settings.get(PinCushion.MODULE_ID, "defaultJournalPermission");
+    const defaultPermission = game.settings.get(CONSTANTS.MODULE_ID, "defaultJournalPermission");
     let defaultPermissionName = "NONE";
     if (String(defaultPermission) === "0") {
       defaultPermissionName = "NONE";
@@ -57,9 +42,9 @@ export class PinCushion {
       defaultPermissionName = "OWNER";
     }
     // none, perUser, specificFolder
-    const defaultFolder = game.settings.get(PinCushion.MODULE_ID, "defaultJournalFolder");
+    const defaultFolder = game.settings.get(CONSTANTS.MODULE_ID, "defaultJournalFolder");
 
-    const specificFolder = game.settings.get(PinCushion.MODULE_ID, "specificFolder");
+    const specificFolder = game.settings.get(CONSTANTS.MODULE_ID, "specificFolder");
     const specificFolderObj =
       game.journal.directory.folders.find((f) => f.name === specificFolder || f.id === specificFolder) ??
       game.journal.directory.folders[Number(specificFolder)] ??
@@ -135,37 +120,8 @@ export class PinCushion {
     return 16;
   }
 
-  static get FLAGS() {
-    return {
-      USE_PIN_REVEALED: "usePinIsRevealed",
-      PIN_IS_REVEALED: "pinIsRevealed",
-      PIN_GM_TEXT: "gmNote",
-      HAS_BACKGROUND: "hasBackground",
-      RATIO_WIDTH: "ratio",
-      TEXT_ALWAYS_VISIBLE: "textAlwaysVisible",
-      PLAYER_ICON_STATE: "PlayerIconState",
-      PLAYER_ICON_PATH: "PlayerIconPath",
-      CUSHION_ICON: "cushionIcon",
-      SHOW_IMAGE: "showImage",
-      SHOW_IMAGE_EXPLICIT_SOURCE: "showImageExplicitSource",
-      HIDE_LABEL: "hideLabel",
-      DO_NOT_SHOW_JOURNAL_PREVIEW: "doNotShowJournalPreview",
-      TOOLTIP_PLACEMENT: "tooltipPlacement",
-      TOOLTIP_COLOR: "tooltipColor",
-      TOOLTIP_FORCE_REMOVE: "tooltipForceRemove",
-      TOOLTIP_SMART_PLACEMENT: "tooltipSmartPlacement",
-      TOOLTIP_FOLLOW_MOUSE: "tooltipFollowMouse",
-      PREVIEW_AS_TEXT_SNIPPET: "previewAsTextSnippet",
-      ABOVE_FOG: "aboveFog",
-      SHOW_ONLY_TO_GM: "showOnlyToGM",
-      PIN_IS_TRANSPARENT: "pinIsTransparent",
-      ANCHOR: "anchor",
-      NUMBER_WS_SUFFIX_ON_NAMEPLATE: "numberWsSuffixOnNameplate",
-    };
-  }
-
   static autoScaleNotes(canvas) {
-    const enableAutoScaleNamePlatesNote = game.settings.get(PinCushion.MODULE_ID, "enableAutoScaleNamePlatesNote");
+    const enableAutoScaleNamePlatesNote = game.settings.get(CONSTANTS.MODULE_ID, "enableAutoScaleNamePlatesNote");
     if (enableAutoScaleNamePlatesNote) {
       if (canvas.notes) {
         for (let note of canvas.notes.placeables) {
@@ -256,7 +212,7 @@ export class PinCushion {
       default: parseInt($("#cushion-permission").val()) ?? 0,
     };
 
-    const defaultJournalPermission = game.settings.get(PinCushion.MODULE_ID, "defaultJournalPermission");
+    const defaultJournalPermission = game.settings.get(CONSTANTS.MODULE_ID, "defaultJournalPermission");
     if (
       is_real_number(defaultJournalPermission) &&
       (!is_real_number(permission.default) || permission.default === 0) &&
@@ -280,7 +236,7 @@ export class PinCushion {
         // folder = (await pinCushionSocket.executeAsGM('requestEvent', { action: "createFolder" }))?._id;
       }
     } else if (selectedFolder === "specificFolder") {
-      const settingSpecificFolder = game.settings.get(PinCushion.MODULE_ID, "specificFolder");
+      const settingSpecificFolder = game.settings.get(CONSTANTS.MODULE_ID, "specificFolder");
       folder = PinCushion.getFolder(game.user.name, selectedFolder, settingSpecificFolder);
     } else {
       folder = selectedFolder; // Folder is already given as ID
@@ -346,7 +302,7 @@ export class PinCushion {
    */
   static async _createFolders() {
     // Collect missing folders
-    const setting = game.settings.get(PinCushion.MODULE_ID, "defaultJournalFolder");
+    const setting = game.settings.get(CONSTANTS.MODULE_ID, "defaultJournalFolder");
     const missingFolders = game.users
       .filter((u) => !u.isGM && PinCushion.getFolder(u.name, setting) === undefined)
       .map((user) => ({
@@ -526,9 +482,9 @@ export class PinCushion {
   }
 
   static _addNoteGM(app, html, noteData) {
-    let gmNoteFlagRef = `flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PIN_GM_TEXT}`;
+    let gmNoteFlagRef = `flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PIN_GM_TEXT}`;
     // Input for GM Label
-    let gmtext = noteData.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PIN_GM_TEXT);
+    let gmtext = noteData.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_GM_TEXT);
     if (!gmtext) gmtext = "";
     let gm_text_h = $(
       `<div class="form-group">
@@ -590,25 +546,25 @@ export class PinCushion {
    * @returns {PIXI.Text}
    */
   static _addDrawTooltipWithNoteGM(wrapped, ...args) {
-    //const enableNoteGM = game.settings.get(PinCushion.MODULE_ID, 'noteGM');
+    //const enableNoteGM = game.settings.get(CONSTANTS.MODULE_ID, 'noteGM');
 
     const hideLabel =
       (this.document
-        ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
-        : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
+        ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)
+        : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)) ?? false;
 
     const numberWsSuffixOnNameplate =
       (this.document
-        ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
-        : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+        ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
+        : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
 
-    const ratio_width = is_real_number(this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH))
-      ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+    const ratio_width = is_real_number(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+      ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
       : 1;
 
-    // Only override default if flag(PinCushion.MODULE_ID,PinCushion.FLAGS.PIN_GM_TEXT) is set
+    // Only override default if flag(CONSTANTS.MODULE_ID,CONSTANTS.FLAGS.PIN_GM_TEXT) is set
     if (game.user.isGM) {
-      const newtextGM = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PIN_GM_TEXT);
+      const newtextGM = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_GM_TEXT);
       if (newtextGM && newtextGM.length > 0) {
         let result = wrapped(...args);
         if (hideLabel) {
@@ -670,16 +626,16 @@ export class PinCushion {
   static _addDrawTooltip2(wrapped, ...args) {
     const hideLabel =
       (this.document
-        ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)
-        : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL)) ?? false;
+        ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)
+        : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)) ?? false;
 
     const numberWsSuffixOnNameplate =
       (this.document
-        ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
-        : this.object.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+        ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
+        : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
 
-    const ratio_width = is_real_number(this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH))
-      ? this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+    const ratio_width = is_real_number(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+      ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
       : 1;
 
     let result = wrapped(...args);
@@ -709,7 +665,7 @@ export class PinCushion {
    */
   static _isVisible(wrapped, ...args) {
     let result = wrapped(...args);
-    const showOnlyToGM = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.SHOW_ONLY_TO_GM) ?? false;
+    const showOnlyToGM = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.SHOW_ONLY_TO_GM) ?? false;
     if (String(showOnlyToGM) === "true") {
       if (!game.user.isGM) {
         return false;
@@ -726,12 +682,12 @@ export class PinCushion {
             return canvas.effects.visibility.testVisibility(point, {tolerance, object: this});
         */
     // See if reveal state is enabled for this note.
-    if (!this.document.getFlag(CONSTANTS.MODULE_ID, PinCushion.FLAGS.USE_PIN_REVEALED)) {
+    if (!this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.USE_PIN_REVEALED)) {
       return wrapped(...args);
     }
 
     // Replace the testUserPermission test of Note#isVisible
-    const access = this.document.getFlag(CONSTANTS.MODULE_ID, PinCushion.FLAGS.PIN_IS_REVEALED);
+    const access = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_IS_REVEALED);
     // Standard version of Note#isVisible
     if (access === false || !canvas.effects.visibility.tokenVision || this.document.global) {
       return access;
@@ -748,18 +704,18 @@ export class PinCushion {
    * @returns
    */
   static _noteUpdate(wrapped, ...args) {
-    const revealedNotes = game.settings.get(PinCushion.MODULE_ID, "revealedNotes");
+    const revealedNotes = game.settings.get(CONSTANTS.MODULE_ID, "revealedNotes");
     const [data, options, userId] = args;
     if (revealedNotes) {
       // Foundry V11: Note#_onUpdate needs to set refreshText render flag
       let result = wrapped(data, options, userId);
-      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[PinCushion.MODULE_ID]) {
+      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[CONSTANTS.MODULE_ID]) {
         // Ensure everything is redrawn - since icon colour might change, not just visibility
         this.renderFlags.set({ redraw: true });
       }
       return result;
     } else {
-      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[PinCushion.MODULE_ID]) {
+      if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[CONSTANTS.MODULE_ID]) {
         // Ensure everything is redrawn - since icon colour might change, not just visibility
         this.renderFlags.set({ redraw: true });
       }
@@ -769,15 +725,14 @@ export class PinCushion {
 
   static _applyRenderFlags(wrapped, ...args) {
     let result = wrapped(...args);
-    const hideLabel = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HIDE_LABEL) ?? false;
+    const hideLabel = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL) ?? false;
     const numberWsSuffixOnNameplate =
-      this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE) ?? 0;
+      this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE) ?? 0;
 
     if (hideLabel) {
       this.tooltip.visible = false;
     } else {
-      let textAlwaysVisible =
-        this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
+      let textAlwaysVisible = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
       if (textAlwaysVisible === true) {
         this.tooltip.visible = true;
       }
@@ -798,7 +753,7 @@ export class PinCushion {
   static _noteRefresh(wrapped, ...args) {
     let result = wrapped(...args);
 
-    let textAlwaysVisible = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
+    let textAlwaysVisible = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TEXT_ALWAYS_VISIBLE) ?? false;
     // let textVisible = this.hover;
     if (textAlwaysVisible === true) {
       // Keep tooltip always visible
@@ -815,7 +770,7 @@ export class PinCushion {
 
     let text = this.children[1]; // 0 is the ControlIcon, 1 is the PreciseText
     // Text is created bevor this point. So we can modify it here.
-    let ratio = this.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH);
+    let ratio = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH);
     if (ratio && text?.x) {
       text.x = (this.size * (ratio - 1)) / 2; // correct shifting for the new scale.
     }
@@ -829,7 +784,7 @@ export class PinCushion {
     /*
         // NEW FEATURE : Above fog feature
         let aboveFogS = String(
-        getProperty(this.document, `this.document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ABOVE_FOG}`),
+        getProperty(this.document, `this.document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ABOVE_FOG}`),
         );
         if (aboveFogS !== 'true' && aboveFogS !== 'false') {
         aboveFogS = 'false';
@@ -888,14 +843,14 @@ export class PinCushion {
     // Wraps the default Note#_drawControlIcon so that we can override the stored icon tint based
     // on whether the link is accessible for the current player (or not). This is only done for links which
     // are using the "revealed" flag.
-    const revealedNotes = game.settings.get(PinCushion.MODULE_ID, "revealedNotes");
+    const revealedNotes = game.settings.get(CONSTANTS.MODULE_ID, "revealedNotes");
     if (revealedNotes) {
       if (game.user.isGM) {
         // Replacement for Note#_drawControlIcon for GMs, to show which pins are revealed.
-        const is_revealed = noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PIN_IS_REVEALED);
+        const is_revealed = noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_IS_REVEALED);
         if (is_revealed != undefined) {
           const colour = game.settings.get(
-            PinCushion.MODULE_ID,
+            CONSTANTS.MODULE_ID,
             is_revealed ? "revealedNotesTintColorRevealed" : "revealedNotesTintColorNotRevealed"
           );
           if (colour?.length > 0) {
@@ -909,18 +864,18 @@ export class PinCushion {
         }
       } else {
         // if (!noteInternal.document.getFlag(MODULE_ID, USE_PIN_REVEALED)) return wrapped(...args);
-        const use_reveal = noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.USE_PIN_REVEALED);
+        const use_reveal = noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.USE_PIN_REVEALED);
         if (use_reveal === undefined || !use_reveal) {
           // return wrapped(...args);
         } else {
-          const value = noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.USE_PIN_REVEALED);
+          const value = noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.USE_PIN_REVEALED);
           if (value !== undefined) {
             const is_linked = noteInternal.entry?.testUserPermission(
               game.user,
               CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED
             );
             const colour = game.settings.get(
-              PinCushion.MODULE_ID,
+              CONSTANTS.MODULE_ID,
               is_linked ? "revealedNotesTintColorLink" : "revealedNotesTintColorNotLink"
             );
             if (colour?.length > 0) {
@@ -938,7 +893,7 @@ export class PinCushion {
 
     let tint = noteInternal.document.texture.tint ? Color.from(noteInternal.document.texture.tint) : null;
     let currentIcon = noteInternal.document.texture.src;
-    const pinIsTransparent = noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PIN_IS_TRANSPARENT);
+    const pinIsTransparent = noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_IS_TRANSPARENT);
     if (String(pinIsTransparent) === "true") {
       currentIcon = CONSTANTS.PATH_TRANSPARENT;
     }
@@ -950,12 +905,12 @@ export class PinCushion {
     };
     let icon;
     // this is note
-    if (noteInternal.document && noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.HAS_BACKGROUND)) {
+    if (noteInternal.document && noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HAS_BACKGROUND)) {
       icon = new ControlIcon(iconData);
       icon.x -= noteInternal.size / 2;
       icon.y -= noteInternal.size / 2;
     } else {
-      const enableBackgroundlessPins = game.settings.get(PinCushion.MODULE_ID, "enableBackgroundlessPins");
+      const enableBackgroundlessPins = game.settings.get(CONSTANTS.MODULE_ID, "enableBackgroundlessPins");
       if (enableBackgroundlessPins) {
         icon = new BackgroundlessControlIcon(iconData);
         icon.x -= noteInternal.size / 2;
@@ -966,17 +921,15 @@ export class PinCushion {
         icon.y -= noteInternal.size / 2;
       }
     }
-    const ratio_width = is_real_number(
-      noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
-    )
-      ? noteInternal.document.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.RATIO_WIDTH)
+    const ratio_width = is_real_number(noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+      ? noteInternal.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
       : 1;
     if (ratio_width != 1) {
       if (noteInternal.document) {
         icon.width = icon.width * ratio_width; // TODO not sure about this
       }
       // else{
-      //   icon.width = noteInternal.getFlag(PinCushion.MODULE_ID,  PinCushion.FLAGS.RATIO_WIDTH); // compatibility 0.8.9
+      //   icon.width = noteInternal.getFlag(CONSTANTS.MODULE_ID,  CONSTANTS.FLAGS.RATIO_WIDTH); // compatibility 0.8.9
       // }
       // TODO need to centre text of the nameplate ??
       // https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
@@ -1014,7 +967,7 @@ export class PinCushion {
     /*
         // Above fog feature
         let aboveFogS = String(
-        getProperty(this.document, `this.document.flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.ABOVE_FOG}`),
+        getProperty(this.document, `this.document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.ABOVE_FOG}`),
         );
         if (aboveFogS !== 'true' && aboveFogS !== 'false') {
         aboveFogS = 'false';
@@ -1039,9 +992,9 @@ export class PinCushion {
 
     // IF not GM and IF  = enabled then take flag path as note.document.texture.src
     if (!game.user.isGM) {
-      if (this?.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PLAYER_ICON_STATE)) {
+      if (this?.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PLAYER_ICON_STATE)) {
         this.texture.src = stripQueryStringAndHashFromPath(
-          this.getFlag(PinCushion.MODULE_ID, PinCushion.FLAGS.PLAYER_ICON_PATH)
+          this.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PLAYER_ICON_PATH)
         );
       }
     }
@@ -1053,8 +1006,8 @@ export class PinCushion {
 
   static _addJournalThumbnail(app, html, data) {
     if (
-      (game.user.isGM && game.settings.get(PinCushion.MODULE_ID, "enableJournalThumbnailForGMs")) ||
-      (!game.user.isGM && game.settings.get(PinCushion.MODULE_ID, "enableJournalThumbnailForPlayers"))
+      (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "enableJournalThumbnailForGMs")) ||
+      (!game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "enableJournalThumbnailForPlayers"))
     ) {
       app.documents.forEach((j) => {
         const htmlEntry = html.find(`.directory-item.document[data-document-id="${j.id}"]`);
@@ -1105,7 +1058,7 @@ export class PinCushion {
   }
 
   static _deleteJournalDirectoryPagesEntry() {
-    if (game.settings.get(PinCushion.MODULE_ID, "enableJournalDirectoryPages")) {
+    if (game.settings.get(CONSTANTS.MODULE_ID, "enableJournalDirectoryPages")) {
       ui.sidebar.tabs.journal.render(true);
       for (let window of [...Object.values(ui.windows)].filter((w) => w.title == "Journal Directory")) {
         window.render(true);
@@ -1114,7 +1067,7 @@ export class PinCushion {
   }
 
   static _createJournalDirectoryPagesEntry() {
-    if (game.settings.get(PinCushion.MODULE_ID, "enableJournalDirectoryPages")) {
+    if (game.settings.get(CONSTANTS.MODULE_ID, "enableJournalDirectoryPages")) {
       ui.sidebar.tabs.journal.render(true);
       for (let window of [...Object.values(ui.windows)].filter((w) => w.title == "Journal Directory")) {
         window.render(true);
@@ -1123,7 +1076,7 @@ export class PinCushion {
   }
 
   static _addJournalDirectoryPages(app, html, options) {
-    if (game.settings.get(PinCushion.MODULE_ID, "enableJournalDirectoryPages")) {
+    if (game.settings.get(CONSTANTS.MODULE_ID, "enableJournalDirectoryPages")) {
       for (let j of app.documents) {
         if (!j.pages.size) continue;
         let $li = html.find(`li[data-document-id="${j.id}"]`);
@@ -1172,12 +1125,12 @@ export class PinCushion {
    * @param {Boolean}  [visible]  pass in true if the Note should be revealed to players
    */
   static setNoteRevealed(notedata, visible) {
-    const revealedNotes = game.settings.get(PinCushion.MODULE_ID, "revealedNotes");
+    const revealedNotes = game.settings.get(CONSTANTS.MODULE_ID, "revealedNotes");
     if (revealedNotes) {
-      visible = getProperty(notedata, `flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PIN_IS_REVEALED}`);
+      visible = getProperty(notedata, `flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PIN_IS_REVEALED}`);
       if (visible) {
-        const FLAG_IS_REVEALED = `flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.PIN_IS_REVEALED}`;
-        const FLAG_USE_REVEALED = `flags.${PinCushion.MODULE_ID}.${PinCushion.FLAGS.USE_PIN_REVEALED}`;
+        const FLAG_IS_REVEALED = `flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PIN_IS_REVEALED}`;
+        const FLAG_USE_REVEALED = `flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.USE_PIN_REVEALED}`;
         // notedata might not exist as a Note, so setFlag is not available
         setProperty(notedata, FLAG_USE_REVEALED, true);
         setProperty(notedata, FLAG_IS_REVEALED, visible);
@@ -1207,7 +1160,7 @@ export class PinCushion {
         return false;
       }
       // return this.document.canUserModify(user, "update");
-      const enableDragNoteOnTokenLayerIfGM = game.settings.get(PinCushion.MODULE_ID, "enableDragNoteOnTokenLayerIfGM");
+      const enableDragNoteOnTokenLayerIfGM = game.settings.get(CONSTANTS.MODULE_ID, "enableDragNoteOnTokenLayerIfGM");
       if (enableDragNoteOnTokenLayerIfGM && game.user.isGM) {
         return true;
       }

@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.9.11
+
+- Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/89
+- Add feature: https://github.com/p4535992/foundryvtt-pin-cushion/issues/90
+
 ### 1.9.10
 
 - Add a trick settings for do a better center alignment when ratio is !=1. Need some more expert than me for avoid this...
@@ -12,22 +17,22 @@
 
 - Update setting "specificFolder" with default empty voice
 
-### 1.9.7 
+### 1.9.7
 
 - Fix deprecation
 
 ### 1.9.6
 
-- Update html template 
+- Update html template
 - Bug fix "as possible": https://github.com/p4535992/foundryvtt-pin-cushion/issues/85
-- New Feature: Journal Directory Pages 
+- New Feature: Journal Directory Pages
 
 ### 1.9.4-5
 
 - BUg fixing
 - Fast fix wrapper to wrapped
 
-### 1.9.3 
+### 1.9.3
 
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/66
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/52

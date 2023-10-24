@@ -1,7 +1,7 @@
 import { PinCushion } from "./PinCushion.js";
 
 let setting = (key) => {
-  return game.settings.get(PinCushion.MODULE_ID, key);
+  return game.settings.get(CONSTANTS.MODULE_ID, key);
 };
 
 export async function noteControl(entity, wrapped, ...args) {

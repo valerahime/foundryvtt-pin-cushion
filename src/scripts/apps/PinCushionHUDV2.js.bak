@@ -93,14 +93,14 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 				}
 			}
 			// TODO The getFlag was returning as 'not a function', for whatever reason...
-			// const showImage = this.object.getFlag(PinCushion.MODULE_NAME, PinCushion.FLAGS.SHOW_IMAGE);
+			// const showImage = this.object.getFlag(PinCushion.MODULE_NAME, CONSTANTS.FLAGS.SHOW_IMAGE);
 			const showImage = getProperty(
 				this.object.document.flags[PinCushion.MODULE_NAME],
-				PinCushion.FLAGS.SHOW_IMAGE
+				CONSTANTS.FLAGS.SHOW_IMAGE
 			);
 			const showImageExplicitSource = getProperty(
 				this.object.document.flags[PinCushion.MODULE_NAME],
-				PinCushion.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE
+				CONSTANTS.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE
 			);
 
 			let content;
@@ -125,7 +125,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 			} else {
 				const previewTypeAdText = getProperty(
 					this.object.document.flags[PinCushion.MODULE_NAME],
-					PinCushion.FLAGS.PREVIEW_AS_TEXT_SNIPPET
+					CONSTANTS.FLAGS.PREVIEW_AS_TEXT_SNIPPET
 				);
 				const firstContent = entryContent;
 				if (!previewTypeAdText) {
@@ -147,7 +147,7 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 			let titleTooltip = entryName; // by default is the title of the journal
 			const newtextGM = getProperty(
 				this.object.document.flags[PinCushion.MODULE_NAME],
-				PinCushion.FLAGS.PIN_GM_TEXT
+				CONSTANTS.FLAGS.PIN_GM_TEXT
 			);
 			if (game.user.isGM && game.settings.get(PinCushion.MODULE_NAME, "noteGM") && newtextGM) {
 				titleTooltip = newtextGM;
@@ -211,8 +211,8 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 	// 			y = this.object.center ? this.object.center.y : this.object.y;
 	// 		}
 
-	// 		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.RATIO_WIDTH) ?? 1;
-	//		const ratio_width =  is_real_number(ratio) 
+	// 		const ratio = getProperty(this.object.document.flags[PinCushion.MODULE_NAME], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
+	//		const ratio_width =  is_real_number(ratio)
 	//		? ratio
 	//		: 1;
 	// 		const viewWidth = visualViewport.width;
@@ -298,23 +298,23 @@ export class PinCushionHUDV2 extends BasePlaceableHUD {
 	// 		// }
 
 	// 		const tooltipPlacement =
-	// 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_PLACEMENT) ??
+	// 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ??
 	// 			"e";
 
 	// 		const tooltipSmartPlacement =
 	// 			getProperty(
 	// 				this.object.document.flags[PinCushion.MODULE_NAME],
-	// 				PinCushion.FLAGS.TOOLTIP_SMART_PLACEMENT
+	// 				CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT
 	// 			) ?? false;
 
 	// 		const tooltipFollowMouse =
 	// 			getProperty(
 	// 				this.object.document.flags[PinCushion.MODULE_NAME],
-	// 				PinCushion.FLAGS.TOOLTIP_FOLLOW_MOUSE
+	// 				CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE
 	// 			) ?? false;
 
 	// 		const tooltipColor =
-	// 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], PinCushion.FLAGS.TOOLTIP_COLOR) ?? "";
+	// 			getProperty(this.object.document.flags[PinCushion.MODULE_NAME], CONSTANTS.FLAGS.TOOLTIP_COLOR) ?? "";
 
 	// 		// let popupId = tooltipColor ? 'powerTip-'+tooltipColor : 'powerTip';
 	// 		const tooltipPopupClass = tooltipColor
