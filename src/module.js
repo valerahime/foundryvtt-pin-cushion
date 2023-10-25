@@ -684,7 +684,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     let root = $("form", html);
     if (root.length == 0) root = html;
     let basictab = $("<div>").addClass("tab").attr("data-tab", "basic");
-    $("> *:not(button)", root).each(function () {
+    $("> *:not(button):not(footer)", root).each(function () {
       basictab.append(this);
     });
 
