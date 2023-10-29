@@ -153,6 +153,10 @@
 		"SETTINGS.enableJournalDirectoryPagesN": "Affiche les pages dans le répertoire du journal",
 		"SETTINGS.enableJournalDirectoryPagesH": "Ajoute des éléments extensibles aux journaux de leur répertoire pour afficher les pages du journal",
 		"NumberWsSuffixOnNameplateN": "Réglage astucieux : Saisir le nombre d'espaces blancs à ajouter en suffixe (ou en préfixe avec un nombre négatif) dans la plaque signalétique de la note pour un meilleur alignement au centre",
-		"NumberWsSuffixOnNameplateH": "Astuce d'alignement temporaire du texte de l'infobulle avec un ratio de largeur != 1. En fait, il faudrait que je réécrive une bonne partie du code pour appliquer la même logique que les tuiles sur les notes... ce que l'équipe de foundryvtt devrait faire. Comme astuce temporaire, nous ajoutons un certain nombre d'espaces blancs comme suffixe pour mieux \"centrer\" le texte sur la note."
+		"NumberWsSuffixOnNameplateH": "Astuce d'alignement temporaire du texte de l'infobulle avec un ratio de largeur != 1. En fait, il faudrait que je réécrive une bonne partie du code pour appliquer la même logique que les tuiles sur les notes... ce que l'équipe de foundryvtt devrait faire. Comme astuce temporaire, nous ajoutons un certain nombre d'espaces blancs comme suffixe pour mieux \"centrer\" le texte sur la note.",
+		"SubtitleGeneral": "Général",
+		"TooltipShowDescription": "Afficher la description de l'infobulle ?",
+		"TooltipShowTitle": "Afficher le titre de l'infobulle ?",
+		"TooltipCustomDescription": "Description personnalisée de l'infobulle. Ce texte n'apparaîtra que si aucun journal n'est lié à la note"
 	}
 }
