@@ -52,26 +52,6 @@ export class PinCushionPixiHelpers {
     const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
     const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth") || 400;
 
-    // const isTooltipShowTitleS = getProperty(
-    //   this.object.document.flags[CONSTANTS.MODULE_ID],
-    //   CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE
-    // );
-    // const isTooltipShowDescriptionS = getProperty(
-    //   this.object.document.flags[CONSTANTS.MODULE_ID],
-    //   CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION
-    // );
-
-    // const isTooltipShowTitle = String(isTooltipShowTitleS) === "true" ? true : false;
-    // const isTooltipShowDescription = String(isTooltipShowDescriptionS) === "true" ? true : false;
-
-    // const container = $(`<aside class="${tooltipClass}" style="opacity: 0; display: none;"></aside>`)[0];
-
-    // const container = $(await TextEditor.enrichHTML(`
-    //       <div id="container" class="pin-cushion-hud-container" style="font-size:${fontSize}px; max-width:${maxWidth}px">
-    //           ${isTooltipShowTitle ? `<div id="header"><h3>${titleTooltip}</h3></div><hr/>` : ``}
-    //           ${isTooltipShowDescription ? `<div id="content">${contentHTML} </div>` : ``}
-    //       </div>
-    // `));
     const container = $(
       `<aside class="pin-cushion-hud-container" style="font-size:${fontSize}px; max-width:${maxWidth}px; opacity: 0; display: none;"></aside>`
     )[0];

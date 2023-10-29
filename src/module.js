@@ -601,6 +601,31 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 	</select>
 	`;
 
+  const tooltipCustomDescription =
+    (app.document
+      ? app.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TOOLTIP_CUSTOM_DESCRIPTION)
+      : app.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TOOLTIP_CUSTOM_DESCRIPTION)) ?? "";
+
+  let tooltipShowDescriptionS = String(
+    app.document
+      ? app.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION)
+      : app.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION)
+  );
+  if (tooltipShowDescriptionS !== "true" && tooltipShowDescriptionS !== "false") {
+    tooltipShowDescriptionS = "true";
+  }
+  const tooltipShowDescription = String(tooltipShowDescriptionS) === "true" ? true : false;
+
+  let tooltipShowTitleS = String(
+    app.document
+      ? app.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE)
+      : app.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE)
+  );
+  if (tooltipShowTitleS !== "true" && tooltipShowTitleS !== "false") {
+    tooltipShowTitleS = "true";
+  }
+  const tooltipShowTitle = String(tooltipShowTitleS) === "true" ? true : false;
+
   // ====================================
   // Other
   // ====================================
@@ -643,6 +668,10 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 
       tooltipColorHtml: tooltipColorHtml,
       tooltipPlacementHtml: tooltipPlacementHtml,
+
+      tooltipCustomDescription: tooltipCustomDescription,
+      tooltipShowDescription: tooltipShowDescription,
+      tooltipShowTitle: tooltipShowTitle,
     },
     app.object.flags[CONSTANTS.MODULE_ID] || {}
   );
