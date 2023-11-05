@@ -327,41 +327,6 @@ export const registerSettings = function () {
     default: false,
     type: Boolean,
   });
-
-  // =====================
-  // START MATT INTEGRATION
-  // =====================
-  /*
-	game.settings.register(CONSTANTS.MODULE_ID, "allow-note", {
-		name: game.i18n.localize(`pin-cushion.SETTINGS.allowNoteN`),
-		hint: game.i18n.localize(`pin-cushion.SETTINGS.allowNoteH`),
-		scope: "world",
-		config: true,
-		default: false,
-		type: Boolean
-	});
-
-	game.settings.register(CONSTANTS.MODULE_ID, "prevent-when-paused", {
-		name: game.i18n.localize(`pin-cushion.SETTINGS.preventWhenPausedN`),
-		hint: game.i18n.localize(`pin-cushion.SETTINGS.preventWhenPausedH`),
-		scope: "world",
-		config: true,
-		default: true,
-		type: Boolean
-	});
-
-	game.settings.register(CONSTANTS.MODULE_ID, "allow-note-passthrough", {
-		name: game.i18n.localize(`pin-cushion.SETTINGS.allowNotePassthroughN`),
-		hint: game.i18n.localize(`pin-cushion.SETTINGS.allowNotePassthroughH`),
-		scope: "world",
-		config: true,
-		default: true,
-		type: Boolean
-	});
-	*/
-  // =====================
-  // END MATT INTEGRATION
-  // =====================
 };
 class ResetSettingsDialog extends FormApplication {
   constructor(...args) {

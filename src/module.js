@@ -128,19 +128,6 @@ Hooks.once("init", function () {
       "WRAPPER"
     );
   }
-  // ====================================
-  // START SUPPORT MATT
-  // ====================================
-  /*
-	const allowNote = game.settings.get(CONSTANTS.MODULE_ID, "allow-note");
-	if (game.modules.get("monks-active-tiles")?.active && allowNote) {
-		libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._onClickLeft", noteControl, "WRAPPER");
-		libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._onClickRight", noteControl, "WRAPPER");
-	}
-	*/
-  // ====================================
-  // END SUPPORT MATT
-  // ====================================
 });
 
 /* ------------------------------------ */
@@ -341,42 +328,6 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   if (!game.user.isGM) {
     return;
   }
-
-  // ====================================
-  // START SUPPORT MATT
-  // ====================================
-  /*
-	const allowNote = game.settings.get(CONSTANTS.MODULE_ID, "allow-note");
-	let triggerData = {};
-	let tilename = "";
-	let noteTriggersHtml = "";
-	if (game.modules.get("monks-active-tiles")?.active && allowNote) {
-		let entity = app.object.flags["monks-active-tiles"]?.entity || {};
-		if (typeof entity == "string" && entity) {
-			entity = JSON.parse(entity);
-		}
-
-		if (entity.id) {
-			tilename =
-				entity.id == "within" ? i18n("MonksActiveTiles.WithinWall") : await MonksActiveTiles.entityName(entity);
-		}
-		triggerData = mergeObject(
-			{
-				tilename: tilename,
-				showtagger: game.modules.get("tagger")?.active
-			},
-			app.object.flags["monks-active-tiles"] || {}
-		);
-		triggerData.entity = JSON.stringify(entity);
-		noteTriggersHtml = await renderTemplate(
-			`modules/${CONSTANTS.MODULE_ID}/templates/note-triggers-config.html`,
-			triggerData
-		);
-	}
-	*/
-  // ====================================
-  // END SUPPORT MATT
-  // ====================================
 
   // ====================================
   // General
@@ -690,25 +641,6 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
       .attr("data-tab", "pincushion")
       .html(noteHtml)
       .insertAfter($(".tab:last", html));
-
-    // ====================================
-    // START SUPPORT MATT
-    // ====================================
-    /*
-		if (game.modules.get("monks-active-tiles")?.active && allowNote) {
-			$(".sheet-tabs", html).append(
-				$("<a>").addClass("item").attr("data-tab", "triggers").html('<i class="fas fa-running"></i> Triggers')
-			);
-			$("<div>")
-				.addClass("tab action-sheet")
-				.attr("data-tab", "triggers")
-				.html(noteTriggersHtml)
-				.insertAfter($(".tab:last", html));
-		}
-		*/
-    // ====================================
-    // END SUPPORT MATT
-    // ====================================
   } else {
     let root = $("form", html);
     if (root.length == 0) root = html;
@@ -716,43 +648,6 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     $("> *:not(button):not(footer)", root).each(function () {
       basictab.append(this);
     });
-
-    // ====================================
-    // START SUPPORT MATT
-    // ====================================
-    /*
-		if (game.modules.get("monks-active-tiles")?.active && allowNote) {
-			$(root)
-				.prepend($("<div>").addClass("tab action-sheet").attr("data-tab", "triggers").html(noteTriggersHtml))
-				.prepend($("<div>").addClass("tab action-sheet").attr("data-tab", "pincushion").html(noteHtml))
-				.prepend(basictab)
-				.prepend(
-					$("<nav>")
-						.addClass("sheet-tabs tabs")
-						.append(
-							$("<a>")
-								.addClass("item active")
-								.attr("data-tab", "basic")
-								.html('<i class="fas fa-university"></i> Basic')
-						)
-						.append(
-							$("<a>")
-								.addClass("item")
-								.attr("data-tab", "pincushion")
-								.html('<i class="fas fa-map-marker-plus"></i> Pin Cushion (GM Only)')
-						)
-						.append(
-							$("<a>")
-								.addClass("item")
-								.attr("data-tab", "triggers")
-								.html('<i class="fas fa-running"></i> Triggers')
-						)
-				);
-		} else {
-		*/
-    // ====================================
-    // END SUPPORT MATT
-    // ====================================
 
     $(root)
       .prepend($("<div>").addClass("tab action-sheet").attr("data-tab", "pincushion").html(noteHtml))
@@ -774,19 +669,6 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
   }
 
   // START LISTENERS
-
-  // ====================================
-  // START SUPPORT MATT
-  // ====================================
-  /*
-	if (game.modules.get("monks-active-tiles")?.active && allowNote) {
-		$('button[data-type="entity"]', html).on("click", ActionConfig.selectEntity.bind(app));
-		$('button[data-type="tagger"]', html).on("click", ActionConfig.addTag.bind(app));
-	}
-	*/
-  // ====================================
-  // END SUPPORT MATT
-  // ====================================
 
   // html.find("button.file-picker-showImageExplicitSource").each(
   // 	(i, button) => (button.onclick = app._activateFilePicker.bind(app))
