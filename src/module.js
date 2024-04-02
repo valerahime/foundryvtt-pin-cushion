@@ -25,39 +25,6 @@ import { PinCushion } from "./scripts/apps/PinCushion.js";
 // import { PinCushionHUDV2 } from "./scripts/apps/PinCushionHUDV2.js";
 // import { noteControl } from "./scripts/apps/NoteControl.js";
 
-/**
- * Initialization helper, to set API.
- * @param api to set to game module.
- */
-export function setApi(api) {
-  const data = game.modules.get(CONSTANTS.MODULE_ID);
-  data.api = api;
-}
-/**
- * Returns the set API.
- * @returns Api from games module.
- */
-export function getApi() {
-  const data = game.modules.get(CONSTANTS.MODULE_ID);
-  return data.api;
-}
-/**
- * Initialization helper, to set Socket.
- * @param socket to set to game module.
- */
-export function setSocket(socket) {
-  const data = game.modules.get(CONSTANTS.MODULE_ID);
-  data.socket = socket;
-}
-/*
- * Returns the set socket.
- * @returns Socket from games module.
- */
-export function getSocket() {
-  const data = game.modules.get(CONSTANTS.MODULE_ID);
-  return data.socket;
-}
-
 /* -------------------------------------------------------------------------- */
 /*                                    Hooks                                   */
 /* -------------------------------------------------------------------------- */
@@ -132,7 +99,7 @@ Hooks.once("init", function () {
 /* Setup module							*/
 /* ------------------------------------ */
 Hooks.once("setup", function () {
-  setApi(API);
+  game.modules.get(CONSTANTS.MODULE_ID).api = API;
 
   const forceToShowNotes = game.settings.get(CONSTANTS.MODULE_ID, "forceToShowNotes");
   if (forceToShowNotes) {

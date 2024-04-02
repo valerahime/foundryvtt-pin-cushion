@@ -15,6 +15,6 @@ export function registerSocket() {
   pinCushionSocket.register("requestEvent", (...args) => API.requestEventArr(...args));
   pinCushionSocket.register("setNoteRevealed", (...args) => API.setNoteRevealedArr(...args));
 
-  setSocket(pinCushionSocket);
+  game.modules.get(CONSTANTS.MODULE_ID).socket = pinCushionSocket;
   return pinCushionSocket;
 }
