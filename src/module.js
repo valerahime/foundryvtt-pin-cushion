@@ -115,12 +115,10 @@ Hooks.once("init", function () {
 
   Hooks.once("socketlib.ready", registerSocket);
 
-  // eslint-disable-next-line no-undef
   libWrapper.register(CONSTANTS.MODULE_ID, "NotesLayer.prototype._onClickLeft2", PinCushion._onDoubleClick, "OVERRIDE");
 
   const enablePlayerIconAutoOverride = game.settings.get(CONSTANTS.MODULE_ID, "playerIconAutoOverride");
   if (enablePlayerIconAutoOverride) {
-    // eslint-disable-next-line no-undef
     libWrapper.register(
       CONSTANTS.MODULE_ID,
       "NoteDocument.prototype.prepareData",
@@ -843,48 +841,35 @@ Hooks.on("renderJournalSheet", (app, html, data) => {
 Hooks.once("canvasInit", () => {
   // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
   if (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "noteGM")) {
-    // eslint-disable-next-line no-undef
-    libWrapper.register(
-      CONSTANTS.MODULE_ID,
-      "Note.prototype._drawTooltip",
-      PinCushion._addDrawTooltipWithNoteGM,
-      "WRAPPER"
-    );
+    if (foundry.utils.isNewerVersion("12", game.version)) {
+      libWrapper.register(MODULE_NAME, "Note.prototype.text", PinCushion._textWithNoteGM, libWrapper.MIXED);
+    } else {
+      libWrapper.register(MODULE_NAME, "NoteDocument.prototype.label", PinCushion._labelWithNoteGM, libWrapper.MIXED);
+    }
+    // https://github.com/farling42/fvtt-gmtext-in-notes/commit/762f455e280f156d6307c5e6409e424dd23cc6c8
+    /*
+        libWrapper.register(
+            CONSTANTS.MODULE_ID,
+            "Note.prototype._drawTooltip",
+            PinCushion._addDrawTooltipWithNoteGM,
+            "WRAPPER",
+        );
+        */
   } else {
-    // eslint-disable-next-line no-undef
     libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._drawTooltip", PinCushion._addDrawTooltip2, "MIXED");
   }
 
   libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._applyRenderFlags", PinCushion._applyRenderFlags, "MIXED");
 
-  // eslint-disable-next-line no-undef
   libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype.refresh", PinCushion._noteRefresh, "WRAPPER");
 
   libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._onUpdate", PinCushion._noteUpdate, "WRAPPER");
 
-  // eslint-disable-next-line no-undef
   libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype.isVisible", PinCushion._isVisible, "MIXED");
 
-  // eslint-disable-next-line no-undef
   libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._drawControlIcon", PinCushion._drawControlIcon, "OVERRIDE");
 
-  // eslint-disable-next-line no-undef
   libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._canControl", PinCushion._canControl, "MIXED");
-
-  // DEPRECATED ON V11
-  //   const enableOneClickNoteCreation = game.settings.get(CONSTANTS.MODULE_ID, "oneClickNoteCreation");
-  //   if (enableOneClickNoteCreation) {
-  //     // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
-  //     if (game.user.isGM) {
-  //       // eslint-disable-next-line no-undef
-  //       libWrapper.register(
-  //         CONSTANTS.MODULE_ID,
-  //         "NotesLayer.prototype._onClickLeft",
-  //         PinCushion._onSingleClick,
-  //         "OVERRIDE"
-  //       );
-  //     }
-  //   }
 });
 
 Hooks.on("renderSettingsConfig", (app, html, data) => {

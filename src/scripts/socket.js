@@ -10,7 +10,6 @@ export function registerSocket() {
     return pinCushionSocket;
   }
 
-  // eslint-disable-next-line no-undef
   pinCushionSocket = socketlib.registerModule(CONSTANTS.MODULE_ID);
 
   pinCushionSocket.register("requestEvent", (...args) => API.requestEventArr(...args));

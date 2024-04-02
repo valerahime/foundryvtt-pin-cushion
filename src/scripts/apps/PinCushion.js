@@ -540,84 +540,108 @@ export class PinCushion {
   }
 
   /**
-   * If the Note has a GM-NOTE on it, then display that as the tooltip instead of the normal text
+   * If the Note has a GM-NOTE on it, then display that as the tooltip instead of the normal text.
+   * Foundry < V12
    * @param {function} [wrapped] The wrapped function provided by libWrapper
    * @param {object}   [args]    The normal arguments to Note#drawTooltip
-   * @returns {PIXI.Text}
    */
-  static _addDrawTooltipWithNoteGM(wrapped, ...args) {
-    //const enableNoteGM = game.settings.get(CONSTANTS.MODULE_ID, 'noteGM');
-
-    const hideLabel =
-      (this.document
-        ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)
-        : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)) ?? false;
-
-    const numberWsSuffixOnNameplate =
-      (this.document
-        ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
-        : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
-
-    const ratio_width = isRealNumber(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
-      ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
-      : 1;
-
+  static _textWithNoteGM(wrapped) {
     // Only override default if flag(CONSTANTS.MODULE_ID,CONSTANTS.FLAGS.PIN_GM_TEXT) is set
-    if (game.user.isGM) {
-      const newtextGM = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_GM_TEXT);
-      if (newtextGM && newtextGM.length > 0) {
-        let result = wrapped(...args);
-        if (hideLabel) {
-          result.text = "";
-          // this.document.text = '';
-        } else {
-          if (numberWsSuffixOnNameplate > 0) {
-            result.text = newtextGM + " ".repeat(numberWsSuffixOnNameplate);
-          } else if (numberWsSuffixOnNameplate < 0) {
-            result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + newtextGM;
-          } else {
-            result.text = newtextGM;
-          }
-          // this.document.text = newtextGM;
-        }
-
-        if (ratio_width != 1) {
-          let x = result.x;
-          let left = x + ratio_width * (this.size / 2) - 16;
-          result.x = left;
-        }
-        return result;
-      }
-    }
-
-    //// Set a different label to be used while we call the original Note.prototype._drawTooltip
-    ////
-    //// Note#text          = get text()  { return this.document.label; }
-    //// NoteDocument#label = get label() { return this.text || this.entry?.name || "Unknown"; }
-    //// but NoteDocument#document.text can be modified :-)
-    ////
-    //// let saved_text = this.document.text;
-    // this.document.text = newtext;
-    let result = wrapped(...args);
-    //// this.document.text = saved_text;
-
-    if (hideLabel) {
-      result.text = "";
-    } else {
-      if (numberWsSuffixOnNameplate > 0) {
-        result.text = result.text + " ".repeat(numberWsSuffixOnNameplate);
-      } else if (numberWsSuffixOnNameplate < 0) {
-        result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + result.text;
-      }
-    }
-    if (ratio_width != 1) {
-      let x = result.x;
-      let left = x + ratio_width * (this.size / 2) - 16;
-      result.x = left;
-    }
-
-    return result;
+    const gmlabel = this.document.getFlag(MODULE_NAME, CONSTANTS.FLAGS.PIN_GM_TEXT);
+    return gmlabel?.length > 0 ? gmlabel : wrapped();
   }
+
+  /**
+   * If the Note has a GM-NOTE on it, then display that as the tooltip instead of the normal text.
+   * Foundry V12+
+   * @param {function} wrapped The wrapped function provided by libWrapper
+   * @returns the label for this NoteDocument
+   */
+  static _labelWithNoteGM(wrapped, ...args) {
+    // Only override default if flag(CONSTANTS.MODULE_ID,CONSTANTS.FLAGS.PIN_GM_TEXT) is set
+    const gmlabel = this.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_GM_TEXT);
+    return gmlabel?.length > 0 ? gmlabel : wrapped();
+  }
+
+  // /**
+  //  * If the Note has a GM-NOTE on it, then display that as the tooltip instead of the normal text
+  //  * @param {function} [wrapped] The wrapped function provided by libWrapper
+  //  * @param {object}   [args]    The normal arguments to Note#drawTooltip
+  //  * @returns {PIXI.Text}
+  //  */
+  // static _addDrawTooltipWithNoteGM(wrapped, ...args) {
+  //     //const enableNoteGM = game.settings.get(CONSTANTS.MODULE_ID, 'noteGM');
+
+  //     const hideLabel =
+  //         (this.document
+  //             ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)
+  //             : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL)) ?? false;
+
+  //     const numberWsSuffixOnNameplate =
+  //         (this.document
+  //             ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
+  //             : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+
+  //     const ratio_width = isRealNumber(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
+  //         ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
+  //         : 1;
+
+  //     // Only override default if flag(CONSTANTS.MODULE_ID,CONSTANTS.FLAGS.PIN_GM_TEXT) is set
+  //     if (game.user.isGM) {
+  //         const newtextGM = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_GM_TEXT);
+  //         if (newtextGM && newtextGM.length > 0) {
+  //             let result = wrapped(...args);
+  //             if (hideLabel) {
+  //                 result.text = "";
+  //                 // this.document.text = '';
+  //             } else {
+  //                 if (numberWsSuffixOnNameplate > 0) {
+  //                     result.text = newtextGM + " ".repeat(numberWsSuffixOnNameplate);
+  //                 } else if (numberWsSuffixOnNameplate < 0) {
+  //                     result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + newtextGM;
+  //                 } else {
+  //                     result.text = newtextGM;
+  //                 }
+  //                 // this.document.text = newtextGM;
+  //             }
+
+  //             if (ratio_width != 1) {
+  //                 let x = result.x;
+  //                 let left = x + ratio_width * (this.size / 2) - 16;
+  //                 result.x = left;
+  //             }
+  //             return result;
+  //         }
+  //     }
+
+  //     //// Set a different label to be used while we call the original Note.prototype._drawTooltip
+  //     ////
+  //     //// Note#text          = get text()  { return this.document.label; }
+  //     //// NoteDocument#label = get label() { return this.text || this.entry?.name || "Unknown"; }
+  //     //// but NoteDocument#document.text can be modified :-)
+  //     ////
+  //     //// let saved_text = this.document.text;
+  //     // this.document.text = newtext;
+  //     let result = wrapped(...args);
+  //     //// this.document.text = saved_text;
+
+  //     if (hideLabel) {
+  //         result.text = "";
+  //     } else {
+  //         if (numberWsSuffixOnNameplate > 0) {
+  //             result.text = result.text + " ".repeat(numberWsSuffixOnNameplate);
+  //         } else if (numberWsSuffixOnNameplate < 0) {
+  //             result.text = " ".repeat(numberWsSuffixOnNameplate * -1) + result.text;
+  //         }
+  //     }
+  //     if (ratio_width != 1) {
+  //         let x = result.x;
+  //         let left = x + ratio_width * (this.size / 2) - 16;
+  //         result.x = left;
+  //     }
+
+  //     return result;
+  // }
 
   /**
    * Draw the map note Tooltip as a Text object
