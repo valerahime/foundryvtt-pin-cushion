@@ -1,6 +1,5 @@
 import { PinCushion } from "./apps/PinCushion.js";
 import CONSTANTS from "./constants.js";
-import { i18n } from "./lib/lib.js";
 
 export const registerSettings = function () {
     game.settings.registerMenu(CONSTANTS.MODULE_ID, "resetAllSettings", {
@@ -424,6 +423,15 @@ export const registerSettings = function () {
     game.settings.register(CONSTANTS.MODULE_ID, "playerPinDefaultsPlayerColorText", {
         name: `pin-cushion.SETTINGS.playerPinDefaults.playerColorTextN`,
         hint: `pin-cushion.SETTINGS.playerPinDefaults.playerColorTextH`,
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    });
+
+    game.settings.register(CONSTANTS.MODULE_ID, "debug", {
+        name: `pin-cushion.SETTINGS.debugN`,
+        hint: `pin-cushion.SETTINGS.debugH`,
         scope: "world",
         config: true,
         type: Boolean,

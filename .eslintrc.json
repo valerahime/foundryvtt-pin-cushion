@@ -279,6 +279,8 @@
     }
   ],
   "globals": {
+    "canvas": true,
+    "globalThis": true,
     "Hooks": true,
     "game": true,
     "Handlebars": true,

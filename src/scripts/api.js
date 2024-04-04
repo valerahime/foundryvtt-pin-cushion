@@ -2,6 +2,7 @@ import { PinCushion } from "./apps/PinCushion.js";
 // import { PinCushionContainer } from "./apps/PinCushionContainer.js";
 // import { PinCushionHUDV2 } from "./apps/PinCushionHUDV2.js";
 import { error, warn } from "./lib/lib.js";
+import Logger from "./lib/Logger.js";
 
 const API = {
     pinCushion: new PinCushion(),
@@ -16,7 +17,7 @@ const API = {
      */
     async requestEventArr(...inAttributes) {
         if (!Array.isArray(inAttributes)) {
-            throw error("requestEventArr | inAttributes must be of type array");
+            throw Logger.error("requestEventArr | inAttributes must be of type array");
         }
         const [message] = inAttributes; // e.g. { action: "createFolder" }
         // A request has to define what action should be executed by the GM
@@ -24,7 +25,7 @@ const API = {
         //   return;
         // }
         if (!Object.keys(message)?.includes("action")) {
-            warn(`Message doesn't contain the 'action'`);
+            Logger.warn(`Message doesn't contain the 'action'`);
             return;
         }
         const id = `${game.user.id}_${Date.now()}_${randomID()}`;
@@ -50,7 +51,7 @@ const API = {
 
     async setNoteRevealedArr(...inAttributes) {
         if (!Array.isArray(inAttributes)) {
-            throw error("requestEventArr | inAttributes must be of type array");
+            throw Logger.error("requestEventArr | inAttributes must be of type array");
         }
         const [notedata, visible] = inAttributes; // e.g. { action: "createFolder" }
         this.setNoteRevealed(notedata, visible);

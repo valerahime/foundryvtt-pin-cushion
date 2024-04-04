@@ -1,8 +1,6 @@
 import API from "../api.js";
 import CONSTANTS from "../constants.js";
 import {
-    i18n,
-    i18nFormat,
     info,
     isAlt,
     isRealNumber,
@@ -10,6 +8,7 @@ import {
     retrieveFirstImageFromJournalId,
     stripQueryStringAndHashFromPath,
 } from "../lib/lib.js";
+import Logger from "../lib/Logger.js";
 import { registerSettings } from "../settings.js";
 import { BackgroundlessControlIcon } from "./BackgroundlessControlIcon.js";
 import { PinCushionHUD } from "./PinCushionHUD.js";
@@ -61,48 +60,48 @@ export class PinCushion {
             content: `
             <div class="form-group">
               <label>
-                <p class="notes">${i18n("pin-cushion.Name")}</p>
+                <p class="notes">${Logger.i18n("pin-cushion.Name")}</p>
               </label>
               <input name="name" type="text"/>
               <label>
-                <p class="notes">${i18n("pin-cushion.DefaultPermission")}</p>
+                <p class="notes">${Logger.i18n("pin-cushion.DefaultPermission")}</p>
               </label>
               <select id="cushion-permission" style="width: 100%;">
                 <option value="0"
                   ${String(defaultPermission) === "0" ? "selected" : ""}>
-                  ${i18n("PERMISSION.NONE")}${String(defaultPermission) === "0" ? " <i>(default)</i>" : ""}
+                  ${Logger.i18n("PERMISSION.NONE")}${String(defaultPermission) === "0" ? " <i>(default)</i>" : ""}
                 </option>
                 <option value="1"
                   ${String(defaultPermission) === "1" ? "selected" : ""}>
-                  ${i18n("PERMISSION.LIMITED")}${String(defaultPermission) === "1" ? " <i>(default)</i>" : ""}
+                  ${Logger.i18n("PERMISSION.LIMITED")}${String(defaultPermission) === "1" ? " <i>(default)</i>" : ""}
                 </option>
                 <option value="2"
                   ${String(defaultPermission) === "2" ? "selected" : ""}>
-                  ${i18n("PERMISSION.OBSERVER")}${String(defaultPermission) === "2" ? " <i>(default)</i>" : ""}
+                  ${Logger.i18n("PERMISSION.OBSERVER")}${String(defaultPermission) === "2" ? " <i>(default)</i>" : ""}
                 </option>
                 <option value="3"
                   ${String(defaultPermission) === "3" ? "selected" : ""}>
-                  ${i18n("PERMISSION.OWNER")}${String(defaultPermission) === "3" ? " <i>(default)</i>" : ""}
+                  ${Logger.i18n("PERMISSION.OWNER")}${String(defaultPermission) === "3" ? " <i>(default)</i>" : ""}
                 </option>
               </select>
               <label>
-                <p class="notes">${i18n("pin-cushion.Folder")}</p>
+                <p class="notes">${Logger.i18n("pin-cushion.Folder")}</p>
               </label>
               <select id="cushion-folder" style="width: 100%;">
                 <option
                   value="none"
                   ${defaultFolder === "none" ? "selected" : ""}>
-                    ${i18n("pin-cushion.None")}
+                    ${Logger.i18n("pin-cushion.None")}
                 </option>
                 <option value="perUser" ${defaultFolder === "perUser" ? "selected" : ""}>
-                  ${i18n("pin-cushion.PerUser")} <i>(${game.user.name})</i>
+                  ${Logger.i18n("pin-cushion.PerUser")} <i>(${game.user.name})</i>
                 </option>
                 <option
                   value="specificFolder"
                   ${defaultFolder === "specificFolder" ? "selected" : ""}>
-                    ${i18n("pin-cushion.PerSpecificFolder")} <i>(${specificFolderName})</i>
+                    ${Logger.i18n("pin-cushion.PerSpecificFolder")} <i>(${specificFolderName})</i>
                 </option>
-                <option disabled>──${i18n("pin-cushion.ExistingFolders")}──</option>
+                <option disabled>──${Logger.i18n("pin-cushion.ExistingFolders")}──</option>
                 ${folders}
               </select>
             </div>
@@ -152,11 +151,13 @@ export class PinCushion {
     static filePicker(type, target, customClass = "file-picker") {
         // const type = options.hash['type'];
         // const target = options.hash['target'];
-        if (!target) throw new Error("You must define the name of the target field.");
-
+        if (!target) {
+            throw new Logger.error("You must define the name of the target field.");
+        }
         // Do not display the button for users who do not have browse permission
-        if (game.world && !game.user.can("FILES_BROWSE")) return "";
-
+        if (game.world && !game.user.can("FILES_BROWSE")) {
+            return "";
+        }
         // Construct the HTML
         const tooltip = game.i18n.localize("FILES.BrowseTooltip");
         return new Handlebars.SafeString(`
@@ -205,7 +206,7 @@ export class PinCushion {
         const input = html.find("input[name='name']");
 
         if (!input[0].value) {
-            ui.notifications.warn(i18n("pin-cushion.MissingPinName"));
+            Logger.warn(Logger.i18n("pin-cushion.MissingPinName"), true);
             return;
         }
         // Permissions the Journal Entry will be created with
@@ -317,15 +318,15 @@ export class PinCushion {
             // Ask for folder creation confirmation in a dialog
             const createFolders = await new Promise((resolve, reject) => {
                 new Dialog({
-                    title: i18n("pin-cushion.CreateMissingFoldersT"),
-                    content: i18n("pin-cushion.CreateMissingFoldersC"),
+                    title: Logger.i18n("pin-cushion.CreateMissingFoldersT"),
+                    content: Logger.i18n("pin-cushion.CreateMissingFoldersC"),
                     buttons: {
                         yes: {
-                            label: `<i class="fas fa-check"></i> ${i18n("Yes")}`,
+                            label: `<i class="fas fa-check"></i> ${Logger.i18n("Yes")}`,
                             callback: () => resolve(true),
                         },
                         no: {
-                            label: `<i class="fas fa-times"></i> ${i18n("No")}`,
+                            label: `<i class="fas fa-times"></i> ${Logger.i18n("No")}`,
                             callback: () => reject(),
                         },
                     },
@@ -504,7 +505,7 @@ export class PinCushion {
         if (!gmtext) gmtext = "";
         let gm_text_h = $(
             `<div class="form-group">
-        <label for="${gmNoteFlagRef}">${i18n("pin-cushion.GMLabel")}</label>
+        <label for="${gmNoteFlagRef}">${Logger.i18n("pin-cushion.GMLabel")}</label>
         <div class="form-fields">
           <textarea
             name="${gmNoteFlagRef}">${gmtext.trim() ?? ""}</textarea>
@@ -530,7 +531,7 @@ export class PinCushion {
         if (!initial_text) initial_text = "";
         let initial_text_h = $(
             `<div class="form-group">
-        <label for="text">${i18n("pin-cushion.PlayerLabel")}</label>
+        <label for="text">${Logger.i18n("pin-cushion.PlayerLabel")}</label>
         <div class="form-fields">
           <textarea name="text"
             placeholder="${noteData.entry?.name ?? ""}">${initial_text.trim() ?? ""}</textarea>
@@ -856,10 +857,11 @@ export class PinCushion {
 
         // Warn user when notes can be created, but journal entries cannot
         if (!game.user.can("JOURNAL_CREATE")) {
-            ui.notifications.warn(
+            Logger.warn(
                 game.i18n.format("PinCushion.AllowPlayerNotes", {
-                    permission: i18n("PERMISSION.JournalCreate"),
+                    permission: Logger.i18n("PERMISSION.JournalCreate"),
                 }),
+                true,
             );
             return;
         }
@@ -873,7 +875,7 @@ export class PinCushion {
     }
 
     //   static async _onSingleClick(event) {
-    //     log(
+    //     Logger.log(
     //       `Note_onClickLeft: ${event.data.origin.x} ${event.data.origin.y} == ${event.data.global.x} ${event.data.global.y}`
     //     );
     //     // Create a new Note at the cursor position and open the Note configuration window for it.
@@ -1046,7 +1048,7 @@ export class PinCushion {
         if (game.user.isGM || isDefaulted) {
             return noteData;
         }
-        log(noteData);
+        Logger.log(noteData);
         // Apply the defaults
         const defaults = PinCushion._getPinDefaults();
         noteData = foundry.utils.mergeObject(noteData, defaults);
@@ -1250,7 +1252,7 @@ export class PinCushion {
                         break;
                     }
                     default: {
-                        warn(`Must set 'right' or 'left' for sidebar thumbnail image`);
+                        Logger.warn(`Must set 'right' or 'left' for sidebar thumbnail image`);
                     }
                 }
             });
@@ -1354,7 +1356,7 @@ export class PinCushion {
      */
     static _canControl(wrapped, ...args) {
         if (canvas.activeLayer instanceof TokenLayer) {
-            info(`Applied can control override`);
+            Logger.info(`Applied can control override`);
             const [user, event] = args;
             if (this.isPreview) {
                 return false;

@@ -41,7 +41,7 @@ export class PinCushionContainer {
 		// canvas.mouseInteractionManager.target.on("mouseout", () => canvas.hud.pinCushionV2.clear());
 
 		this.previewDelay = game.settings.get(PinCushion.MODULE_NAME, "previewDelay");
-		log(game.i18n.localize("pinCushion.name") + "| Ready.");
+		Logger.log(game.i18n.localize("pinCushion.name") + "| Ready.");
 	}
 
 	/**
@@ -159,7 +159,7 @@ export class PinCushionContainer {
 	 */
 	static async waitFor(object, property, limit) {
 		for (; limit > 0 && !object[property]; limit--) await this.nextFrame();
-		log(object, object[property]);
+		Logger.log(object, object[property]);
 		return Boolean(object[property]);
 	}
 
@@ -188,7 +188,7 @@ export class PinCushionContainer {
 	 * @memberof PinCushionContainer
 	 */
 	activateListeners() {
-		log(this.note);
+		Logger.log(this.note);
 		this.note.mouseInteractionManager.target.on("mousedown", this._leftClick.bind(this));
 		this.note.mouseInteractionManager.target.on("rightdown", this._rightClick.bind(this));
 		// this.note.mouseInteractionManager.target.on("mouseover", this._mouseOver.bind(this));
@@ -205,7 +205,7 @@ export class PinCushionContainer {
 	 * @memberof PinCushionContainer
 	 */
 	_mouseOver(event) {
-		log(event);
+		Logger.log(event);
 		event.stopPropagation();
 		// If the note is hovered by the mouse cursor (not via alt/option)
 		if (this.note.mouseInteractionManager.state === 1) {
@@ -226,7 +226,7 @@ export class PinCushionContainer {
 	//  * @memberof PinCushionContainer
 	//  */
 	// _mouseOut(event) {
-	// 	log(event);
+	// 	Logger.log(event);
 	// 	event.stopPropagation();
 	// 	let tooltipForceRemoveS = String(
 	// 		getProperty(this.note, `document.flags.${PinCushion.MODULE_NAME}.${CONSTANTS.FLAGS.TOOLTIP_FORCE_REMOVE}`)
@@ -251,7 +251,7 @@ export class PinCushionContainer {
 	 * @memberof PinCushionContainer
 	 */
 	_leftClick(event) {
-		log(event);
+		Logger.log(event);
 		event.stopPropagation();
 		canvas.hud.pinCushionV2.bind(this, "leftclick");
 	}
@@ -266,7 +266,7 @@ export class PinCushionContainer {
 	 * @memberof PinCushionContainer
 	 */
 	_rightClick(event) {
-		log(event);
+		Logger.log(event);
 		event.stopPropagation();
 		canvas.hud.pinCushionV2.bind(this, "rightclick");
 	}

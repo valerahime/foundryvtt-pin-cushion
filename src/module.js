@@ -1,24 +1,14 @@
 /* ------------------------------------ */
 /* Other Hooks							*/
 /* ------------------------------------ */
-
-import * as powertip from "./scripts/lib/jquery.powertip.js";
 import API from "./scripts/api.js";
 import CONSTANTS from "./scripts/constants.js";
-import {
-    log,
-    debug,
-    isRealNumber,
-    stripQueryStringAndHashFromPath,
-    error,
-    retrieveFirstImageFromJournalId,
-    i18n,
-    warn,
-} from "./scripts/lib/lib.js";
+import { stripQueryStringAndHashFromPath, retrieveFirstImageFromJournalId } from "./scripts/lib/lib.js";
 import { registerSettings } from "./scripts/settings.js";
-import { pinCushionSocket, registerSocket } from "./scripts/socket.js";
+import { registerSocket } from "./scripts/socket.js";
 import { PinCushionHUD } from "./scripts/apps/PinCushionHUD.js";
 import { PinCushion } from "./scripts/apps/PinCushion.js";
+import Logger from "./scripts/lib/Logger.js";
 // import { ActionConfig } from "/modules/monks-active-tiles/apps/action-config.js";
 // import { MonksActiveTiles } from "/modules/monks-active-tiles/monks-active-tiles.js";
 // import { PinCushionContainer } from "./scripts/apps/PinCushionContainer.js";
@@ -33,7 +23,7 @@ import { PinCushion } from "./scripts/apps/PinCushion.js";
 /* Initialize module					*/
 /* ------------------------------------ */
 Hooks.once("init", function () {
-    log(" init " + CONSTANTS.MODULE_ID);
+    Logger.log(" init " + CONSTANTS.MODULE_ID);
     // TODO TO REMOVE
     globalThis.PinCushion = PinCushion;
     // globalThis.setNoteRevealed = setNoteRevealed; // Seem not necessary
@@ -139,12 +129,12 @@ Hooks.once("ready", function () {
     if (!game.modules.get("lib-wrapper")?.active && game.user?.isGM) {
         let word = "install and activate";
         if (game.modules.get("lib-wrapper")) word = "activate";
-        throw error(`Requires the 'libWrapper' module. Please ${word} it.`);
+        throw Logger.error(`Requires the 'libWrapper' module. Please ${word} it.`);
     }
     if (!game.modules.get("socketlib")?.active && game.user?.isGM) {
         let word = "install and activate";
         if (game.modules.get("socketlib")) word = "activate";
-        throw error(`Requires the 'socketlib' module. Please ${word} it.`);
+        throw Logger.error(`Requires the 'socketlib' module. Please ${word} it.`);
     }
     // Instantiate PinCushion instance for central socket request handling
     // game.pinCushion = new PinCushion();
@@ -179,10 +169,14 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
         if (journal) {
             const journalEntryImage = retrieveFirstImageFromJournalId(journal.id, app.object?.pageId, false);
             if (journalEntryImage) {
-                setProperty(noteData.document.texture, "src", stripQueryStringAndHashFromPath(journalEntryImage));
+                foundry.utils.setProperty(
+                    noteData.document.texture,
+                    "src",
+                    stripQueryStringAndHashFromPath(journalEntryImage),
+                );
             }
         } else {
-            warn(`The journal with id '${noteData.document.entryId}' do not exists anymore`);
+            Logger.warn(`The journal with id '${noteData.document.entryId}' do not exists anymore`);
         }
     }
 
@@ -206,15 +200,18 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     if (tmp === "icons/svg/book.svg" && noteData.document.texture.src) {
         tmp = stripQueryStringAndHashFromPath(noteData.document.texture.src);
     }
-    const pinCushionIcon = getProperty(app.object.flags, `${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.CUSHION_ICON}`);
+    const pinCushionIcon = foundry.utils.getProperty(
+        app.object.flags,
+        `${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.CUSHION_ICON}`,
+    );
     if (pinCushionIcon) {
         tmp = stripQueryStringAndHashFromPath(pinCushionIcon);
     }
 
     PinCushion._replaceIconSelector(app, html, noteData, tmp);
-    //Causes a bug when attempting to place an journal entry onto the canvas in Foundry 9.
-    //await app.object.setFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.CUSHION_ICON, tmp);
-    setProperty(app.object.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.CUSHION_ICON, tmp);
+    // Causes a bug when attempting to place an journal entry onto the canvas in Foundry 9.
+    // await app.object.setFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.CUSHION_ICON, tmp);
+    foundry.utils.setProperty(app.object.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.CUSHION_ICON, tmp);
 
     const enableNoteGM = game.settings.get(CONSTANTS.MODULE_ID, "noteGM");
     if (enableNoteGM) {
@@ -223,6 +220,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 
     const enableJournalAnchorLink = game.settings.get(CONSTANTS.MODULE_ID, "enableJournalAnchorLink");
     if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
+        // eslint-disable-next-line no-inner-declarations
         function getOptions(page, current) {
             let options = "<option></option>";
             for (const key in page?.toc) {
@@ -235,11 +233,11 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
         }
         // <select name="flags.anchor.slug">${getOptions(noteData.document.page, noteData.document.flags.anchor?.slug)}</select>
         // let anchorData = getProperty(noteData.document.flags, `${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}`); // noteData.document.flags.anchor;
-        let anchorData = getProperty(noteData.document.flags, `anchor`); // noteData.document.flags.anchor;
+        let anchorData = foundry.utils.getProperty(noteData.document.flags, `anchor`); // noteData.document.flags.anchor;
         let pageData = noteData.document.page;
         // let select = $(`
         // <div class='form-group'>
-        // 	<label>${i18n(`${CONSTANTS.MODULE_ID}.PageSection`)}</label>
+        // 	<label>${Logger.i18n(`${CONSTANTS.MODULE_ID}.PageSection`)}</label>
         // 	<div class='form-fields'>
         // 		<select name="flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}.slug">
         // 			${getOptions(pageData, anchorData?.slug)}
@@ -248,7 +246,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
         // </div>`);
         let select = $(`
 		<div class='form-group'>
-			<label>${i18n(`${CONSTANTS.MODULE_ID}.PageSection`)}</label>
+			<label>${Logger.i18n(`${CONSTANTS.MODULE_ID}.PageSection`)}</label>
 			<div class='form-fields'>
 				<select name="flags.anchor.slug">
 					${getOptions(pageData, anchorData?.slug)}
@@ -259,19 +257,20 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
         pageid.parent().parent().after(select);
 
         // on change of page or journal entry
+        // eslint-disable-next-line no-inner-declarations
         function _updateSectionList() {
             const newjournalid = app.form.elements.entryId?.value;
             const newpageid = app.form.elements.pageId?.value;
             const journal = game.journal.get(newjournalid);
             const newpage = journal?.pages.get(newpageid);
-            log(`selected page changed to ${newpageid}`);
+            Logger.log(`selected page changed to ${newpageid}`);
             // getOptions(newpage, data.document.flags.anchor?.slug))
-            log("new options =" + getOptions(newpage, anchorData?.slug));
+            Logger.log("new options =" + getOptions(newpage, anchorData?.slug));
             // app.form.elements["flags.anchor.slug"].innerHTML = getOptions(newpage, data.document.flags.anchor?.slug);
             // app.form.elements[`flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}.slug`].innerHTML = getOptions(
             app.form.elements[`flags.anchor.slug`].innerHTML = getOptions(newpage, anchorData?.slug);
             // app.form.elements["flags.anchor.slug"].innerHTML
-            log(
+            Logger.log(
                 // "new innerHtml" + app.form.elements[`flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}.slug`].innerHTML
                 "new innerHtml" + app.form.elements[`flags.anchor.slug`].innerHTML,
             );
@@ -302,7 +301,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     // PinCushion._addTooltipHandler(app, html, noteData);
 
     // TODO
-    //PinCushion._addAboveFog(app, html, data);
+    // PinCushion._addAboveFog(app, html, data);
 
     // Force a recalculation of the height (for the additional field)
     if (!app._minimized) {
@@ -357,11 +356,15 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     const defaultPath = game.settings.get(CONSTANTS.MODULE_ID, "playerIconPathDefault") ?? ``;
 
     const playerIconState =
-        getProperty(noteData, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PLAYER_ICON_STATE}`) ??
-        defaultState;
+        foundry.utils.getProperty(
+            noteData,
+            `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PLAYER_ICON_STATE}`,
+        ) ?? defaultState;
     const playerIconPath = stripQueryStringAndHashFromPath(
-        getProperty(noteData, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PLAYER_ICON_PATH}`) ??
-            defaultPath,
+        foundry.utils.getProperty(
+            noteData,
+            `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PLAYER_ICON_PATH}`,
+        ) ?? defaultPath,
     );
 
     // ====================================
@@ -369,10 +372,16 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     // ====================================
     const enableNoteTintColorLink = game.settings.get(CONSTANTS.MODULE_ID, "revealedNotes");
     let pinIsRevealed =
-        getProperty(noteData, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PIN_IS_REVEALED}`) ?? true;
+        foundry.utils.getProperty(
+            noteData,
+            `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.PIN_IS_REVEALED}`,
+        ) ?? true;
     // Check box for REVEALED state
     let usePinIsRevealed =
-        getProperty(noteData, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.USE_PIN_REVEALED}`) ?? false;
+        foundry.utils.getProperty(
+            noteData,
+            `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.USE_PIN_REVEALED}`,
+        ) ?? false;
 
     // ====================================
     // Tooltip
@@ -390,7 +399,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
             doNotShowJournalPreviewS = "true";
         }
     }
-    const doNotShowJournalPreview = String(doNotShowJournalPreviewS) === "true" ? true : false;
+    const doNotShowJournalPreview = String(doNotShowJournalPreviewS) === "true";
 
     const previewAsTextSnippet =
         (app.document
@@ -430,62 +439,62 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		<option
 			value="nw-alt"
 			${tooltipPlacement === "nw-alt" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.north-west-alt")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.north-west-alt")}
 		</option>
 		<option
 			value="nw"
 			${tooltipPlacement === "nw" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.north-west")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.north-west")}
 		</option>
 		<option
 			value="n"
 			${tooltipPlacement === "n" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.north")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.north")}
 			</option>
 		<option
 			value="ne"
 			${tooltipPlacement === "ne" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.north-east")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.north-east")}
 			</option>
 		<option
 			value="ne-alt"
 			${tooltipPlacement === "ne-alt" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.north-east-alt")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.north-east-alt")}
 			</option>
 		<option
 			value="w"
 			${tooltipPlacement === "w" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.west")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.west")}
 			</option>
 		<option
 			value="e"
 			${tooltipPlacement === "e" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.east")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.east")}
 			</option>
 		<option
 			value="sw-alt"
 			${tooltipPlacement === "sw-alt" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.south-west-alt")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.south-west-alt")}
 			</option>
 		<option
 			value="sw"
 			${tooltipPlacement === "sw" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.south-west")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.south-west")}
 		</option>
 		<option
 			value="s"
 			${tooltipPlacement === "s" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.south")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.south")}
 		</option>
 		<option
 			value="se"
 			${tooltipPlacement === "se" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.south-east")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.south-east")}
 		</option>
 		<option
 			value="se-alt"
 			${tooltipPlacement === "se-alt" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Placement.choices.south-east-alt")}
+			${Logger.i18n("pin-cushion.Tooltip.Placement.choices.south-east-alt")}
 		</option>
 		</select>
 	`;
@@ -496,46 +505,46 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
 		name="flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.TOOLTIP_COLOR}">
 		<option
 		value="" ${tooltipColor === "" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.default")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.default")}
 		</option>
 		<option
 		value="blue"
 		${tooltipColor === "blue" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.blue")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.blue")}
 		</option>
 		<option
 		value="dark"
 		${tooltipColor === "dark" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.dark")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.dark")}
 		</option>
 		<option
 		value="green"
 		${tooltipColor === "green" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.green")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.green")}
 		</option>
 		<option
 		value="light"
 		${tooltipColor === "light" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.light")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.light")}
 		</option>
 		<option
 		value="orange"
 		${tooltipColor === "orange" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.orange")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.orange")}
 		</option>
 		<option value="purple"
 		${tooltipColor === "purple" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.purple")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.purple")}
 		</option>
 		<option
 		value="red"
 		${tooltipColor === "red" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.red")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.red")}
 		</option>
 		<option
 		value="yellow"
 		${tooltipColor === "yellow" ? "selected" : ""}>
-			${i18n("pin-cushion.Tooltip.Color.choices.yellow")}
+			${Logger.i18n("pin-cushion.Tooltip.Color.choices.yellow")}
 		</option>
 	</select>
 	`;
@@ -553,7 +562,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     if (tooltipShowDescriptionS !== "true" && tooltipShowDescriptionS !== "false") {
         tooltipShowDescriptionS = "true";
     }
-    const tooltipShowDescription = String(tooltipShowDescriptionS) === "true" ? true : false;
+    const tooltipShowDescription = String(tooltipShowDescriptionS) === "true";
 
     let tooltipShowTitleS = String(
         app.document
@@ -563,14 +572,14 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
     if (tooltipShowTitleS !== "true" && tooltipShowTitleS !== "false") {
         tooltipShowTitleS = "true";
     }
-    const tooltipShowTitle = String(tooltipShowTitleS) === "true" ? true : false;
+    const tooltipShowTitle = String(tooltipShowTitleS) === "true";
 
     // ====================================
     // Other
     // ====================================
     const enableBackgroundlessPins = game.settings.get(CONSTANTS.MODULE_ID, "enableBackgroundlessPins");
 
-    let pinCushionData = mergeObject(
+    let pinCushionData = foundry.utils.mergeObject(
         {
             yesUploadFile: game.user.can("FILES_BROWSE"),
             noUploadFile: !game.user.can("FILES_BROWSE"),
@@ -615,6 +624,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
         app.object.flags[CONSTANTS.MODULE_ID] || {},
     );
     // pinCushionData.entity = JSON.stringify(entity);
+    // eslint-disable-next-line no-undef
     let noteHtml = await renderTemplate(`modules/${CONSTANTS.MODULE_ID}/templates/note-config.html`, pinCushionData);
 
     if ($(".sheet-tabs", html).length) {
@@ -631,7 +641,9 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
             .insertAfter($(".tab:last", html));
     } else {
         let root = $("form", html);
-        if (root.length == 0) root = html;
+        if (root.length === 0) {
+            root = html;
+        }
         let basictab = $("<div>").addClass("tab").attr("data-tab", "basic");
         $("> *:not(button):not(footer)", root).each(function () {
             basictab.append(this);
@@ -748,7 +760,10 @@ Hooks.on("hoverNote", (note, hovered) => {
     // const showPreview = game.settings.get(CONSTANTS.MODULE_ID, 'showJournalPreview');
     const previewDelay = game.settings.get(CONSTANTS.MODULE_ID, "previewDelay");
     let doNotShowJournalPreviewS = String(
-        getProperty(note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW}`),
+        foundry.utils.getProperty(
+            note,
+            `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.DO_NOT_SHOW_JOURNAL_PREVIEW}`,
+        ),
     );
     if (doNotShowJournalPreviewS !== "true" && doNotShowJournalPreviewS !== "false") {
         doNotShowJournalPreviewS = "true";
@@ -759,7 +774,10 @@ Hooks.on("hoverNote", (note, hovered) => {
     }
 
     let tooltipForceRemoveS = String(
-        getProperty(note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.TOOLTIP_FORCE_REMOVE}`),
+        foundry.utils.getProperty(
+            note,
+            `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.TOOLTIP_FORCE_REMOVE}`,
+        ),
     );
     if (tooltipForceRemoveS !== "true" && tooltipForceRemoveS !== "false") {
         tooltipForceRemoveS = "false";
@@ -826,10 +844,15 @@ Hooks.once("canvasInit", () => {
     // This module is only required for GMs (game.user accessible from 'ready' event but not 'init' event)
     if (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "noteGM")) {
         if (foundry.utils.isNewerVersion("12", game.version)) {
-            libWrapper.register(MODULE_NAME, "Note.prototype.text", PinCushion._textWithNoteGM, libWrapper.MIXED);
+            libWrapper.register(
+                CONSTANTS.MODULE_ID,
+                "Note.prototype.text",
+                PinCushion._textWithNoteGM,
+                libWrapper.MIXED,
+            );
         } else {
             libWrapper.register(
-                MODULE_NAME,
+                CONSTANTS.MODULE_ID,
                 "NoteDocument.prototype.label",
                 PinCushion._labelWithNoteGM,
                 libWrapper.MIXED,
@@ -923,9 +946,9 @@ Hooks.on("dropCanvasData", (canvas, data) => {
 Hooks.on("activateNote", (note, options) => {
     const enableJournalAnchorLink = game.settings.get(CONSTANTS.MODULE_ID, "enableJournalAnchorLink");
     if (enableJournalAnchorLink && !game.modules.get("jal")?.active) {
-        // let anchorData = getProperty(note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}`);
-        let anchorData = getProperty(note, `document.flags.anchor.slug`);
+        // let anchorData = foundry.utils.getProperty(note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.JAL_ANCHOR}`);
+        let anchorData = foundry.utils.getProperty(note, `document.flags.anchor.slug`);
         options.anchor = anchorData?.slug;
-        //options.anchor = note.document.flags.anchor?.slug;
+        // options.anchor = note.document.flags.anchor?.slug;
     }
 });

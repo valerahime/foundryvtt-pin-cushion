@@ -1,4 +1,5 @@
 import { error, warn } from "../lib/lib.js";
+import Logger from "../lib/Logger.js";
 
 export class BackgroundlessControlIcon extends ControlIcon {
     /**
@@ -12,7 +13,7 @@ export class BackgroundlessControlIcon extends ControlIcon {
             try {
                 this.texture = this.texture ?? (await loadTexture(this.iconSrc));
             } catch (e) {
-                error(e);
+                Logger.error(e);
                 this.texture = PIXI.Texture.EMPTY;
             }
         }
@@ -38,7 +39,7 @@ export class BackgroundlessControlIcon extends ControlIcon {
             this.icon.width = this.icon.height = this.size;
             this.icon.tint = Number.isNumeric(this.tintColor) ? this.tintColor : 0xffffff;
         } catch (e) {
-            warn(e.stack);
+            Logger.warn(e.stack ? e.stack : e.message);
             this.icon.texture = "icons/svg/cancel.svg";
             this.icon.width = this.icon.height = this.size;
             this.icon.tint = Number.isNumeric(this.tintColor) ? this.tintColor : 0xffffff;
