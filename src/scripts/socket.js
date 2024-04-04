@@ -5,16 +5,16 @@ import { setSocket } from "../module.js";
 
 export let pinCushionSocket;
 export function registerSocket() {
-  debug("Registered pinCushionSocket");
-  if (pinCushionSocket) {
+    debug("Registered pinCushionSocket");
+    if (pinCushionSocket) {
+        return pinCushionSocket;
+    }
+
+    pinCushionSocket = socketlib.registerModule(CONSTANTS.MODULE_ID);
+
+    pinCushionSocket.register("requestEvent", (...args) => API.requestEventArr(...args));
+    pinCushionSocket.register("setNoteRevealed", (...args) => API.setNoteRevealedArr(...args));
+
+    game.modules.get(CONSTANTS.MODULE_ID).socket = pinCushionSocket;
     return pinCushionSocket;
-  }
-
-  pinCushionSocket = socketlib.registerModule(CONSTANTS.MODULE_ID);
-
-  pinCushionSocket.register("requestEvent", (...args) => API.requestEventArr(...args));
-  pinCushionSocket.register("setNoteRevealed", (...args) => API.setNoteRevealedArr(...args));
-
-  game.modules.get(CONSTANTS.MODULE_ID).socket = pinCushionSocket;
-  return pinCushionSocket;
 }

@@ -148,6 +148,8 @@ This module add many new settings for many use case on the Note config dialog, h
 
 - **Shows Pages in the journal directory**: Adds expandable elements to the journals in their directory to show the journal's pages
 
+- **Player Pin Defaults**: This mod improves the defaults of player-made pins in Foundry, making it easier for players to document maps such as dungeons.
+
 
 # Build
 
