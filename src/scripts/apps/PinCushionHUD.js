@@ -5,6 +5,7 @@ import {
     retrieveFirstImageFromJournalId,
     retrieveFirstTextFromJournalId,
 } from "../lib/lib.js";
+import { PinCushionPixiHelpers } from "../pixi/pin-cushion-pixi-helpers.js";
 import { PinCushion } from "./PinCushion.js";
 
 /**
@@ -37,8 +38,23 @@ export class PinCushionHUD extends BasePlaceableHUD {
      * Get data for template
      */
     async getData() {
-        const data = super.getData();
-        const entry = this.object.entry;
+        let data = super.getData();
+        const note = this.object;
+
+        const dataTmp = await PinCushionPixiHelpers._manageContentHtmlFromNote(note);
+        data = mergeObject(data, dataTmp);
+
+        this.contentTooltip = await TextEditor.enrichHTML(`
+          <div id="container" class="pin-cushion-hud-container" style="font-size:${data.fontSize}px; max-width:${data.maxWidth}px">
+              ${data.contentTooltip}
+          </div>`);
+        this.fontSize = data.fontSize;
+        this.maxWidth = data.maxWidth;
+
+        return data;
+
+        /*
+        const entry = note.entry;
         let entryName = data.text;
         let entryIsOwner = true;
         let entryId = undefined;
@@ -48,24 +64,24 @@ export class PinCushionHUD extends BasePlaceableHUD {
             entryName = entry.name;
             entryId = entry.id;
             entryIsOwner = entry.isOwner ?? true;
-            entryIcon = retrieveFirstImageFromJournalId(entryId, this.object.page?.id, false);
+            entryIcon = retrieveFirstImageFromJournalId(entryId, note.page?.id, false);
             if (!entryIcon && data.icon) {
                 entryIcon = data.icon;
             }
-            entryContent = retrieveFirstTextFromJournalId(entryId, this.object.page?.id, false);
+            entryContent = retrieveFirstTextFromJournalId(entryId, note.page?.id, false);
             if (!entryContent && data.text) {
                 entryContent = data.text;
             }
         }
         // TODO The getFlag was returning as 'not a function', for whatever reason...
-        // const showImage = this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.SHOW_IMAGE);
-        const showImage = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
+        // const showImage = note.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.SHOW_IMAGE);
+        const showImage = getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
         const showImageExplicitSource = getProperty(
-            this.object.document.flags[CONSTANTS.MODULE_ID],
+            note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE,
         );
         const tooltipCustomDescription = getProperty(
-            this.object.document.flags[CONSTANTS.MODULE_ID],
+            note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_CUSTOM_DESCRIPTION,
         );
 
@@ -98,15 +114,15 @@ export class PinCushionHUD extends BasePlaceableHUD {
                         : textContent;
             } else {
                 const previewTypeAsText = getProperty(
-                    this.object.document.flags[CONSTANTS.MODULE_ID],
+                    note.document.flags[CONSTANTS.MODULE_ID],
                     CONSTANTS.FLAGS.PREVIEW_AS_TEXT_SNIPPET,
                 );
                 let firstContent = entryContent ?? "";
                 // START Support for 'Journal Anchor Links' JAL
-                if (this.object.document.entryId) {
+                if (note.document.entryId) {
                     firstContent = firstContent.replaceAll(
                         "@UUID[.",
-                        "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage.",
+                        "@UUID[JournalEntry." + note.document.entryId + ".JournalEntryPage.",
                     );
                     firstContent = firstContent.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
                 }
@@ -129,17 +145,17 @@ export class PinCushionHUD extends BasePlaceableHUD {
         }
 
         // START Support for 'Journal Anchor Links'
-        if (this.object.document.entryId) {
+        if (note.document.entryId) {
             content = content.replaceAll(
                 "@UUID[.",
-                "@UUID[JournalEntry." + this.object.document.entryId + ".JournalEntryPage.",
+                "@UUID[JournalEntry." + note.document.entryId + ".JournalEntryPage.",
             );
             // content = content.replaceAll(`data-uuid=".`, `data-uuid="JournalEntry."`);
         }
         // END Support for 'Journal Anchor Links'
 
         let titleTooltip = entryName; // by default is the title of the journal
-        const newtextGM = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
+        const newtextGM = getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
         if (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "noteGM") && newtextGM) {
             titleTooltip = newtextGM;
         } else if (data.text && data.text !== titleTooltip) {
@@ -148,7 +164,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 
         let bodyPlaceHolder = `<img class='image' src='${CONSTANTS.PATH_TRANSPARENT}' alt=''></img>`;
 
-        data.tooltipId = this.object.id;
+        data.tooltipId = note.id;
         data.title = titleTooltip;
         // data.body = content;
         data.body = bodyPlaceHolder;
@@ -162,11 +178,11 @@ export class PinCushionHUD extends BasePlaceableHUD {
         data.maxWidth = maxWidth;
 
         const isTooltipShowTitleS = getProperty(
-            this.object.document.flags[CONSTANTS.MODULE_ID],
+            note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE,
         );
         const isTooltipShowDescriptionS = getProperty(
-            this.object.document.flags[CONSTANTS.MODULE_ID],
+            note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION,
         );
 
@@ -181,6 +197,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 
       `);
         return data;
+      */
     }
 
     /**
@@ -191,8 +208,8 @@ export class PinCushionHUD extends BasePlaceableHUD {
         if (!this.object) {
             return;
         }
-        const fontSize = game.settings.get(CONSTANTS.MODULE_ID, "fontSize") || canvas.grid.size / 5;
-        const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth");
+        const fontSize = this.fontSize;
+        const maxWidth = this.maxWidth;
 
         const tooltipPlacement =
             getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";

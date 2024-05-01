@@ -166,8 +166,9 @@ export class ElementWrapper extends PIXI.DisplayObject {
             }, 50);
         } else {
             this.container.innerHTML = "";
-            // this.container.append(this._contentHTML(this.note));
-            this.container.append($(this._contentHTML));
+            // this.target.append(this._parser(this.note));
+            // this.container.append($(this._contentHTML));
+            this.container.innerHTML = this._contentHTML;
 
             this.container.style.display = "";
             clearTimeout(this._fadeoutTimeout);

@@ -100,7 +100,7 @@
             "path": "languages/de.json"
         }
     ],
-    "scripts": [],
+    "scripts": ["scripts/libs/jquery.powertip.min.js"],
     "esmodules": ["module.js"],
     "styles": [
         "styles/pin-cushion.css",

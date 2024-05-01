@@ -9,6 +9,7 @@ import {
     stripQueryStringAndHashFromPath,
 } from "../lib/lib.js";
 import Logger from "../lib/Logger.js";
+import { PinCushionPixiHelpers } from "../pixi/pin-cushion-pixi-helpers.js";
 import { registerSettings } from "../settings.js";
 import { BackgroundlessControlIcon } from "./BackgroundlessControlIcon.js";
 import { PinCushionHUD } from "./PinCushionHUD.js";
@@ -1340,12 +1341,13 @@ export class PinCushion {
         }
     }
 
-    static renderHeadsUpDisplayV1(hud, html, data) {
-        canvas.hud.PinCushion = new PinCushionHUD();
-        const hudTemp = document.createElement("template");
-        hudTemp.id = "pin-cushion-hud";
-        html.append(hudTemp);
-    }
+    //NOT USED
+    // static renderHeadsUpDisplayV1(hud, html, data) {
+    //     canvas.hud.PinCushion = new PinCushionHUD();
+    //     const hudTemp = document.createElement("template");
+    //     hudTemp.id = "pin-cushion-hud";
+    //     html.append(hudTemp);
+    // }
 
     /**
      * Note.prototype._onClickLeft and Note.prototype._onClickRight seem to work only on the NoteLayer
@@ -1373,4 +1375,11 @@ export class PinCushion {
         let result = wrapped(...args);
         return result;
     }
+
+    // 2024-05-01... work but i don't like...
+    // static drawTooltipHandler(wrapped, ...args) {
+    //     const note = this;
+    //     PinCushionPixiHelpers.drawTooltipPixi(note);
+    //     return wrapped(...args);
+    // }
 }

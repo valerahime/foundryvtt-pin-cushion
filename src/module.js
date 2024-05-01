@@ -138,6 +138,16 @@ Hooks.once("ready", function () {
     }
     // Instantiate PinCushion instance for central socket request handling
     // game.pinCushion = new PinCushion();
+
+    // 2024-05-01... work but i don't like...
+    /*
+    libWrapper.register(
+        CONSTANTS.MODULE_ID,
+        "CONFIG.Note.objectClass.prototype._drawTooltip",
+        PinCushion.drawTooltipHandler,
+        "MIXED",
+    );
+    */
 });
 
 /**
@@ -743,12 +753,9 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
  */
 Hooks.on("renderHeadsUpDisplay", (app, html, data) => {
     // VERSION 1 TOOLTIP
-
     html.append(`<template id="pin-cushion-hud"></template>`);
     canvas.hud.pinCushion = new PinCushionHUD();
-
     // VERSION 2 TOOLTIP
-
     // html.append(`<template id="pin-cushion-hud-v2"></template>`);
     // canvas.hud.pinCushionV2 = new PinCushionHUDV2();
 });
