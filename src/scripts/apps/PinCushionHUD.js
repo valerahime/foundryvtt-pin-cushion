@@ -247,29 +247,34 @@ export class PinCushionHUD extends BasePlaceableHUD {
         //   x = x - this.object.size / 2;
         // }
 
-        const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
-        const ratio_width = isRealNumber(ratio) ? ratio : 1;
-        const viewWidth = visualViewport.width;
-
         // const height = this.object.controlIcon.texture?.height
         //   ? this.object.controlIcon.texture?.height - this.object.tooltip.height
         //   : this.object.controlIcon.height - this.object.tooltip.height;
 
         /*
-    const width = this.object.controlIcon.width * ratio_width;
-    const height = this.object.controlIcon.height - this.object.tooltip.height;
-    const left = x - (this.object.document?.iconSize / 2 || 0);
-    const top = y - height / 2;
-    */
+        const width = this.object.controlIcon.width * ratio_width;
+        const height = this.object.controlIcon.height - this.object.tooltip.height;
+        const left = x - (this.object.document?.iconSize / 2 || 0);
+        const top = y - height / 2;
+        */
 
         const width = this.object.controlIcon.width; //  * ratio_width;
         const height = this.object.controlIcon.height;
         let left = x - width / 2;
+
+        // 2024-05-01 REMOVED
+        /*
+        const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
+        const ratio_width = isRealNumber(ratio) ? ratio : 1;
+        const viewWidth = visualViewport.width;
+
         if (ratio_width != 1) {
             // left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
             // left = (x + ratio_width * (this.object.document?.iconSize / 2) - (width * ratio_width * 4));
             left = x + ratio_width * (width / 2) - (width * ratio_width) / 2;
         }
+        */
+
         const top = y - height / 2;
 
         const position = {
@@ -335,29 +340,34 @@ export class PinCushionHUD extends BasePlaceableHUD {
         //   x = x - this.object.size / 2;
         // }
 
-        const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
-        const ratio_width = isRealNumber(ratio) ? ratio : 1;
-        const viewWidth = visualViewport.width;
-
         // const height = this.object.controlIcon.texture?.height
         //   ? this.object.controlIcon.texture?.height - this.object.tooltip.height
         //   : this.object.controlIcon.height - this.object.tooltip.height;
 
         /*
-    const width = this.object.controlIcon.width * ratio_width;
-    const height = this.object.controlIcon.height - this.object.tooltip.height;
-    const left = x - (this.object.document?.iconSize / 2 || 0); // orientation === "right" ? x - width : x + width;
-    const top = y - height / 2;
-    */
+        const width = this.object.controlIcon.width * ratio_width;
+        const height = this.object.controlIcon.height - this.object.tooltip.height;
+        const left = x - (this.object.document?.iconSize / 2 || 0); // orientation === "right" ? x - width : x + width;
+        const top = y - height / 2;
+        */
 
         const width = this.object.controlIcon.width; // * ratio_width;
         const height = this.object.controlIcon.height;
         let left = x - width / 2;
+
+        // 2024-05-01 REMOVED
+        /*
+        const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
+        const ratio_width = isRealNumber(ratio) ? ratio : 1;
+        const viewWidth = visualViewport.width;
+
         if (ratio_width != 1) {
             // left = x - (width / 2) * ratio_width; // correct shifting for the new scale.
             // left = (x + ratio_width * (this.object.document?.iconSize / 2) - (width * ratio_width * 4));
             left = x + ratio_width * (width / 2) - (width * ratio_width) / 2;
         }
+        */
+
         const top = y - height / 2;
 
         // const orientation =
@@ -366,11 +376,11 @@ export class PinCushionHUD extends BasePlaceableHUD {
         // const left = orientation === "right" ? x + width : x - width;
 
         /*
-    const width = this.object.size * ratio; //this.object.width * ratio;
-    const height = this.object.height - this.object.tooltip.height; // this.object.size;
-    const left = x - this.object.size/2;  // - this.object.width/2 + offset,
-    const top = y - this.object.size/2; // - this.object.height/2 + offset
-    */
+        const width = this.object.size * ratio; //this.object.width * ratio;
+        const height = this.object.height - this.object.tooltip.height; // this.object.size;
+        const left = x - this.object.size/2;  // - this.object.width/2 + offset,
+        const top = y - this.object.size/2; // - this.object.height/2 + offset
+        */
 
         const position = {
             height: height + "px",

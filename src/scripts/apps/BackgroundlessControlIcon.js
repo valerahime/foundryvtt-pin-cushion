@@ -1,3 +1,4 @@
+import CONSTANTS from "../constants.js";
 import { error, warn } from "../lib/lib.js";
 import Logger from "../lib/Logger.js";
 
@@ -11,7 +12,7 @@ export class BackgroundlessControlIcon extends ControlIcon {
             this.texture = PIXI.Texture.EMPTY;
         } else {
             try {
-                this.texture = this.texture ?? (await loadTexture(this.iconSrc));
+                this.texture = this.texture ?? (await loadTexture(this.iconSrc, { fallback: "icons/svg/cancel.svg" }));
             } catch (e) {
                 Logger.error(e);
                 this.texture = PIXI.Texture.EMPTY;
@@ -35,7 +36,10 @@ export class BackgroundlessControlIcon extends ControlIcon {
         // Draw icon
         try {
             this.icon.texture =
-                this.texture ?? (this.iconSrc ? await loadTexture(this.iconSrc) : "icons/svg/cancel.svg");
+                this.texture ??
+                (this.iconSrc
+                    ? await loadTexture(this.iconSrc, { fallback: "icons/svg/cancel.svg" })
+                    : "icons/svg/cancel.svg");
             this.icon.width = this.icon.height = this.size;
             this.icon.tint = Number.isNumeric(this.tintColor) ? this.tintColor : 0xffffff;
         } catch (e) {
