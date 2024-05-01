@@ -565,7 +565,7 @@ export class PinCushion {
      */
     static _textWithNoteGM(wrapped) {
         // Only override default if flag(CONSTANTS.MODULE_ID,CONSTANTS.FLAGS.PIN_GM_TEXT) is set
-        const gmlabel = this.document.getFlag(MODULE_NAME, CONSTANTS.FLAGS.PIN_GM_TEXT);
+        const gmlabel = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.PIN_GM_TEXT);
         return gmlabel?.length > 0 ? gmlabel : wrapped();
     }
 

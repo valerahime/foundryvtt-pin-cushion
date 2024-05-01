@@ -40,7 +40,7 @@ export class PinCushionContainer {
 		// canvas.mouseInteractionManager.target.on("mouseover", () => canvas.hud.pinCushionV2.clear());
 		// canvas.mouseInteractionManager.target.on("mouseout", () => canvas.hud.pinCushionV2.clear());
 
-		this.previewDelay = game.settings.get(PinCushion.MODULE_NAME, "previewDelay");
+		this.previewDelay = game.settings.get(CONSTANTS.MODULE_ID, "previewDelay");
 		Logger.log(game.i18n.localize("pinCushion.name") + "| Ready.");
 	}
 
@@ -229,7 +229,7 @@ export class PinCushionContainer {
 	// 	Logger.log(event);
 	// 	event.stopPropagation();
 	// 	let tooltipForceRemoveS = String(
-	// 		getProperty(this.note, `document.flags.${PinCushion.MODULE_NAME}.${CONSTANTS.FLAGS.TOOLTIP_FORCE_REMOVE}`)
+	// 		getProperty(this.note, `document.flags.${CONSTANTS.MODULE_ID}.${CONSTANTS.FLAGS.TOOLTIP_FORCE_REMOVE}`)
 	// 	);
 	// 	if (tooltipForceRemoveS !== "true" && tooltipForceRemoveS !== "false") {
 	// 		tooltipForceRemoveS = "false";
