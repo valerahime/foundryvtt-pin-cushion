@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.10.0 [BREAKING CHANGES]
+
+- Try something new, but without success
+
 ### 1.9.11
 
 - Bug fix: https://github.com/p4535992/foundryvtt-pin-cushion/issues/89

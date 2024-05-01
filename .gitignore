@@ -120,5 +120,5 @@ foundry.js
 /package
 /.vite-cache
 /package-lock.json
-/doc/backup/tidy5e-sheet-old
-/doc/backup/tidy5e-sheet-new
+/package-lock.json
+/wiki/backups/FoundryVTT-ItemPiles_2024-03-03

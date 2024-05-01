@@ -148,6 +148,8 @@ This module add many new settings for many use case on the Note config dialog, h
 
 - **Shows Pages in the journal directory**: Adds expandable elements to the journals in their directory to show the journal's pages
 
+- **Player Pin Defaults**: This mod improves the defaults of player-made pins in Foundry, making it easier for players to document maps such as dungeons.
+
 
 # Build
 
@@ -165,8 +167,6 @@ npm install
 npm run dev
 ```
 
-## npm build scripts
-
 ### build
 
 `build` will build and set up a symlink between `dist` and your `dataPath`.
@@ -175,12 +175,12 @@ npm run dev
 npm run build
 ```
 
-### build-watch
+### build:watch
 
-`build-watch` will build and watch for changes, rebuilding automatically.
+`build:watch` will build and watch for changes, rebuilding automatically.
 
 ```bash
-npm run build-watch
+npm run build:watch
 ```
 
 ### prettier-format
@@ -189,6 +189,38 @@ npm run build-watch
 
 ```bash
 npm run-script prettier-format
+```
+
+### lint
+
+`lint` launch the eslint process based on the configuration [here](./.eslintrc.json)
+
+```bash
+npm run-script lint
+```
+
+### lint:fix
+
+`lint:fix` launch the eslint process with the fix argument
+
+```bash
+npm run-script lint:fix
+```
+
+### build:json
+
+`build:json` unpack LevelDB pack on `src/packs` to the json db sources in `src/packs/_source`very useful for backup your items and manually fix some hard issue with some text editor
+
+```bash
+npm run-script build:json
+```
+
+### build:db
+
+`build:db` packs the json db sources in `src/packs/_source` to LevelDB pack on `src/packs` with the new jsons. NOTE: usually this command is launched after the command `build:json` and after make some modifications on the json source files with some text editor
+
+```bash
+npm run-script build:db
 ```
 
 ## [Changelog](./changelog.md)
