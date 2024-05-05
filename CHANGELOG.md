@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.10.0-1-2 [BREAKING CHANGES]
+### 1.10.0-1-2-3 [BREAKING CHANGES]
 
 - Try something new, but without success
 

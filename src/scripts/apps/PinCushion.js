@@ -751,13 +751,13 @@ export class PinCushion {
         if (revealedNotes) {
             // Foundry V11: Note#_onUpdate needs to set refreshText render flag
             let result = wrapped(data, options, userId);
-            if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[CONSTANTS.MODULE_ID]) {
+            if (this.renderFlags && data?.flags?.[CONSTANTS.MODULE_ID]) {
                 // Ensure everything is redrawn - since icon colour might change, not just visibility
                 this.renderFlags.set({ redraw: true });
             }
             return result;
         } else {
-            if (this.renderFlags && /*getProperty(data, NOTE_FLAG)*/ data?.flags && data?.flags[CONSTANTS.MODULE_ID]) {
+            if (this.renderFlags && data?.flags?.[CONSTANTS.MODULE_ID]) {
                 // Ensure everything is redrawn - since icon colour might change, not just visibility
                 this.renderFlags.set({ redraw: true });
             }
