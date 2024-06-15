@@ -1,4 +1,6 @@
-# Changelog
+### 1.10.4
+
+- Update manifest for v12
 
 ### 1.10.0-1-2-3 [BREAKING CHANGES]
 
