@@ -46,7 +46,7 @@ export const registerSettings = function () {
         hint: `pin-cushion.SETTINGS.DefaultJournalPermissionH`,
         scope: "world",
         type: Number,
-        choices: Object.entries(CONST.DOCUMENT_PERMISSION_LEVELS).reduce((acc, [perm, key]) => {
+        choices: Object.entries(CONST.DOCUMENT_OWNERSHIP_LEVELS).reduce((acc, [perm, key]) => {
             acc[key] = `pin-cushion.SETTINGS.DefaultJournalPermission.PERMISSION.${perm}`;
             return acc;
         }, {}),

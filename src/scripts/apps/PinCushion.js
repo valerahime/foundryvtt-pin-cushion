@@ -212,7 +212,7 @@ export class PinCushion {
         }
         // Permissions the Journal Entry will be created with
         const permission = {
-            [game.userId]: CONST.DOCUMENT_PERMISSION_LEVELS.OWNER,
+            [game.userId]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
             default: parseInt($("#cushion-permission").val()) ?? 0,
         };
 
