@@ -1,3 +1,7 @@
+### 1.10.5
+
+- Add patch for v12: https://github.com/p4535992/foundryvtt-pin-cushion/pull/98
+
 ### 1.10.4
 
 - Update manifest for v12
