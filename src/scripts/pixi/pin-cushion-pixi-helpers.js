@@ -1,7 +1,7 @@
-import CONSTANTS from "../constants";
-import Logger from "../lib/Logger";
-import { retrieveFirstImageFromJournalId, retrieveFirstTextFromJournalId } from "../lib/lib";
-import { ElementWrapper } from "./pin-cushion-pixi-element-wrapper";
+import CONSTANTS from "../constants.js";
+import Logger from "../lib/Logger.js";
+import { retrieveFirstImageFromJournalId, retrieveFirstTextFromJournalId } from "../lib/lib.js";
+import { ElementWrapper } from "./pin-cushion-pixi-element-wrapper.js";
 
 export class PinCushionPixiHelpers {
     static async drawTooltipPixi(note) {
@@ -36,8 +36,8 @@ export class PinCushionPixiHelpers {
         let pageType = "";
         if (journal?.pages?.contents?.length > 0) {
             const journalPage0 = journal?.pages.contents[0];
-            if (getProperty(journalPage0, `flags.monks-enhanced-journal.type`)) {
-                pageType = getProperty(journalPage0, `flags.monks-enhanced-journal.type`);
+            if (foundry.utils.getProperty(journalPage0, `flags.monks-enhanced-journal.type`)) {
+                pageType = foundry.utils.getProperty(journalPage0, `flags.monks-enhanced-journal.type`);
             } else {
                 pageType = journalPage0.type;
             }
@@ -47,8 +47,8 @@ export class PinCushionPixiHelpers {
 
     static _retrieveJournalTypeFromJournal(journal) {
         let journalType = "";
-        if (getProperty(journal, `flags.monks-enhanced-journal.pagetype`)) {
-            journalType = getProperty(journal, `flags.monks-enhanced-journal.pagetype`);
+        if (foundry.utils.getProperty(journal, `flags.monks-enhanced-journal.pagetype`)) {
+            journalType = foundry.utils.getProperty(journal, `flags.monks-enhanced-journal.pagetype`);
         } else {
             journalType = journal.type;
         }
@@ -77,13 +77,13 @@ export class PinCushionPixiHelpers {
     }
 
     static async _manageContentHtmlFromNote(note) {
-        const data = deepClone(note);
+        const data = foundry.utils.deepClone(note);
         const entry = note.entry;
-        let entryName = data.text;
+        let entryName = data.document.label;
         let entryIsOwner = true;
         let entryId = undefined;
         let entryIcon = data.texture?.src;
-        let entryContent = data.text;
+        let entryContent = data.document.label;
         if (entry) {
             entryName = entry.name;
             entryId = entry.id;
@@ -93,18 +93,18 @@ export class PinCushionPixiHelpers {
                 entryIcon = data.icon;
             }
             entryContent = retrieveFirstTextFromJournalId(entryId, note.page?.id, false);
-            if (!entryContent && data.text) {
-                entryContent = data.text;
+            if (!entryContent && data.document.label) {
+                entryContent = data.document.label;
             }
         }
         // TODO The getFlag was returning as 'not a function', for whatever reason...
         // const showImage = note.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.SHOW_IMAGE);
-        const showImage = getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
-        const showImageExplicitSource = getProperty(
+        const showImage = foundry.utils.getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
+        const showImageExplicitSource = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE,
         );
-        const tooltipCustomDescription = getProperty(
+        const tooltipCustomDescription = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_CUSTOM_DESCRIPTION,
         );
@@ -137,7 +137,7 @@ export class PinCushionPixiHelpers {
                         ? `${textContent.substr(0, previewMaxLength)} ...`
                         : textContent;
             } else {
-                const previewTypeAsText = getProperty(
+                const previewTypeAsText = foundry.utils.getProperty(
                     note.document.flags[CONSTANTS.MODULE_ID],
                     CONSTANTS.FLAGS.PREVIEW_AS_TEXT_SNIPPET,
                 );
@@ -179,11 +179,11 @@ export class PinCushionPixiHelpers {
         // END Support for 'Journal Anchor Links'
 
         let titleTooltip = entryName; // by default is the title of the journal
-        const newtextGM = getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
+        const newtextGM = foundry.utils.getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
         if (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "noteGM") && newtextGM) {
             titleTooltip = newtextGM;
-        } else if (data.text && data.text !== titleTooltip) {
-            titleTooltip = data.text;
+        } else if (data.document?.label !== titleTooltip) {
+            titleTooltip = data.document.label;
         }
 
         let bodyPlaceHolder = `<img class='image' src='${CONSTANTS.PATH_TRANSPARENT}' alt=''></img>`;
@@ -201,11 +201,11 @@ export class PinCushionPixiHelpers {
         data.fontSize = fontSize;
         data.maxWidth = maxWidth;
 
-        const isTooltipShowTitleS = getProperty(
+        const isTooltipShowTitleS = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE,
         );
-        const isTooltipShowDescriptionS = getProperty(
+        const isTooltipShowDescriptionS = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION,
         );
