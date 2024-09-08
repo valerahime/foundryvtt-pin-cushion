@@ -875,7 +875,7 @@ Hooks.once("canvasInit", () => {
         );
         */
     } else {
-        libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._drawTooltip", PinCushion._addDrawTooltip2, "MIXED");
+        libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._refreshTooltip", PinCushion._addDrawTooltip2, "MIXED");
     }
 
     libWrapper.register(CONSTANTS.MODULE_ID, "Note.prototype._applyRenderFlags", PinCushion._applyRenderFlags, "MIXED");

@@ -242,7 +242,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
             x = this.object.center ? this.object.center.x : this.object.x;
             y = this.object.center ? this.object.center.y : this.object.y;
         }
-
+        
         // if (isVertical) {
         //   x = x - this.object.size / 2;
         // }
@@ -278,13 +278,17 @@ export class PinCushionHUD extends BasePlaceableHUD {
         const top = y - height / 2;
 
         const position = {
+            position: "absolute",
             height: height + "px",
             width: width + "px",
-            left: left + "px",
-            top: top + "px",
+            x: left + "px",
+            y: top + "px",
+            //top: pos.top,
+            //left: pos.left,
             "font-size": fontSize + "px",
             "max-width": maxWidth + "px",
         };
+        // Get the position element of this HUD
         this.element.css(position);
     }
 
