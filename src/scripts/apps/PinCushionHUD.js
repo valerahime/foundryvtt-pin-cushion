@@ -23,7 +23,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
      * Retrieve and override default options for this application
      */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "pin-cushion-hud",
             classes: [...super.defaultOptions.classes, "pin-cushion-hud"],
             // width: 400,
@@ -42,7 +42,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
         const note = this.object;
 
         const dataTmp = await PinCushionPixiHelpers._manageContentHtmlFromNote(note);
-        data = mergeObject(data, dataTmp);
+        data = foundry.utils.mergeObject(data, dataTmp);
 
         this.contentTooltip = await TextEditor.enrichHTML(`
           <div id="container" class="pin-cushion-hud-container" style="font-size:${data.fontSize}px; max-width:${data.maxWidth}px">
@@ -75,12 +75,12 @@ export class PinCushionHUD extends BasePlaceableHUD {
         }
         // TODO The getFlag was returning as 'not a function', for whatever reason...
         // const showImage = note.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.SHOW_IMAGE);
-        const showImage = getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
-        const showImageExplicitSource = getProperty(
+        const showImage = foundry.utils.getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
+        const showImageExplicitSource = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE,
         );
-        const tooltipCustomDescription = getProperty(
+        const tooltipCustomDescription = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_CUSTOM_DESCRIPTION,
         );
@@ -113,7 +113,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
                         ? `${textContent.substr(0, previewMaxLength)} ...`
                         : textContent;
             } else {
-                const previewTypeAsText = getProperty(
+                const previewTypeAsText = foundry.utils.getProperty(
                     note.document.flags[CONSTANTS.MODULE_ID],
                     CONSTANTS.FLAGS.PREVIEW_AS_TEXT_SNIPPET,
                 );
@@ -155,7 +155,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
         // END Support for 'Journal Anchor Links'
 
         let titleTooltip = entryName; // by default is the title of the journal
-        const newtextGM = getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
+        const newtextGM = foundry.utils.getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
         if (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "noteGM") && newtextGM) {
             titleTooltip = newtextGM;
         } else if (data.text && data.text !== titleTooltip) {
@@ -177,11 +177,11 @@ export class PinCushionHUD extends BasePlaceableHUD {
         data.fontSize = fontSize;
         data.maxWidth = maxWidth;
 
-        const isTooltipShowTitleS = getProperty(
+        const isTooltipShowTitleS = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_SHOW_TITLE,
         );
-        const isTooltipShowDescriptionS = getProperty(
+        const isTooltipShowDescriptionS = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.TOOLTIP_SHOW_DESCRIPTION,
         );
@@ -212,14 +212,14 @@ export class PinCushionHUD extends BasePlaceableHUD {
         const maxWidth = this.maxWidth;
 
         const tooltipPlacement =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
 
         const tooltipSmartPlacement =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
             false;
 
         const tooltipFollowMouse =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
 
         const isVertical = isPlacementVertical(tooltipPlacement);
 
@@ -264,7 +264,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 
         // 2024-05-01 REMOVED
         /*
-        const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
+        const ratio = foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
         const ratio_width = isRealNumber(ratio) ? ratio : 1;
         const viewWidth = visualViewport.width;
 
@@ -302,17 +302,17 @@ export class PinCushionHUD extends BasePlaceableHUD {
         const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth");
 
         const tooltipPlacement =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
 
         const tooltipSmartPlacement =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
             false;
 
         const tooltipFollowMouse =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
 
         const tooltipColor =
-            getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_COLOR) ?? "";
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_COLOR) ?? "";
 
         let orientation = "";
         if (tooltipPlacement.includes("e")) {
@@ -357,7 +357,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
 
         // 2024-05-01 REMOVED
         /*
-        const ratio = getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
+        const ratio = foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.RATIO_WIDTH) ?? 1;
         const ratio_width = isRealNumber(ratio) ? ratio : 1;
         const viewWidth = visualViewport.width;
 

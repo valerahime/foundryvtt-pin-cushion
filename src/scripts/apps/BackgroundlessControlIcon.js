@@ -1,5 +1,4 @@
 import CONSTANTS from "../constants.js";
-import { error, warn } from "../lib/lib.js";
 import Logger from "../lib/Logger.js";
 
 export class BackgroundlessControlIcon extends ControlIcon {
