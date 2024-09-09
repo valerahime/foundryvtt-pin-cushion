@@ -1,3 +1,9 @@
+### 12.0.0 [BETA]
+
+- Fix: #100 ty to @LeRatierBretonnien
+- Fix: #97 ty to @LeRatierBretonnien
+- Fix: #93 ty to @LeRatierBretonnien
+
 ### 1.10.5
 
 - Add patch for v12: https://github.com/p4535992/foundryvtt-pin-cushion/pull/98
