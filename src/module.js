@@ -356,6 +356,10 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
             ? app.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
             : app.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
 
+    const numberHsSuffixOnNameplate =
+        (app.document
+            ? app.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_HS_SUFFIX_ON_NAMEPLATE)
+            : app.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_HS_SUFFIX_ON_NAMEPLATE)) ?? 0;
     // ====================================
     // enablePlayerIcon
     // ====================================
@@ -603,7 +607,7 @@ Hooks.on("renderNoteConfig", async (app, html, noteData) => {
             textAlwaysVisible: textAlwaysVisible,
             hideLabel: hideLabel,
             numberWsSuffixOnNameplate: numberWsSuffixOnNameplate,
-
+            numberHsSuffixOnNameplate: numberHsSuffixOnNameplate,
             enablePlayerIcon: enablePlayerIcon,
             playerIconState: playerIconState,
             playerIconPath: playerIconPath,

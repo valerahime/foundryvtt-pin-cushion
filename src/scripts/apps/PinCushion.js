@@ -669,6 +669,11 @@ export class PinCushion {
                 ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)
                 : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE)) ?? 0;
 
+        const numberHsSuffixOnNameplate =
+            (this.document
+                ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_HS_SUFFIX_ON_NAMEPLATE)
+                : this.object.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_HS_SUFFIX_ON_NAMEPLATE)) ?? 0;
+
         const ratio_width = isRealNumber(this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH))
             ? this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.RATIO_WIDTH)
             : 1;
@@ -709,8 +714,15 @@ export class PinCushion {
                 let left = x - result.document.iconSize * 2;
                 result.tooltip.x = left;
             }
+
             let y = result.tooltip.y;
-            result.tooltip.y = y + result.document.iconSize / 2;
+            if (numberHsSuffixOnNameplate != 0) {
+                let bottom = y - 5 * numberHsSuffixOnNameplate;
+                result.tooltip.y = bottom;
+            } else {
+                let bottom = y + result.document.iconSize / 2;
+                result.tooltip.y = bottom;
+            }
             return result;
         } else {
             // DO NOTHING
@@ -788,8 +800,6 @@ export class PinCushion {
     static _applyRenderFlags(wrapped, ...args) {
         let result = wrapped(...args);
         const hideLabel = this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.HIDE_LABEL) ?? false;
-        const numberWsSuffixOnNameplate =
-            this.document.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.NUMBER_WS_SUFFIX_ON_NAMEPLATE) ?? 0;
 
         if (hideLabel) {
             this.tooltip.visible = false;

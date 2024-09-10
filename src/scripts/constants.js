@@ -29,6 +29,7 @@ const CONSTANTS = {
         PIN_IS_TRANSPARENT: "pinIsTransparent",
         JAL_ANCHOR: "anchor",
         NUMBER_WS_SUFFIX_ON_NAMEPLATE: "numberWsSuffixOnNameplate",
+        NUMBER_HS_SUFFIX_ON_NAMEPLATE: "numberHsSuffixOnNameplate",
         TOOLTIP_CUSTOM_DESCRIPTION: "tooltipCustomDescription",
         TOOLTIP_SHOW_DESCRIPTION: "tooltipShowDescription",
         TOOLTIP_SHOW_TITLE: "tooltipShowTitle",

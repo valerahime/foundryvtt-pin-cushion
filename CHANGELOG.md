@@ -1,3 +1,8 @@
+### 12.0.2
+
+- Try to rework/repatch https://github.com/p4535992/foundryvtt-pin-cushion/issues/99
+- Add a trick settings for do a better vertical alignment when ratio is !=1. Need some more expert than me for avoid this...
+
 ### 12.0.1
 
 - Try to rework/repatch https://github.com/p4535992/foundryvtt-pin-cushion/issues/99
