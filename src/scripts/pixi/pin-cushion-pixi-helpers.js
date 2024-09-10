@@ -99,7 +99,10 @@ export class PinCushionPixiHelpers {
         }
         // TODO The getFlag was returning as 'not a function', for whatever reason...
         // const showImage = note.getFlag(CONSTANTS.MODULE_ID, CONSTANTS.FLAGS.SHOW_IMAGE);
-        const showImage = foundry.utils.getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.SHOW_IMAGE);
+        const showImage = foundry.utils.getProperty(
+            note.document.flags[CONSTANTS.MODULE_ID],
+            CONSTANTS.FLAGS.SHOW_IMAGE,
+        );
         const showImageExplicitSource = foundry.utils.getProperty(
             note.document.flags[CONSTANTS.MODULE_ID],
             CONSTANTS.FLAGS.SHOW_IMAGE_EXPLICIT_SOURCE,
@@ -179,7 +182,10 @@ export class PinCushionPixiHelpers {
         // END Support for 'Journal Anchor Links'
 
         let titleTooltip = entryName; // by default is the title of the journal
-        const newtextGM = foundry.utils.getProperty(note.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.PIN_GM_TEXT);
+        const newtextGM = foundry.utils.getProperty(
+            note.document.flags[CONSTANTS.MODULE_ID],
+            CONSTANTS.FLAGS.PIN_GM_TEXT,
+        );
         if (game.user.isGM && game.settings.get(CONSTANTS.MODULE_ID, "noteGM") && newtextGM) {
             titleTooltip = newtextGM;
         } else if (data.document?.label !== titleTooltip) {

@@ -212,14 +212,22 @@ export class PinCushionHUD extends BasePlaceableHUD {
         const maxWidth = this.maxWidth;
 
         const tooltipPlacement =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
+            foundry.utils.getProperty(
+                this.object.document.flags[CONSTANTS.MODULE_ID],
+                CONSTANTS.FLAGS.TOOLTIP_PLACEMENT,
+            ) ?? "e";
 
         const tooltipSmartPlacement =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
-            false;
+            foundry.utils.getProperty(
+                this.object.document.flags[CONSTANTS.MODULE_ID],
+                CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT,
+            ) ?? false;
 
         const tooltipFollowMouse =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
+            foundry.utils.getProperty(
+                this.object.document.flags[CONSTANTS.MODULE_ID],
+                CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE,
+            ) ?? false;
 
         const isVertical = isPlacementVertical(tooltipPlacement);
 
@@ -242,7 +250,7 @@ export class PinCushionHUD extends BasePlaceableHUD {
             x = this.object.center ? this.object.center.x : this.object.x;
             y = this.object.center ? this.object.center.y : this.object.y;
         }
-        
+
         // if (isVertical) {
         //   x = x - this.object.size / 2;
         // }
@@ -306,17 +314,26 @@ export class PinCushionHUD extends BasePlaceableHUD {
         const maxWidth = game.settings.get(CONSTANTS.MODULE_ID, "maxWidth");
 
         const tooltipPlacement =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_PLACEMENT) ?? "e";
+            foundry.utils.getProperty(
+                this.object.document.flags[CONSTANTS.MODULE_ID],
+                CONSTANTS.FLAGS.TOOLTIP_PLACEMENT,
+            ) ?? "e";
 
         const tooltipSmartPlacement =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT) ??
-            false;
+            foundry.utils.getProperty(
+                this.object.document.flags[CONSTANTS.MODULE_ID],
+                CONSTANTS.FLAGS.TOOLTIP_SMART_PLACEMENT,
+            ) ?? false;
 
         const tooltipFollowMouse =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE) ?? false;
+            foundry.utils.getProperty(
+                this.object.document.flags[CONSTANTS.MODULE_ID],
+                CONSTANTS.FLAGS.TOOLTIP_FOLLOW_MOUSE,
+            ) ?? false;
 
         const tooltipColor =
-            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_COLOR) ?? "";
+            foundry.utils.getProperty(this.object.document.flags[CONSTANTS.MODULE_ID], CONSTANTS.FLAGS.TOOLTIP_COLOR) ??
+            "";
 
         let orientation = "";
         if (tooltipPlacement.includes("e")) {
