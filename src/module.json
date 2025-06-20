@@ -38,6 +38,11 @@
             "ko-fi": "",
             "reddit": "",
             "email": ""
+        },
+        {
+            "name": "valerahime",
+            "url": "https://github.com/valerahime",
+            "github": "valerahime"
         }
     ],
     "type": "module",
@@ -57,15 +62,15 @@
     "media": [
         {
             "type": "screenshot",
-            "url": "https://github.com/p4535992/media/raw/master/foundryvtt-pin-cushion/create_pin.png"
+            "url": "https://github.com/valerahime/media/raw/master/foundryvtt-pin-cushion/create_pin.png"
         },
         {
             "type": "screenshot",
-            "url": "https://github.com/p4535992/media/raw/master/foundryvtt-pin-cushion/note-config.png"
+            "url": "https://github.com/valerahime/media/raw/master/foundryvtt-pin-cushion/note-config.png"
         },
         {
             "type": "screenshot",
-            "url": "https://github.com/p4535992/media/raw/master/foundryvtt-pin-cushion/journal-preview.png"
+            "url": "https://github.com/valerahime/media/raw/master/foundryvtt-pin-cushion/journal-preview.png"
         }
     ],
     "languages": [
@@ -120,12 +125,12 @@
         "verified": 13,
         "maximum": 13
     },
-    "url": "https://github.com/p4535992/foundryvtt-pin-cushion",
-    "manifest": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/12.0.3/module.json",
-    "download": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/12.0.3/module.zip",
-    "readme": "https://github.com/p4535992/foundryvtt-pin-cushion/blob/master/README.md",
-    "changelog": "https://github.com/p4535992/foundryvtt-pin-cushion/blob/master/CHANGELOG.md",
-    "bugs": "https://github.com/p4535992/foundryvtt-pin-cushion/issues",
+    "url": "https://github.com/valerahime/foundryvtt-pin-cushion",
+    "manifest": "https://github.com/valerahime/foundryvtt-pin-cushion/releases/download/12.0.3/module.json",
+    "download": "https://github.com/valerahime/foundryvtt-pin-cushion/releases/download/12.0.3/module.zip",
+    "readme": "https://github.com/valerahime/foundryvtt-pin-cushion/blob/master/README.md",
+    "changelog": "https://github.com/valerahime/foundryvtt-pin-cushion/blob/master/CHANGELOG.md",
+    "bugs": "https://github.com/valerahime/foundryvtt-pin-cushion/issues",
     "relationships": {
         "systems": [],
         "requires": [
