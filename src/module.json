@@ -1,8 +1,8 @@
 {
-    "id": "pin-cushion",
-    "title": "Pin Cushion",
+    "id": "pin-cushion-v13",
+    "title": "Pin Cushion (V13)",
     "description": "Adds additional functionality on Journal Note/Scene Note and Journal directory",
-    "version": "12.0.3",
+    "version": "13.0.0",
     "authors": [
         {
             "name": "Cole Schultz",
@@ -116,9 +116,9 @@
         "styles/jquery.powertip-yellow.css"
     ],
     "compatibility": {
-        "minimum": 12,
-        "verified": 12,
-        "maximum": 12
+        "minimum": 13,
+        "verified": 13,
+        "maximum": 13
     },
     "url": "https://github.com/p4535992/foundryvtt-pin-cushion",
     "manifest": "https://github.com/p4535992/foundryvtt-pin-cushion/releases/download/12.0.3/module.json",
